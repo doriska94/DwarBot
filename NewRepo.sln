@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dwar.UI", "Dwar.UI\Dwar.UI.csproj", "{906DDEA3-20D6-42BA-87CB-6D71781BCE87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dwar", "Dwar\Dwar.csproj", "{C97CFEFE-E9CC-40D7-9111-E8FFB86FEE00}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{906DDEA3-20D6-42BA-87CB-6D71781BCE87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{906DDEA3-20D6-42BA-87CB-6D71781BCE87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{906DDEA3-20D6-42BA-87CB-6D71781BCE87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{906DDEA3-20D6-42BA-87CB-6D71781BCE87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C97CFEFE-E9CC-40D7-9111-E8FFB86FEE00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C97CFEFE-E9CC-40D7-9111-E8FFB86FEE00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C97CFEFE-E9CC-40D7-9111-E8FFB86FEE00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C97CFEFE-E9CC-40D7-9111-E8FFB86FEE00}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {201122B5-4CF6-47C8-9F48-847E7BB99678}
+	EndGlobalSection
+EndGlobal
