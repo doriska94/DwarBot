@@ -8,56 +8,53 @@ using Dwar.Factories;
 using Dwar.Repositorys;
 using Dwar.Services;
 
-namespace Dwar.Http
+namespace Dwar.Http;
+
+public class HttpRequest: ISendRequest, IGetRequest, ITargetRepository
 {
-    public class HttpRequest: ISendRequest, IGetRequest, ITargetRepository
+    private ICookie _cookie;
+    private IDomain _domain;
+    private HttpClient _httpClient;
+    private IActionRepository _actionRepository;
+    public HttpRequest(ICookie cookie, IDomain domain, IActionRepository actionRepository)
     {
-        private ICookie _cookie;
-        private IDomain _domain;
-        private HttpClient _httpClient;
-        private IActionRepository _actionRepository;
-        public HttpRequest(ICookie cookie, IDomain domain, IActionRepository actionRepository)
+        _cookie = cookie;
+        _domain = domain;
+        _httpClient = new HttpClient();
+        _actionRepository = actionRepository;
+    }
+
+    public async Task SendAsync(string action, string paramater)
+    {
+        using (var handler = new HttpClientHandler() { CookieContainer = _cookie.Get() })
+        using (var client = new HttpClient(handler) { BaseAddress = _domain.GetBaseUri() })
         {
-            _cookie = cookie;
-            _domain = domain;
-            _httpClient = new HttpClient();
-            _actionRepository = actionRepository;
+            var result = await client.PostAsync(_domain.GetBaseUri(), new StringContent(paramater));
         }
 
-        public async Task SendAsync(string action, string paramater)
+    }
+
+    public async Task<string> GetAsync(string action, string parameter)
+    {
+        var getUri = new Uri(new Uri(_domain.GetBaseUri(), action), parameter);
+        return await GetAsync(getUri);
+    }
+
+    private async Task<string> GetAsync(Uri getUri)
+    {
+        using (var handler = new HttpClientHandler() { CookieContainer = _cookie.Get() })
+        using (var client = new HttpClient(handler) { BaseAddress = _domain.GetBaseUri() })
         {
-            using (var handler = new HttpClientHandler() { CookieContainer = _cookie.Get() })
-            using (var client = new HttpClient(handler) { BaseAddress = _domain.GetBaseUri() })
-            {
-                var result = await client.PostAsync(_domain.GetBaseUri(), new StringContent(paramater));
-            }
-
+            var result = await client.GetAsync(getUri);
+            return await result.Content.ReadAsStringAsync();
         }
+    }
 
-        public async Task<string> GetAsync(string action, string parameter)
-        {
-            var getUri = new Uri(new Uri(_domain.GetBaseUri(), action), parameter);
-            return await GetAsync(getUri);
-        }
-
-        private async Task<string> GetAsync(Uri getUri)
-        {
-            using (var handler = new HttpClientHandler() { CookieContainer = _cookie.Get() })
-            using (var client = new HttpClient(handler) { BaseAddress = _domain.GetBaseUri() })
-            {
-                var result = await client.GetAsync(getUri);
-                return await result.Content.ReadAsStringAsync();
-            }
-        }
-
-        public async Task<IEnumerable<Target>> GetTargetsAsync()
-        {
-            var action = _actionRepository.GetActionGetTargets();    
-            
-            var uri =  new Uri(_domain.GetBaseUri(), action.GetAction());
-            return TargetFactory.Parse(await GetAsync(uri));
-        }
-
+    public async Task<IEnumerable<Target>> GetTargetsAsync()
+    {
+        var action = _actionRepository.GetActionGetTargets();    
         
+        var uri =  new Uri(_domain.GetBaseUri(), action.GetAction());
+        return TargetFactory.Parse(await GetAsync(uri));
     }
 }
