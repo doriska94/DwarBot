@@ -6,6 +6,7 @@ namespace Dwar
 {
     public class Action
     {
+        private string? _action;
         private string? _option;
         private NameValueCollection? _nameValueCollection;
 
@@ -13,20 +14,31 @@ namespace Dwar
         public string UiName { get; set; }
         public string Name { get; }
         public RequestType RequestType { get; }
-        public Action(string uiName, string name, string option, RequestType requestType)
+        public Action(string uiName, string name, string action,string option, RequestType requestType)
         {
             UiName = uiName;
             Name = name;
+            SetAction(action);
             SetOptions(option);
             RequestType = requestType;
         }
 
+        public void SetAction(string action)
+        {
+            if(action == null)
+            {
+                _action = string.Empty;
+                return;
+            }
+            _action = action;
+        }
+
         public void SetOptions(string option)
         {
-            if(option == null)
+            if(option== null)
             {
-                _option = null;
-                _nameValueCollection = null;
+                _option = string.Empty;
+                _nameValueCollection= null;
                 return;
             }
 
@@ -35,7 +47,7 @@ namespace Dwar
         }
         public string GetAction()
         {
-            return _option ?? "";
+            return _action ?? "";
         }
 
         public string GetParameters(IEnumerable<Paramerter> paramerters)

@@ -4,6 +4,7 @@ using System.Net;
 using System.Web;
 using System.Xml;
 using System.Xml.Linq;
+using Dwar.Factories;
 using Dwar.Repositorys;
 using Dwar.Services;
 
@@ -52,49 +53,15 @@ namespace Dwar.Http
         public async Task<IEnumerable<Target>> GetTargetsAsync()
         {
             var actionUlr = "/hunt_conf.php";
-            //ToDo Action für hunt_conf anlegen
-            var action = _actionRepository.GetActionGetTargets();            
-            var uri =  new Uri(_domain.GetBaseUri(), actionUlr);
-            return ParseTargetsDistinct(await GetAsync(uri));
-        }
-
-        private IEnumerable<Target> ParseTargetsDistinct(string text)
-        {
-            var targerts = new List<Target>();
-            XmlDocument xml = new XmlDocument();
-            xml.LoadXml(text);
             
-            if(xml.LastChild == null)
-                return targerts;
+            //ToDo Action für hunt_conf anlegen
 
-            foreach (XmlNode xnList in xml.LastChild.ChildNodes)
-            {
-                foreach (XmlNode xn in xnList)
-                {
-                    string name = "";
-                    int id = 0;
-                    int fightId = 0;
-                    foreach (XmlAttribute attribute in xn.Attributes!)
-                    {
-                        if (attribute.Name == "name")
-                            name = attribute.Value;
-                        if (attribute.Name == "id")
-                            id = Convert.ToInt32(attribute.Value);
-                        if (attribute.Name == "fight_id")
-                            fightId = Convert.ToInt32(attribute.Value);
-                    }
-                    if (id != 0)
-                        targerts.Add(new Target(id, name, fightId));
-
-                }
-            }
-
-            return GetDistinctTargets(targerts);
+            var action = _actionRepository.GetActionGetTargets();    
+            
+            var uri =  new Uri(_domain.GetBaseUri(), actionUlr);
+            return TargetFactory.Parse(await GetAsync(uri));
         }
 
-        private IEnumerable<Target> GetDistinctTargets(IEnumerable<Target> targets)
-        {
-            return targets.DistinctBy(x=>x.Id);
-        }
+        
     }
 }
