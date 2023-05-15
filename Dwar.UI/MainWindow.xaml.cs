@@ -1,33 +1,24 @@
 ﻿using Dwar.Http;
 using Dwar.Repositorys;
+using Dwar.Services;
+using HtmlAgilityPack;
 using Microsoft.Web.WebView2.Core;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static System.Collections.Specialized.BitVector32;
+using System.Linq;
+using System.Collections.Generic;
+using System;
 
 namespace Dwar.UI
 {
     public partial class MainWindow : Window
     {
         private Startup startup = new Startup();
+        private List<IHandleFightState> _handleFightStates = new();
         public MainWindow()
         {
             InitializeComponent();
@@ -35,74 +26,87 @@ namespace Dwar.UI
 
         }
 
-        private async void GetTargets()
+        private async void OnTestClick(object sender, RoutedEventArgs e)
         {
-            var targetRepository = startup.GetService<ITargetRepository>();
-            var targets = await targetRepository.GetTargetsAsync();
-        }
+            var fight = startup.GetService<IComboSetService>();
+            fight.SetCombo(new Combo(new List<ComboStep>()
+            {
+                new ComboStep(2,ComboStepType.Forward),
+                new ComboStep(2,ComboStepType.Up),
+                new ComboStep(2,ComboStepType.Up),
+                new ComboStep(2,ComboStepType.Down)
 
-        private void OnTestClick(object sender, RoutedEventArgs e)
-        {
-            GetTargets();
+            }));
+            var actionRepository = startup.GetService<IActionRepository>();
+            //action_run.php?code=ATTACK_BOT&url_success=fight.php?522331141&url_error=hunt.php&bot_id=3188&chk=test
+            //bot_id = 3188
+            //random
+            var action = actionRepository.Create("attack_skelet", "attack_skelet", RequestType.Get, "/action_run.php",
+                "code=ATTACK_BOT&url_success=fight.php?301531141&url_error=hunt.php&bot_id=31888&chk=test");
+            var param = new Paramerter("bot_id", "3188", false,null!);
+            var paramRand = new Paramerter("url_success", "fight.php?", true, startup.GetService<Random>());
+            action.Paramerters.Add(param);
+            action.Paramerters.Add(paramRand);
+            var actionSetService = startup.GetService<IActionSetService>();
+
+            actionSetService.SetAttack(action);
+
+            var actionfightService = startup.GetService<IActionService>();
+            await actionfightService.ExecuteAsync();
         }
 
         private void OnOpenBotClick(object sender, RoutedEventArgs e)
         {
-
+          
         }
 
         private void CoreWebView2_WebResourceRequested(object sender, CoreWebView2WebResourceRequestedEventArgs e)
         {
             var coockie = startup.GetService<ICookie>();
             var headers = e.Request.Headers;
-            string postData = null!;
-            var content = e.Request.Content;
 
-            // get content from stream
-            if (content != null)
-            {
-                using (var ms = new MemoryStream())
-                {
-                    content.CopyTo(ms);
-                    ms.Position = 0;
-                    postData = Encoding.UTF8.GetString(ms.ToArray());
-                }
-            }
-            var url = e.Request.Uri.ToString();
+            _handleFightStates.ForEach(x => x.HandleRequest(e.Request.Uri));
 
-            // collect the headers from the collection into a string buffer
-            StringBuilder sb = new StringBuilder();
+            
             foreach (var header in headers)
             {
                 if (header.Key.ToLower() == "cookie")
                 {
                     coockie.Set(header.Value);
                 }
-                sb.AppendLine($"{header.Key}: {header.Value}");
             }
 
-            // for demo write out captured string vals
-            Debug.WriteLine($"{url}\n{sb.ToString()}\n{postData}\n---");
         }
 
-        private async void _webView_ContentLoadingAsync(object sender, Microsoft.Web.WebView2.Core.CoreWebView2ContentLoadingEventArgs e)
+        private void OnContentLoadingAsync(object sender, Microsoft.Web.WebView2.Core.CoreWebView2ContentLoadingEventArgs e)
         {
-            string filter = "*main.php*";   // or "*" for all requests
+            string filter = "*";
+
             _webView.CoreWebView2.AddWebResourceRequestedFilter(filter,
                                                        CoreWebView2WebResourceContext.All);
             _webView.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested!;
-            var tt = await _webView.CoreWebView2.ExecuteScriptAsync("document.documentElement.outerHTML");
+            
         }
+
 
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
             startup.Configure();
-
-            _webView.ContentLoading += _webView_ContentLoadingAsync!;
+            _handleFightStates = startup.GetHandleFightStates().ToList();
+            _webView.ContentLoading += OnContentLoadingAsync!;
 
             var domain = startup.GetService<IDomain>();
+
             domain.SetUrl("https://dwarlegacy.ru/");
 
+            var mouseService = startup.GetService<MouseService>();
+            mouseService.Refresh += OnRefresh;
+
+        }
+
+        private void OnRefresh()
+        {
+            _webView.Source = _webView.Source;
         }
     }
 }

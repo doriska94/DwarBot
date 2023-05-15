@@ -15,30 +15,34 @@ namespace Dwar.UI.WindowsRepositries
     {
         private string _cookies = string.Empty;
         private Dictionary<string, string> _cookiesDict = new Dictionary<string, string>();
-        public CookieLocal() 
+        private CookieContainer _cookieContainer;
+
+        private IDomain _domain;
+        public CookieLocal(IDomain domain) 
         {
-            
+            _domain = domain;
         }
         public CookieContainer Get()
         {
-            var coockieContainer = new CookieContainer();
-            foreach (var cookie in _cookiesDict)
-            {
-                coockieContainer.Add(new Cookie(cookie.Key,cookie.Value));
-            }
-            return coockieContainer;
+            return _cookieContainer;
         }
         public void Set( string value)
         {
             _cookies = value;
 
             var keysAndValues = value.Trim().Split(";");
-
+            _cookiesDict = new Dictionary<string, string>();
             foreach (var key in keysAndValues)
             {
                 var item = key.Trim().Split("=");
                 _cookiesDict.Add(item[0], item[1]);
             }
+            _cookieContainer = new CookieContainer();
+
+            string[] cookies = value.Split(';');
+            foreach (string cookie in cookies)
+                _cookieContainer.SetCookies(_domain.GetBaseUri(), cookie);
+            
 
         }
     }

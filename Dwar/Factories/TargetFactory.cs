@@ -29,12 +29,15 @@ namespace Dwar.Factories
                     string name = "";
                     int id = 0;
                     int fightId = 0;
+                    string pic = "";
                     foreach (XmlAttribute attribute in xn.Attributes!)
                     {
                         if (attribute.Name == "name")
                             name = attribute.Value;
-                        if (attribute.Name == "id")
+                        if (attribute.Name == "id"|| attribute.Name == "num")
                             id = Convert.ToInt32(attribute.Value);
+                        if (attribute.Name == "pic")
+                            pic = attribute.Value;
                         if (attribute.Name == "fight_id")
                             fightId = Convert.ToInt32(attribute.Value);
                     }
@@ -49,7 +52,13 @@ namespace Dwar.Factories
 
         private static IEnumerable<Target> GetDistinctTargets(IEnumerable<Target> targets)
         {
-            return targets.DistinctBy(x => x.Id);
+            var distinctTargets = new List<Target>();
+            foreach (var target in targets)
+            {
+                if (distinctTargets.Any(x => x.Name == target.Name) == false)
+                    distinctTargets.Add(target);
+            }
+            return distinctTargets;
         }
     }
 }

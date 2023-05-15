@@ -66,7 +66,7 @@ namespace Dwar
             foreach (var paramerter in Paramerters)
             {
                 if(_nameValueCollection.HasKey(paramerter.Key))
-                    _nameValueCollection.Set(paramerter.Key, paramerter.Value);
+                    _nameValueCollection.Set(paramerter.Key, paramerter.GetValue());
             }
 
             return _nameValueCollection.ToString() ?? "";

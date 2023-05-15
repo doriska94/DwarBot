@@ -28,7 +28,7 @@ namespace Dwar.Services
             switch (action.RequestType)
             {
                 case RequestType.Get:
-                    await _getRequest.GetAsync(action.GetAction(), action.GetParameters());
+                    var res = await _getRequest.GetAsync(action.GetAction(), action.GetParameters());
                     break;
                 case RequestType.Send:
                     await _sendRequest.SendAsync(action.GetAction(), action.GetParameters());

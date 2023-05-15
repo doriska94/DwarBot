@@ -6,6 +6,7 @@ namespace Dwar.Services
 {
     public class MouseService 
     {
+        public event System.Action Refresh;
         private const string TemplateName = "ohota.png";
         private const int DelayAfterClickMillis = 500;
 
@@ -20,22 +21,10 @@ namespace Dwar.Services
 
         public async Task<bool> ClickHunt()
         {
-            bool reslut = false;
-            if (_huntPoint == Point.Empty)
-            {
-                Bitmap screen = _screenshot.TakeScreenShot();
-                var searchTemplate = _bitmapRepository.Get(TemplateName);
-                _huntPoint = screen.FindPosition(searchTemplate);
-            }
-
-            Mouse.MousClick(new Mouse.MousePoint() 
-            { 
-                X = _huntPoint.X, 
-                Y = _huntPoint.Y 
-            });
+            Refresh?.Invoke();
 
             await Task.Delay(DelayAfterClickMillis);
-            return reslut;
+            return true;
         }
     }
 }

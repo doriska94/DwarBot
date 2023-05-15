@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dwar.Services
 {
-    public class ActionFightService : IActionService
+    public class ActionFightService : IActionService, IActionSetService
     {
         private HttpService _actionHttpService;
         private MouseService _mouseService;
@@ -31,7 +31,7 @@ namespace Dwar.Services
 
         public async Task ExecuteAsync()
         {
-            if(_attack == null)
+            if (_attack == null)
             {
                 throw new InvalidOperationException("Attack not setted");
             }
@@ -40,8 +40,7 @@ namespace Dwar.Services
             await _mouseService.ClickHunt(); //Click => ohota => mouse
 
             await _startFightService.WaitCannAttackAsync(); //wait start bot => screen analyse
-            
-            _startFightService.SetFightFocus();
+
 
             //Todo Call somthing => http
 

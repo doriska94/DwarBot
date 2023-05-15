@@ -9,44 +9,44 @@ using System.Threading.Tasks;
 
 namespace Dwar.Services
 {
-    public class FightControlService
+    public class FightControlService : IHandleFightState, IComboSetService
     {
+        public const string Victory = "fightover_victory.ogg";
+        public const string Defeat = "fightover_defeat.ogg";
+        public const string StartFight = "combo.css";
+
         private const string WinnTemplate = "win.png";
         private IBitmapRepository _bitmapRepository;
-        private IScreenshot _screenshot;
         private StartFightService _startFightService;
         private IUserInput _userInput;
         private Combo _combo = null!;
+        private FightState _state;
 
         public FightControlService(IBitmapRepository bitmapRepository,
-                                   IScreenshot screenshot,
                                    StartFightService startFightService,
                                    IUserInput userInput)
         {
             _bitmapRepository = bitmapRepository;
-            _screenshot = screenshot;
             _startFightService = startFightService;
             _userInput = userInput;
         }
 
         public void SetCombo(Combo combo)
         {
-            _combo = combo?? throw new ArgumentNullException(nameof(combo));
+            _combo = combo ?? throw new ArgumentNullException(nameof(combo));
         }
 
         public async Task Fight()
         {
-            if(_combo.FightInDefence)
+            if (_combo.FightInDefence)
             {
                 await _startFightService.WaitCannAttackAsync();
-                _startFightService.SetFightFocus();
                 _userInput.Left();
             }
 
-            while (FightFinish())
+            while (FightFinish() == false)
             {
                 await _startFightService.WaitCannAttackAsync();
-                _startFightService.SetFightFocus();
 
                 var nextStep = _combo.GetNext();
                 await Task.Delay(nextStep.Delay * 1000);
@@ -67,16 +67,22 @@ namespace Dwar.Services
         }
         private bool FightFinish()
         {
-            var winnPoint = GetTemplatePosition(WinnTemplate);
-            return winnPoint != Point.Empty;
+            return _state == FightState.Stop;
         }
 
-        private Point GetTemplatePosition(string template)
+        public void HandleRequest(string url)
         {
-            Bitmap screen = _screenshot.TakeScreenShot();
-            var searchTemplate = _bitmapRepository.Get(template);
-            var point = screen.FindPosition(searchTemplate);
-            return point;
+            if (url.Contains(Victory))
+                _state = FightState.Stop;
+            if (url.Contains(Defeat))
+                _state = FightState.Stop;
+            if (url.Contains(StartFight))
+                _state = FightState.Running;
+        }
+        public enum FightState
+        {
+            Running = 0,
+            Stop = 1
         }
     }
 }

@@ -36,7 +36,7 @@ public class HttpRequest: ISendRequest, IGetRequest, ITargetRepository
 
     public async Task<string> GetAsync(string action, string parameter)
     {
-        var getUri = new Uri(new Uri(_domain.GetBaseUri(), action), parameter);
+        var getUri = new Uri(_domain.GetBaseUri(), action + "?" + parameter);
         return await GetAsync(getUri);
     }
 
@@ -55,6 +55,7 @@ public class HttpRequest: ISendRequest, IGetRequest, ITargetRepository
         var action = _actionRepository.GetActionGetTargets();    
         
         var uri =  new Uri(_domain.GetBaseUri(), action.GetAction());
-        return TargetFactory.Parse(await GetAsync(uri));
+        var result = await GetAsync(uri);
+        return TargetFactory.Parse(result);
     }
 }

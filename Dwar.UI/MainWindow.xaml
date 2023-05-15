@@ -10,6 +10,7 @@
     <Grid>
         <Button Click="OnTestClick" HorizontalAlignment="Left" Width="120" Height="22" Margin="5" VerticalAlignment="Top">Test</Button>
         <Button Click="OnOpenBotClick" HorizontalAlignment="Left" Width="120" Height="22" Margin="150,5,5,5" VerticalAlignment="Top">Open Bot</Button>
+        <TextBox Name="tb" HorizontalAlignment="Left" Width="120" Height="22" Margin="300,5,5,5" VerticalAlignment="Top">__fight_php__</TextBox>
         <wv2:WebView2 Name="_webView"
                   Source="https://dwarlegacy.ru/" Margin="0,40,0,0" />
     </Grid>

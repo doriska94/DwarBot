@@ -6,21 +6,20 @@ using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using static Dwar.Services.FightControlService;
 
 namespace Dwar.Services
 {
-    public class StartFightService
+    public class StartFightService : IHandleFightState
     {
         private const string Template = "can_atack.png";
         private const int WaitStartFight = 500;
-
+        private FightState _state;
         private IBitmapRepository _bitmapRepository;
-        private IScreenshot _screenshot;
 
-        public StartFightService(IBitmapRepository bitmapRepository, IScreenshot screenshot)
+        public StartFightService(IBitmapRepository bitmapRepository)
         {
             _bitmapRepository = bitmapRepository;
-            _screenshot = screenshot;
         }
 
         public async Task WaitCannAttackAsync()
@@ -31,32 +30,20 @@ namespace Dwar.Services
             }
         }
 
-        public void SetFightFocus()
-        {
-            Point point = GetTemplatePosition();
-
-            Mouse.MousClick(new Mouse.MousePoint()
-            {
-                X = point.X,
-                Y = point.Y
-            });
-        }
-
 
         public bool IsFightStarted()
         {
-            Point point = GetTemplatePosition();
-
-            return point != Point.Empty;
-
+            return _state == FightState.Running;
         }
-
-        private Point GetTemplatePosition()
+        public void HandleRequest(string url)
         {
-            Bitmap screen = _screenshot.TakeScreenShot();
-            var searchTemplate = _bitmapRepository.Get(Template);
-            var point = screen.FindPosition(searchTemplate);
-            return point;
+            if (url.Contains(FightControlService.Victory))
+                _state = FightState.Stop;
+            if (url.Contains(FightControlService.Defeat))
+                _state = FightState.Stop;
+            if (url.Contains(FightControlService.StartFight))
+                _state = FightState.Running;
         }
+
     }
 }
