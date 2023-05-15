@@ -6,14 +6,21 @@ namespace Dwar
 {
     public class Action
     {
-        private string? _action;
-        private string? _option;
+        public string? Method { get; set; }
+        public string? Option { get; set; }
         private NameValueCollection? _nameValueCollection;
 
-        public Guid Id { get; } = Guid.NewGuid();
-        public string Key { get; }
-        public string UiName { get; set; }
-        public RequestType RequestType { get; }
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public string Key { get; set; } = string.Empty;
+        public string UiName { get; set; } = string.Empty;
+        public List<Paramerter> Paramerters { get; set; } = new();
+        public RequestType RequestType { get; set; }
+
+        public Action()
+        {
+            
+        }
+
         public Action(string key, string uiName, string action, string option, RequestType requestType)
         {
             UiName = uiName;
@@ -27,37 +34,36 @@ namespace Dwar
         {
             if(action == null)
             {
-                _action = string.Empty;
+                Method = string.Empty;
                 return;
             }
-            _action = action;
+            Method = action;
         }
 
         public void SetOptions(string option)
         {
             if(option== null)
             {
-                _option = string.Empty;
+                Option = string.Empty;
                 _nameValueCollection= null;
                 return;
             }
 
-            _option = option;
-            _nameValueCollection = HttpUtility.ParseQueryString(_option);
+            Option = option;
+            _nameValueCollection = HttpUtility.ParseQueryString(Option);
         }
         public string GetAction()
         {
-            return _action ?? "";
+            return Method ?? "";
         }
 
-        public string GetParameters(IEnumerable<Paramerter> paramerters)
+        public string GetParameters()
         {
-            if(paramerters == null) 
-                throw new ArgumentNullException(nameof(paramerters));
+            
             if(_nameValueCollection == null)
                 return string.Empty;
 
-            foreach (var paramerter in paramerters)
+            foreach (var paramerter in Paramerters)
             {
                 if(_nameValueCollection.HasKey(paramerter.Key))
                     _nameValueCollection.Set(paramerter.Key, paramerter.Value);

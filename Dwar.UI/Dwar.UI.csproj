@@ -7,4 +7,25 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dwar.FileIO\Dwar.FileIO.csproj" />
+    <ProjectReference Include="..\Dwar.Http\Dwar.Http.csproj" />
+    <ProjectReference Include="..\Dwar\Dwar.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.WebView2.Core">
+      <HintPath>..\..\dwar\dwar\bin\Debug\Microsoft.Web.WebView2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.WinForms">
+      <HintPath>..\..\dwar\dwar\bin\Debug\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Wpf">
+      <HintPath>..\..\dwar\dwar\bin\Debug\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsInput">
+      <HintPath>..\..\dwar\dwar\bin\Debug\WindowsInput.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
