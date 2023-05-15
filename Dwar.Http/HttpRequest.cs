@@ -1,0 +1,100 @@
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Net;
+using System.Web;
+using System.Xml;
+using System.Xml.Linq;
+using Dwar.Repositorys;
+using Dwar.Services;
+
+namespace Dwar.Http
+{
+    public class HttpRequest: ISendRequest, IGetRequest, ITargetRepository
+    {
+        private ICookie _cookie;
+        private IDomain _domain;
+        private HttpClient _httpClient;
+        private IActionRepository _actionRepository;
+        public HttpRequest(ICookie cookie, IDomain domain, IActionRepository actionRepository)
+        {
+            _cookie = cookie;
+            _domain = domain;
+            _httpClient = new HttpClient();
+            _actionRepository = actionRepository;
+        }
+
+        public async Task SendAsync(string action, string paramater)
+        {
+            using (var handler = new HttpClientHandler() { CookieContainer = _cookie.Get() })
+            using (var client = new HttpClient(handler) { BaseAddress = _domain.GetBaseUri() })
+            {
+                var result = await client.PostAsync(_domain.GetBaseUri(), new StringContent(paramater));
+            }
+
+        }
+
+        public async Task<string> GetAsync(string action, string parameter)
+        {
+            var getUri = new Uri(new Uri(_domain.GetBaseUri(), action), parameter);
+            return await GetAsync(getUri);
+        }
+
+        private async Task<string> GetAsync(Uri getUri)
+        {
+            using (var handler = new HttpClientHandler() { CookieContainer = _cookie.Get() })
+            using (var client = new HttpClient(handler) { BaseAddress = _domain.GetBaseUri() })
+            {
+                var result = await client.GetAsync(getUri);
+                return await result.Content.ReadAsStringAsync();
+            }
+        }
+
+        public async Task<IEnumerable<Target>> GetTargetsAsync()
+        {
+            var actionUlr = "/hunt_conf.php";
+            //ToDo Action für hunt_conf anlegen
+            var action = _actionRepository.GetActionGetTargets();            
+            var uri =  new Uri(_domain.GetBaseUri(), actionUlr);
+            return ParseTargetsDistinct(await GetAsync(uri));
+        }
+
+        private IEnumerable<Target> ParseTargetsDistinct(string text)
+        {
+            var targerts = new List<Target>();
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(text);
+            
+            if(xml.LastChild == null)
+                return targerts;
+
+            foreach (XmlNode xnList in xml.LastChild.ChildNodes)
+            {
+                foreach (XmlNode xn in xnList)
+                {
+                    string name = "";
+                    int id = 0;
+                    int fightId = 0;
+                    foreach (XmlAttribute attribute in xn.Attributes!)
+                    {
+                        if (attribute.Name == "name")
+                            name = attribute.Value;
+                        if (attribute.Name == "id")
+                            id = Convert.ToInt32(attribute.Value);
+                        if (attribute.Name == "fight_id")
+                            fightId = Convert.ToInt32(attribute.Value);
+                    }
+                    if (id != 0)
+                        targerts.Add(new Target(id, name, fightId));
+
+                }
+            }
+
+            return GetDistinctTargets(targerts);
+        }
+
+        private IEnumerable<Target> GetDistinctTargets(IEnumerable<Target> targets)
+        {
+            return targets.DistinctBy(x=>x.Id);
+        }
+    }
+}

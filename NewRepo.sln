@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dwar.UI", "Dwar.UI\Dwar.UI.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dwar", "Dwar\Dwar.csproj", "{C97CFEFE-E9CC-40D7-9111-E8FFB86FEE00}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dwar.FileIO", "Dwar.FileIO\Dwar.FileIO.csproj", "{5D4FACAB-BDD7-4E0E-9CB4-65DCC34D5DA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dwar.Http", "Dwar.Http\Dwar.Http.csproj", "{175DDB03-4AD1-410A-827B-DDD2880DB9FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{C97CFEFE-E9CC-40D7-9111-E8FFB86FEE00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C97CFEFE-E9CC-40D7-9111-E8FFB86FEE00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C97CFEFE-E9CC-40D7-9111-E8FFB86FEE00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D4FACAB-BDD7-4E0E-9CB4-65DCC34D5DA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D4FACAB-BDD7-4E0E-9CB4-65DCC34D5DA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D4FACAB-BDD7-4E0E-9CB4-65DCC34D5DA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D4FACAB-BDD7-4E0E-9CB4-65DCC34D5DA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{175DDB03-4AD1-410A-827B-DDD2880DB9FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{175DDB03-4AD1-410A-827B-DDD2880DB9FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{175DDB03-4AD1-410A-827B-DDD2880DB9FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{175DDB03-4AD1-410A-827B-DDD2880DB9FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

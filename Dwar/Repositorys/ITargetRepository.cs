@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dwar
+namespace Dwar.Repositorys
 {
-    public interface ISend
+    public interface ITargetRepository
     {
-        void Send(Action action);
+        Task<IEnumerable<Target>> GetTargetsAsync();
     }
 }
