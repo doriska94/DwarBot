@@ -8,7 +8,7 @@ namespace Dwar.Repositorys
 {
     public interface IActionRepository
     {
-        Action Create();
+        Action Create(string key, string uiName, RequestType requestType, string action = "", string option = "");
         void Update(Action action);
         void Delete(Action action);
         Action GetActionGetTargets();

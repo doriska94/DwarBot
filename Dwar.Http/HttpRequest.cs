@@ -52,13 +52,9 @@ namespace Dwar.Http
 
         public async Task<IEnumerable<Target>> GetTargetsAsync()
         {
-            var actionUlr = "/hunt_conf.php";
-            
-            //ToDo Action für hunt_conf anlegen
-
             var action = _actionRepository.GetActionGetTargets();    
             
-            var uri =  new Uri(_domain.GetBaseUri(), actionUlr);
+            var uri =  new Uri(_domain.GetBaseUri(), action.GetAction());
             return TargetFactory.Parse(await GetAsync(uri));
         }
 

@@ -11,16 +11,16 @@ namespace Dwar
         private NameValueCollection? _nameValueCollection;
 
         public Guid Id { get; } = Guid.NewGuid();
+        public string Key { get; }
         public string UiName { get; set; }
-        public string Name { get; }
         public RequestType RequestType { get; }
-        public Action(string uiName, string name, string action,string option, RequestType requestType)
+        public Action(string key, string uiName, string action, string option, RequestType requestType)
         {
             UiName = uiName;
-            Name = name;
             SetAction(action);
             SetOptions(option);
             RequestType = requestType;
+            Key = key;
         }
 
         public void SetAction(string action)
