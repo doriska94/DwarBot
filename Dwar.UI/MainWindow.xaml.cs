@@ -63,7 +63,7 @@ namespace Dwar.UI
 
         private void OnOpenBotClick(object sender, RoutedEventArgs e)
         {
-          new ActionWindow(new Controllers.ActionController(_startup.GetService<IActionRepository>())).Show();
+          new FightWindow(new Controllers.FightController(_startup.GetService<IFightRepository>(),_startup.GetService<IActionRepository>())).Show();
         }
 
         private void CoreWebView2_WebResourceRequested(object sender, CoreWebView2WebResourceRequestedEventArgs e)

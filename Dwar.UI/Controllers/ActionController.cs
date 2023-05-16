@@ -57,6 +57,7 @@ namespace Dwar.UI.Controllers
 
             _actionRepository.Update(entity);
         }
+
         public void AddParameters(Paramerter paramerter)
         {
             if(SelectedAction == null) 
@@ -66,6 +67,7 @@ namespace Dwar.UI.Controllers
 
             OnPropertyChanged(nameof(SelectedAction.Paramerters));
         }
+
         public void Remove()
         {
             if (SelectedAction == null)
@@ -79,6 +81,7 @@ namespace Dwar.UI.Controllers
             var entity = _actionRepository.Get(deleteID);
             _actionRepository.Delete(entity);
         }
+
         public void RemoveParameter()
         {
             if(SelectedAction == null || SelectedParameter == null) return;

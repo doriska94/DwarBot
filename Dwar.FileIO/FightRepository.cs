@@ -82,5 +82,19 @@ namespace Dwar.FileIO
             catch { }
             return new List<FightDto>();
         }
+
+        public void Delete(Guid id)
+        {
+            var dto = _fightDtos.Single(x=>x.Id == id);
+            _fightDtos.Remove(dto);
+            Serialize();
+        }
+
+        public void Delete(Fight fight)
+        {
+            var dto = _fightDtos.Single(x => x.Id == fight.Id);
+            _fightDtos.Remove(dto);
+            Serialize();
+        }
     }
 }
