@@ -13,9 +13,8 @@ namespace Dwar.UI.WindowsRepositries
 {
     public class CookieLocal : ICookie
     {
-        private string _cookies = string.Empty;
         private Dictionary<string, string> _cookiesDict = new Dictionary<string, string>();
-        private CookieContainer _cookieContainer;
+        private CookieContainer _cookieContainer = null!;
 
         private IDomain _domain;
         public CookieLocal(IDomain domain) 
@@ -28,7 +27,6 @@ namespace Dwar.UI.WindowsRepositries
         }
         public void Set( string value)
         {
-            _cookies = value;
 
             var keysAndValues = value.Trim().Split(";");
             _cookiesDict = new Dictionary<string, string>();
