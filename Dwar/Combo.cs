@@ -9,11 +9,15 @@ namespace Dwar
     public class Combo
     {
         private int _step;
-        public List<ComboStep> ComboSteps { get; set; }
+        public List<ComboStep> ComboSteps { get; set; } = new();
         public bool FightInDefence { get;set; }
         public Combo(List<ComboStep> comboSteps)
         {
             ComboSteps = comboSteps;
+        }
+        public Combo()
+        {
+
         }
         public ComboStep GetNext()
         {

@@ -16,10 +16,8 @@ namespace Dwar.UI.View
 {
     public partial class ActionSelect : Window
     {
-        public bool DialogResult => _dialogResult; 
         public Action? SelectedAction { get; set; }
-        private List<Action> _actions = new List<Action>();
-        private bool _dialogResult;
+        private List<Action> _actions = new();
 
         public ActionSelect(IEnumerable<Action> actions)
         {
@@ -30,13 +28,12 @@ namespace Dwar.UI.View
 
         private void OnOkClicks(object sender, RoutedEventArgs e)
         {
-            _dialogResult = SelectedAction != null;
-            this.Close();
+            DialogResult = SelectedAction != null;
         }
 
         private void OnCancelClicks(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            DialogResult = false;
         }
     }
 }

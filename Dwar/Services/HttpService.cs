@@ -38,6 +38,8 @@ namespace Dwar.Services
                     await _sendRequest.SendAsync(action.GetAction(), action.GetParameters(_random));
                     break;
             }
+
+            await Task.Delay(action.WaitAfterExecute * 1000);
         }
     }
 }

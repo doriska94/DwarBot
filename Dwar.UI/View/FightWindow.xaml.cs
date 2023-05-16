@@ -30,7 +30,7 @@ namespace Dwar.UI.View
             var actionsWindow = new ActionSelect(_fightController.AttackActions);
             actionsWindow.ShowDialog();
 
-            if(actionsWindow.DialogResult && actionsWindow.SelectedAction != null)
+            if(actionsWindow.DialogResult  == true && actionsWindow.SelectedAction != null)
             {
                 _fightController.AddStartUpActions(actionsWindow.SelectedAction);
             }    

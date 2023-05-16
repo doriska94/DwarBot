@@ -99,6 +99,7 @@ namespace Dwar.UI.Controllers
             entity.Option = SelectedAction.Option;            
             entity.Method = SelectedAction.Method;
             entity.UiName = SelectedAction.UiName;
+            entity.WaitAfterExecute = SelectedAction.WaitAfterExecute;
             return entity;
         }
     }

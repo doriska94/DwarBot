@@ -93,7 +93,7 @@ public class ActionRepository : IActionRepository
             return JsonSerializer.Deserialize<List<Action>>(File.ReadAllText(fileName));
         }
         catch { }
-        return new List<Action>();
+        return null;
     }
 
     

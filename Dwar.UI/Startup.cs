@@ -24,8 +24,13 @@ namespace Dwar.UI
             _services.Add(typeof(IFightRepository), new FightRepository());
             _services.Add(typeof(IBitmapRepository), new BitMapRepository());
             _services.Add(typeof(IUserInput), new UserInput());
+            _services.Add(typeof(IDomainRepositry),new DomainRepositry());
+            _services.Add(typeof(IComboRepository), new ComboRepository());
+            _services.Add(typeof(IBotRepository), new BotRepository());
 
-            _services.Add(typeof(IDomain), new Domain());
+            _services.Add(typeof(IDomain), GetService<IDomainRepositry>().Get());
+            _services.Add(typeof(Domain), GetService<IDomainRepositry>().Get());
+
             _services.Add(typeof(ICookie), new CookieLocal(GetService<IDomain>()));
             _services.Add(typeof(IScreenshot), new ScreenshotRepository());
 
@@ -38,12 +43,11 @@ namespace Dwar.UI
             var start = new StartFightService(GetService<IBitmapRepository>(), GetService<IScreenshot>());
             _services.Add(typeof(StartFightService), start);
             
-
             var fight = new FightControlService(GetService<StartFightService>(),
-                                                GetService<IUserInput>());
+                                                GetService<IUserInput>(),
+                                                GetService<IComboRepository>());
 
             _services.Add(typeof(FightControlService), fight);
-            _services.Add(typeof(IComboSetService), fight);
             _handleFightStates.Add(fight);
 
             _services.Add(typeof(RefreshService), new RefreshService());
@@ -53,15 +57,23 @@ namespace Dwar.UI
                                                                GetService<IGetRequest>(),
                                                                GetService<Random>()));
 
-            var actionControl = new ActionFightService(GetService<HttpService>(),
+            var fightAction = new FightService(GetService<HttpService>(),
                                                                         GetService<RefreshService>(),
                                                                         GetService<StartFightService>(),
                                                                         GetService<FightControlService>(),
                                                                         GetService<IActionRepository>());
 
-            _services.Add(typeof(IActionService), actionControl);
-            _services.Add(typeof(IActionSetService), actionControl);
-            
+            _services.Add(typeof(FightService), fightAction);
+            var farmAction = new FarmService(
+                                             GetService<RefreshService>(),
+                                             GetService<IActionRepository>(),
+                                             GetService<HttpService>());
+            _services.Add(typeof(FarmService), farmAction);
+
+            _services.Add(typeof(BotService), new BotService(GetService<FarmService>(),
+                                                             GetService<HpService>(),
+                                                             GetService<FightService>(),
+                                                             GetService<IFightRepository>()));
         }
         public T GetService<T>() where T : class
         {

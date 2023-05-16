@@ -17,6 +17,7 @@ public class Action
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Key { get; set; } = string.Empty;
     public string UiName { get; set; } = string.Empty;
+    public int WaitAfterExecute { get; set; }
     public List<Paramerter> Paramerters { get; set; } = new();
     public RequestType RequestType { get; set; }
 

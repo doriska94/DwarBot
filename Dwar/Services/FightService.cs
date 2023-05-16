@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dwar.Services
 {
-    public class ActionFightService : IActionService, IActionSetService
+    public class FightService : IActionService, IActionSetService
     {
         private HttpService _actionHttpService;
         private RefreshService _mouseService;
@@ -16,7 +16,7 @@ namespace Dwar.Services
         private Fight? _fightConfig;
         private IActionRepository _actionRepository;
 
-        public ActionFightService(HttpService actionHttpService,
+        public FightService(HttpService actionHttpService,
                                   RefreshService mouseService,
                                   StartFightService startFightService,
                                   FightControlService fightControlService,

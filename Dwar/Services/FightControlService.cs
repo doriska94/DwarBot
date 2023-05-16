@@ -2,7 +2,7 @@
 
 namespace Dwar.Services;
 
-public class FightControlService : IHandleFightState, IComboSetService
+public class FightControlService : IHandleFightState
 {
     public const string Victory = "fightover_victory.ogg";
     public const string Defeat = "fightover_defeat.ogg";
@@ -10,24 +10,22 @@ public class FightControlService : IHandleFightState, IComboSetService
 
     private StartFightService _startFightService;
     private IUserInput _userInput;
-    private Combo _combo = null!;
     private FightState _state;
+    private IComboRepository _comboRepository;
 
     public FightControlService(StartFightService startFightService,
-                               IUserInput userInput)
+                               IUserInput userInput,
+                               IComboRepository comboRepository)
     {
         _startFightService = startFightService;
         _userInput = userInput;
-    }
-
-    public void SetCombo(Combo combo)
-    {
-        _combo = combo ?? throw new ArgumentNullException(nameof(combo));
+        _comboRepository = comboRepository;
     }
 
     public async Task Fight()
     {
-        if (_combo.FightInDefence)
+        var combo = _comboRepository.Get();
+        if (combo.FightInDefence)
         {
             await _startFightService.WaitCannAttackAsync();
             _userInput.Left();
@@ -37,7 +35,7 @@ public class FightControlService : IHandleFightState, IComboSetService
         {
             await _startFightService.WaitCannAttackAsync();
 
-            var nextStep = _combo.GetNext();
+            var nextStep = combo.GetNext();
 
             await Task.Delay(nextStep.Delay * 1000);
 

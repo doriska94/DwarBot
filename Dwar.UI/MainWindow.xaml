@@ -8,10 +8,27 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="OnWindowLoaded">
     <Grid>
-        <Button Click="OnTestClick" HorizontalAlignment="Left" Width="120" Height="22" Margin="5" VerticalAlignment="Top">Test</Button>
-        <Button Click="OnOpenBotClick" HorizontalAlignment="Left" Width="120" Height="22" Margin="150,5,5,5" VerticalAlignment="Top">Open Bot</Button>
-        <TextBox Name="tb" HorizontalAlignment="Left" Width="120" Height="22" Margin="300,5,5,5" VerticalAlignment="Top">__fight_php__</TextBox>
-        <wv2:WebView2 Name="_webView"
-                  Source="https://dwarlegacy.ru/" Margin="0,40,0,0" />
+        <Menu HorizontalAlignment="Left" VerticalAlignment="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="Action" Click="OnActionOpenClick"/>
+                <MenuItem Header="Sequence" Click="OnFightOpenClick"/>
+                <MenuItem Header="Combo" Click="OnComboOpenClick"/>
+                <MenuItem Header="Bot" Click="OnBotOpenClick"/>
+            </MenuItem>
+        </Menu>
+        <Grid Margin="0,25,0,0">
+            <Button Visibility="Collapsed" Click="OnTestClick" HorizontalAlignment="Left" Width="120" Height="22" Margin="5" VerticalAlignment="Top">Test</Button>
+            <Button Visibility="Collapsed" Click="OnOpenBotClick" HorizontalAlignment="Left" Width="120" Height="22" Margin="150,5,5,5" VerticalAlignment="Top">Open Bot</Button>
+            
+            <WrapPanel Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <TextBlock Margin="5">Bot Select</TextBlock>
+                <ComboBox  Margin="5" ItemsSource="{Binding Bots}" SelectedItem="{Binding SelectedBot}" DisplayMemberPath="Name" Width="200"/>
+                <Button Margin="5" Content="Start" Click="OnStartClick" Width="50"/>
+                <Button Margin="5" Content="Stop" Click="OnStopClick" Width="50"/>
+            </WrapPanel>
+            <TextBox Name="domainInput"  TextChanged="OnDomainUrlChanged" HorizontalAlignment="Right" Width="300" Height="22" Margin="5,5,10,5" VerticalAlignment="Top"></TextBox>
+            <wv2:WebView2 Name="_webView"
+                      Source="https://dwarlegacy.ru/" Margin="0,40,0,0" />
+        </Grid>
     </Grid>
 </Window>

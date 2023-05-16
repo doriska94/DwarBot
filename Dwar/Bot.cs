@@ -9,26 +9,24 @@ namespace Dwar
 {
     public class Bot
     {
-        private List<Guid> _actionsid = new List<Guid>();
-        private Dictionary<Guid, IEnumerable<Paramerter>> _actionsParameters = new();
+        private Fight _fight;
+
+        public Guid Id { get; set; } = Guid.Empty;
+        public string Name { get; set; } = String.Empty;
         public bool WaitHp { get; set; }
-        public IEnumerable<Guid> ActionsId => _actionsid;
-
-
+        public int FightCount { get; set; }
+        public int FightTime { get; set; }
+        public Guid FightId { get; set; } = Guid.Empty;
+        public Fight Fight { get => _fight; set { _fight = value; if (value != null) FightId = value.Id; else FightId = Guid.Empty; } }
+        public SequenceType Type { get; set; }
         public Bot()
         {
 
         }
-
-        public void Add(Guid actionsid,IEnumerable<Paramerter> paramerters)
-        {
-            _actionsid.Add(actionsid);
-            _actionsParameters.Add(actionsid, paramerters);
-        }
-        public IEnumerable<Paramerter> GetParamerters(Guid actionid)
-        {
-            return _actionsParameters[actionid];
-        }
-
+    }
+    public enum SequenceType
+    {
+        Fight,
+        Farm
     }
 }

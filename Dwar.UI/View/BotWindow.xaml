@@ -1,0 +1,53 @@
+﻿<Window x:Class="Dwar.UI.View.BotWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Dwar.UI.View" xmlns:controllers="clr-namespace:Dwar.UI.Controllers" 
+        mc:Ignorable="d"
+        Title="BotWindow" Height="450" Width="800">
+    <Grid>
+        <WrapPanel>
+            <StackPanel Margin="10" Width="400">
+                <WrapPanel Margin="5">
+                    <TextBlock Text="Name" Width="150" TextAlignment="Right" Margin="0,0,10,0"/>
+                    <TextBox Text="{Binding SelectedBot.Name}" Width="200"/>
+                </WrapPanel>
+                <WrapPanel Margin="5">
+                    <TextBlock Text="Wait full HP" Width="150" TextAlignment="Right" Margin="0,0,10,0"/>
+                    <CheckBox  IsChecked="{Binding SelectedBot.WaitHp}" Width="200"/>
+                </WrapPanel>
+                <WrapPanel Margin="5">
+                    <TextBlock Text="Fight/Farm Count" Width="150" TextAlignment="Right" Margin="0,0,10,0"/>
+                    <TextBox Text="{Binding SelectedBot.FightCount}" Width="200"/>
+                </WrapPanel>
+                <WrapPanel Margin="5">
+                    <TextBlock Text="Fight/Farm Time hours" Width="150" TextAlignment="Right" Margin="0,0,10,0"/>
+                    <TextBox Text="{Binding SelectedBot.FightTime}" Width="200"/>
+                </WrapPanel>
+                <WrapPanel Margin="5">
+                    <TextBlock Text="Fight/Farm Sequence" ToolTip = "Wait seconds after execute" Width="150" TextAlignment="Right" Margin="0,0,10,0" />
+                    <ComboBox ItemsSource="{Binding Fights}" SelectedItem="{Binding SelectedBot.Fight}" Width="200"/>
+                </WrapPanel>
+                <WrapPanel Margin="5">
+                    <TextBlock Text="Fight or Farm" Width="150" TextAlignment="Right" Margin="0,0,10,0"/>
+                    <ComboBox ItemsSource="{Binding Sequences}" SelectedItem="{Binding SelectedBot.Type}" Width="200"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Button Click="OnCreateNewClick" Content="Create New" Margin="5" Width="80"/>
+                    <Button Click="OnSaveClick" Content="Save" Margin="5" Width="80"/>
+                    <Button Click="OnDeleteClick" Content="Delete" Margin="5" Width="80"/>
+                </WrapPanel>
+            </StackPanel>
+            <StackPanel Margin="10" Width="300">
+                <ListBox ItemsSource="{Binding Bots}" SelectedItem="{Binding SelectedBot}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </WrapPanel>
+    </Grid>
+</Window>

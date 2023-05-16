@@ -27,6 +27,10 @@
                     <TextBox Text="{Binding SelectedAction.Option}" Width="250"/>
                 </WrapPanel>
                 <WrapPanel Margin="5">
+                    <TextBlock Text="Wait seconds after execute" ToolTip = "Wait seconds after execute" Width="100" />
+                    <TextBox Text="{Binding SelectedAction.WaitAfterExecute}" Width="250"/>
+                </WrapPanel>
+                <WrapPanel Margin="5">
                     <TextBlock Text="Reqeuest Type" Width="100"/>
                     <ComboBox ItemsSource="{Binding RequestTypes}" SelectedItem="{Binding SelectedAction.RequestType}" Width="250"/>
                 </WrapPanel>

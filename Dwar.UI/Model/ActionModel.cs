@@ -15,6 +15,7 @@ namespace Dwar.UI.Model
         public string UiName { get; set; } = string.Empty;
         public string? Method { get; set; }
         public string? Option { get; set; }
+        public int WaitAfterExecute { get; set; }
         public RequestType RequestType { get; set; }
         public BindingList<Paramerter> Paramerters { get; set; } = new();
              
@@ -28,6 +29,7 @@ namespace Dwar.UI.Model
                 Method = entity.Method,
                 Option = entity.Option,
                 RequestType = entity.RequestType,
+                WaitAfterExecute = entity.WaitAfterExecute,
                 Paramerters = entity.Paramerters.ToBindingList()
             };
         }
