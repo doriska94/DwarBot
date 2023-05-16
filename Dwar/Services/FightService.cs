@@ -33,7 +33,7 @@ namespace Dwar.Services
             _fightConfig = fightConfig;
         }
 
-        public async Task ExecuteAsync()
+        public async Task ExecuteAsync(StopBotCommand stopBot)
         {
             if (_fightConfig == null)
             {
@@ -43,7 +43,7 @@ namespace Dwar.Services
             await _actionHttpService.ExecuteAsync(_actionRepository.Get(_fightConfig.AttackId)); //Attack => http
             await _mouseService.ClickHunt(); //Click => ohota => mouse
 
-            await _startFightService.WaitCannAttackAsync(); //wait start bot => screen analyse
+            await _startFightService.WaitCannAttackAsync(stopBot); //wait start bot => screen analyse
 
             var actions = _actionRepository.GetAll(_fightConfig.StartUpActions);
             //Call somthing => http
@@ -52,7 +52,7 @@ namespace Dwar.Services
                 await _actionHttpService.ExecuteAsync(action); 
             }
 
-            await _fightControlService.Fight(); //fight => screen analyse
+            await _fightControlService.Fight(stopBot); //fight => screen analyse
         }
     }
 }

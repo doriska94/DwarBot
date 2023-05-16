@@ -11,6 +11,7 @@ namespace Dwar.UI.Controllers
 {
     public class MainWindowController
     {
+        private StopBotCommand? _stopBotCommand;
         private IBotRepository _botRepository;
         private BotService _botService;
         public BindingList<Bot> Bots { get; set; }
@@ -43,11 +44,26 @@ namespace Dwar.UI.Controllers
         {
             if (SelectedBot == null)
                 return;
-            await _botService.StartAsync(SelectedBot);
+            if (_stopBotCommand != null)
+                return;
+
+            _stopBotCommand = new StopBotCommand();
+            try
+            {
+                await _botService.StartAsync(SelectedBot, _stopBotCommand);
+            }
+            catch (TaskCanceledException)
+            {
+
+            }
+            _stopBotCommand = null!;
         }
 
         public void Stop()
         {
+            if (_stopBotCommand == null)
+                return;
+            _stopBotCommand.Stop = true;
             _botService.Stop();
         }
     }

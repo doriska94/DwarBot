@@ -8,6 +8,6 @@ namespace Dwar.Services
 {
     public interface IGetRequest
     {
-        Task<string> GetAsync(string action, string paramater);
+        Task<bool> GetAsync(string action, string paramater);
     }
 }

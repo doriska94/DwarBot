@@ -15,6 +15,9 @@ using System;
 using Dwar.UI.View;
 using System.Windows.Controls;
 using Dwar.UI.Controllers;
+using System.Security.Principal;
+using System.Windows.Media;
+using Microsoft.Web.WebView2.Wpf;
 
 namespace Dwar.UI;
 
@@ -23,6 +26,7 @@ public partial class MainWindow : Window
     private Startup _startup = new();
     private List<IHandleFightState> _handleFightStates = new();
     private MainWindowController _windowController;
+    private WebView2 _serviceHandling;
     public MainWindow()
     {
         _startup.Configure();
@@ -102,9 +106,8 @@ public partial class MainWindow : Window
 
     private void OnRefresh()
     {
-        var source = _webView.Source;
-        _webView.Source = null;
-        _webView.Source = source;
+        var domain = _startup.GetService<Domain>();
+        _webView.CoreWebView2.Navigate(new Uri(domain.GetBaseUri(), "/hunt.php").AbsoluteUri);
     }
 
     private void OnDomainUrlChanged(object sender, TextChangedEventArgs e)
@@ -117,7 +120,8 @@ public partial class MainWindow : Window
 
     private void OnActionOpenClick(object sender, RoutedEventArgs e)
     {
-        var actionController = new ActionController(_startup.GetService<IActionRepository>());
+        var actionController = new ActionController(_startup.GetService<IActionRepository>(),
+                                                    _startup.GetService<ITargetRepository>()); ;
         new ActionWindow(actionController).Show();
     }
 
@@ -152,5 +156,12 @@ public partial class MainWindow : Window
     private void OnUpdateClick(object sender, RoutedEventArgs e)
     {
         _windowController.Refresh();
+    }
+
+    private void OnScreenshotClick(object sender, RoutedEventArgs e)
+    {
+        var bitmapRepository = _startup.GetService<IScreenshot>();
+        var bitmap = bitmapRepository.TakeScreenShot();
+        bitmap.Save("screen.png");
     }
 }

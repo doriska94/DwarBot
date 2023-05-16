@@ -17,14 +17,15 @@ namespace Dwar.Services
             _hpRepository = hpRepository;
         }
 
-        public async Task WaitFullHp()
+        public async Task WaitFullHp(StopBotCommand stopBot)
         {
             Hp hp = _hpRepository.Get();
             while (hp.IsFull() == false) 
             {
                 await Task.Delay(CheckHpTimeMillis);
                 hp = _hpRepository.Get();
-
+                if (stopBot.Stop)
+                    return;
             } 
         }
     }

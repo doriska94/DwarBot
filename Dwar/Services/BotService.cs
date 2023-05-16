@@ -27,7 +27,7 @@ namespace Dwar.Services
             _fightRepository = fightRepository;
         }
 
-        public async Task StartAsync(Bot bot)
+        public async Task StartAsync(Bot bot, StopBotCommand stopBot)
         {
             if (_isRunning)
                 return;
@@ -35,22 +35,27 @@ namespace Dwar.Services
             _count = 0;
             _startTime = DateTime.Now;
             _endTime = DateTime.Now.AddHours(bot.FightTime);
-            await Running(bot);
+            await Running(bot,stopBot);
         }
 
-        private async Task Running(Bot bot)
+        private async Task Running(Bot bot, StopBotCommand stopBot)
         {
             
             var action = GetActionService(bot);
-            while (!_isRunning)
+            while (_isRunning)
             {
+                _count++; 
                 if (bot.WaitHp)
-                    await _hpService.WaitFullHp();
+                    await _hpService.WaitFullHp(stopBot);
 
-                await action.ExecuteAsync();
-
+                await action.ExecuteAsync(stopBot);
+                await Task.Delay(500);
                 if(ExitCondition(bot))
                     _isRunning= false;
+
+                if (stopBot.Stop)
+                    _isRunning = false;
+                
             }
         }
 

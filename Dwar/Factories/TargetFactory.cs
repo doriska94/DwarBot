@@ -9,11 +9,15 @@ namespace Dwar.Factories
 {
     public class TargetFactory
     {
+        public static IEnumerable<Target> ParseDistinct(string text)
+        {
+            return GetDistinctTargets(ParseTargets(text));
+        }
         public static IEnumerable<Target> Parse(string text)
         {
-            return ParseTargetsDistinct(text);
+            return ParseTargets(text);
         }
-        private static IEnumerable<Target> ParseTargetsDistinct(string text)
+        private static IEnumerable<Target> ParseTargets(string text)
         {
             var targerts = new List<Target>();
             XmlDocument xml = new XmlDocument();
@@ -38,7 +42,7 @@ namespace Dwar.Factories
                             id = Convert.ToInt32(attribute.Value);
                         if (attribute.Name == "pic")
                             pic = attribute.Value;
-                        if (attribute.Name == "fight_id")
+                        if (attribute.Name == "fight_id" || attribute.Name == "farming")
                             fightId = Convert.ToInt32(attribute.Value);
                     }
                     if (id != 0)
@@ -47,7 +51,7 @@ namespace Dwar.Factories
                 }
             }
 
-            return GetDistinctTargets(targerts);
+            return targerts;
         }
 
         private static IEnumerable<Target> GetDistinctTargets(IEnumerable<Target> targets)

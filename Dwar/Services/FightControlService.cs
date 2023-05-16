@@ -22,34 +22,43 @@ public class FightControlService : IHandleFightState
         _comboRepository = comboRepository;
     }
 
-    public async Task Fight()
+    public async Task Fight(StopBotCommand stopBot)
     {
         var combo = _comboRepository.Get();
         if (combo.FightInDefence)
         {
-            await _startFightService.WaitCannAttackAsync();
+            await _startFightService.WaitCannAttackAsync(stopBot);
+            if (stopBot.Stop)
+                return;
             _userInput.Left();
         }
 
         while (FightFinish() == false)
         {
-            await _startFightService.WaitCannAttackAsync();
-
+            await _startFightService.WaitCannAttackAsync(stopBot);
+            if (stopBot.Stop)
+                return;
             var nextStep = combo.GetNext();
 
             await Task.Delay(nextStep.Delay * 1000);
 
-            switch (nextStep.Type)
+            while (await _startFightService.CannAttackAsync() && FightFinish() == false)
             {
-                case ComboStepType.Up:
-                    _userInput.Up();
-                    break;
-                case ComboStepType.Down:
-                    _userInput.Down();
-                    break;
-                case ComboStepType.Forward:
-                    _userInput.Right();
-                    break;
+                if (stopBot.Stop)
+                    return;
+
+                switch (nextStep.Type)
+                {
+                    case ComboStepType.Up:
+                        _userInput.Up();
+                        break;
+                    case ComboStepType.Down:
+                        _userInput.Down();
+                        break;
+                    case ComboStepType.Forward:
+                        _userInput.Right();
+                        break;
+                }
             }
         }
     }

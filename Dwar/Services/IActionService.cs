@@ -2,6 +2,6 @@
 {
     public interface IActionService
     {
-        Task ExecuteAsync();
+        Task ExecuteAsync(StopBotCommand stopBot);
     }
 }

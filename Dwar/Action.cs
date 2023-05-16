@@ -20,6 +20,7 @@ public class Action
     public int WaitAfterExecute { get; set; }
     public List<Paramerter> Paramerters { get; set; } = new();
     public RequestType RequestType { get; set; }
+    public string MobName { get; set; }
 
     public Action()
     {
@@ -61,7 +62,7 @@ public class Action
         return Method ?? "";
     }
 
-    public string GetParameters(Random random)
+    public string GetParameters(Random random,Target target)
     {
 
         if (_nameValueCollection == null)
@@ -70,10 +71,23 @@ public class Action
         foreach (var paramerter in Paramerters)
         {
             if (_nameValueCollection.HasKey(paramerter.Key))
-                _nameValueCollection.Set(paramerter.Key, paramerter.GetValue(random));
+                _nameValueCollection.Set(paramerter.Key, paramerter.GetValue(random, target));
         }
 
-        return _nameValueCollection.ToString() ?? "";
+        string optionsString ="";
+
+        if (_nameValueCollection.AllKeys.Length > 0)
+        {
+            var firstKey = _nameValueCollection.AllKeys.First();
+            optionsString += firstKey + "=" + _nameValueCollection.Get(firstKey);
+            for (int i = 1; i<_nameValueCollection.AllKeys.Length;  i++) 
+            {
+                var key = _nameValueCollection.GetKey(i);
+                optionsString += "&" + key + "=" + _nameValueCollection.Get(key);
+            }
+        }
+
+        return optionsString;
     }
 
 }

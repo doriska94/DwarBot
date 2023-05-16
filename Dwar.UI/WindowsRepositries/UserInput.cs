@@ -1,33 +1,34 @@
 ﻿using Dwar.Services;
 using WindowsInput;
-using WindowsInput.Events;
+using WindowsInput.Native;
 
 namespace Dwar.UI.WindowsRepositries;
 
 public class UserInput : IUserInput
 {
+    private InputSimulator _simulator;
     public UserInput()
     {
-
+        _simulator = new InputSimulator();
     }
     public void Down()
     {
-        Simulate.Events().Click(KeyCode.Down);
+        _simulator.Keyboard.KeyPress(VirtualKeyCode.VK_E);
     }
 
     public void Left()
     {
-        Simulate.Events().Click(KeyCode.Left);
+        _simulator.Keyboard.KeyPress(VirtualKeyCode.VK_R);
 
     }
 
     public void Right()
     {
-        Simulate.Events().Click(KeyCode.Right);
+        _simulator.Keyboard.KeyPress(VirtualKeyCode.VK_W);
     }
 
     public void Up()
     {
-        Simulate.Events().Click(KeyCode.Up);
+        _simulator.Keyboard.KeyPress(VirtualKeyCode.VK_Q);
     }
 }

@@ -66,7 +66,7 @@ namespace Dwar.UI.Controllers
         }
         private void SetSelectedFight(Bot? value)
         {
-            if (value == null)
+            if (value == null || value.FightId == Guid.Empty)
             {
                 _selectedFight = null!;
                 return;

@@ -8,7 +8,7 @@ namespace Dwar.Services
 {
     public interface ISendRequest
     {
-        Task SendAsync(string action, string paramater);
+        Task<bool> SendAsync(string action, string paramater);
 
     }
 }

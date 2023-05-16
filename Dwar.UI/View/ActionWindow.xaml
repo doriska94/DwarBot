@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:Dwar.UI.View" xmlns:controllers="clr-namespace:Dwar.UI.Controllers" 
         d:DataContext="{d:DesignInstance Type=controllers:ActionController}"
         mc:Ignorable="d"
-        Title="ActionWindow" Height="450" Width="800">
+        Title="ActionWindow" Height="450" Width="1000">
     <Grid>
         <WrapPanel>
-            <StackPanel Margin="10" Width="400">
+            <StackPanel Margin="10" Width="600">
                 <WrapPanel Margin="5">
                     <TextBlock Text="Name" Width="100"/>
                     <TextBox Text="{Binding SelectedAction.UiName}" Width="250"/>
@@ -31,6 +31,10 @@
                     <TextBox Text="{Binding SelectedAction.WaitAfterExecute}" Width="250"/>
                 </WrapPanel>
                 <WrapPanel Margin="5">
+                    <TextBlock Text="Mob" Width="100"/>
+                    <ComboBox ItemsSource="{Binding Targets}" SelectedItem="{Binding SelectedTarget}" DisplayMemberPath="Name" Width="250"/>
+                </WrapPanel>
+                <WrapPanel Margin="5">
                     <TextBlock Text="Reqeuest Type" Width="100"/>
                     <ComboBox ItemsSource="{Binding RequestTypes}" SelectedItem="{Binding SelectedAction.RequestType}" Width="250"/>
                 </WrapPanel>
@@ -49,6 +53,8 @@
                                     <TextBox Text="{Binding Key}" Width="100"/>
                                     <TextBox Text="{Binding Value}" Width="100"/>
                                     <CheckBox IsChecked="{Binding IsRandom}" Content="+Random" Width="100"/>
+                                    <CheckBox IsChecked="{Binding OnMobName}" Content="Mob Id" Width="100"/>
+                                    <CheckBox IsChecked="{Binding IsGuid}" Content="Guid" Width="100"/>
                                 </WrapPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

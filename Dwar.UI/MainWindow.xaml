@@ -14,6 +14,8 @@
                 <MenuItem Header="Sequence" Click="OnFightOpenClick"/>
                 <MenuItem Header="Combo" Click="OnComboOpenClick"/>
                 <MenuItem Header="Bot" Click="OnBotOpenClick"/>
+                <Separator/>
+                <MenuItem Header="Screenshot" Click="OnScreenshotClick"/>
             </MenuItem>
         </Menu>
         <Grid Margin="0,25,0,0">

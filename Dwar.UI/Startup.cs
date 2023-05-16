@@ -43,7 +43,8 @@ namespace Dwar.UI
 
             var start = new StartFightService(GetService<IBitmapRepository>(), GetService<IScreenshot>());
             _services.Add(typeof(StartFightService), start);
-            
+            _handleFightStates.Add(start);
+
             var fight = new FightControlService(GetService<StartFightService>(),
                                                 GetService<IUserInput>(),
                                                 GetService<IComboRepository>());
@@ -57,7 +58,8 @@ namespace Dwar.UI
             _services.Add(typeof(HttpService), new HttpService(GetService<IActionRepository>(), 
                                                                GetService<ISendRequest>(), 
                                                                GetService<IGetRequest>(),
-                                                               GetService<Random>()));
+                                                               GetService<Random>(),
+                                                               GetService<ITargetRepository>()));
 
             var fightAction = new FightService(GetService<HttpService>(),
                                                                         GetService<RefreshService>(),
@@ -66,10 +68,14 @@ namespace Dwar.UI
                                                                         GetService<IActionRepository>());
 
             _services.Add(typeof(FightService), fightAction);
+            _services.Add(typeof(FarmEndService), new FarmEndService());
             var farmAction = new FarmService(
                                              GetService<RefreshService>(),
                                              GetService<IActionRepository>(),
-                                             GetService<HttpService>());
+                                             GetService<HttpService>(),
+                                             GetService<FarmEndService>());
+            _handleFightStates.Add(GetService<FarmEndService>());
+
             _services.Add(typeof(FarmService), farmAction);
 
             _services.Add(typeof(BotService), new BotService(GetService<FarmService>(),

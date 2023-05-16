@@ -9,5 +9,6 @@ namespace Dwar.Repositorys
     public interface ITargetRepository
     {
         Task<IEnumerable<Target>> GetTargetsAsync();
+        Task<Target> GetFreeTargetsAsync(string name);
     }
 }
