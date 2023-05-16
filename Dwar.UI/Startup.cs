@@ -56,7 +56,8 @@ namespace Dwar.UI
             var actionControl = new ActionFightService(GetService<HttpService>(),
                                                                         GetService<RefreshService>(),
                                                                         GetService<StartFightService>(),
-                                                                        GetService<FightControlService>());
+                                                                        GetService<FightControlService>(),
+                                                                        GetService<IActionRepository>());
 
             _services.Add(typeof(IActionService), actionControl);
             _services.Add(typeof(IActionSetService), actionControl);

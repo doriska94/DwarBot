@@ -7,8 +7,8 @@ namespace Dwar.Dto
     {
         public Guid Id { get; set; } = Guid.Empty;
         public string Name { get; set; } = String.Empty;
-        public Action Attack { get; set; } = null!;
-        public List<Action> StartUpActions { get; set; } = null!;
+        public Guid AttackId { get; set; } = Guid.Empty;
+        public List<Guid> StartUpActions { get; set; } = new();
     }
 
 }

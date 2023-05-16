@@ -1,0 +1,70 @@
+﻿<Window x:Class="Dwar.UI.View.ActionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Dwar.UI.View" xmlns:controllers="clr-namespace:Dwar.UI.Controllers" 
+        d:DataContext="{d:DesignInstance Type=controllers:ActionController}"
+        mc:Ignorable="d"
+        Title="ActionWindow" Height="450" Width="800">
+    <Grid>
+        <WrapPanel>
+            <StackPanel Margin="10" Width="400">
+                <WrapPanel Margin="5">
+                    <TextBlock Text="Name" Width="100"/>
+                    <TextBox Text="{Binding SelectedAction.UiName}" Width="250"/>
+                </WrapPanel>
+                <WrapPanel Margin="5">
+                    <TextBlock Text="Key" Width="100"/>
+                    <TextBox Text="{Binding SelectedAction.Key}" Width="250"/>
+                </WrapPanel>
+                <WrapPanel Margin="5">
+                    <TextBlock Text="Action" Width="100"/>
+                    <TextBox Text="{Binding SelectedAction.Method}" Width="250"/>
+                </WrapPanel>
+                <WrapPanel Margin="5">
+                    <TextBlock Text="Option" Width="100" />
+                    <TextBox Text="{Binding SelectedAction.Option}" Width="250"/>
+                </WrapPanel>
+                <WrapPanel Margin="5">
+                    <TextBlock Text="Reqeuest Type" Width="100"/>
+                    <ComboBox ItemsSource="{Binding RequestTypes}" SelectedItem="{Binding SelectedAction.RequestType}" Width="250"/>
+                </WrapPanel>
+                <StackPanel Margin="5">
+                    <WrapPanel Margin="5">
+                        <TextBlock Text="Parameters"/>
+                        <Button Content="Add New Parameter" Click="OnAddParameter" Margin="10,0,0,0"/>
+                        <Button Content="Delete Parameter" Click="OnDeleteParameter" Margin="10,0,0,0"/>
+
+                    </WrapPanel>
+
+                    <ListBox ItemsSource="{Binding SelectedAction.Paramerters}" SelectedItem="{Binding SelectedParameter}" Margin="5">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <TextBox Text="{Binding Key}" Width="100"/>
+                                    <TextBox Text="{Binding Value}" Width="100"/>
+                                    <CheckBox IsChecked="{Binding IsRandom}" Content="+Random" Width="100"/>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <WrapPanel>
+                    <Button Click="OnCreateNewClick" Content="Create New" Margin="5" Width="80"/>
+                    <Button Click="OnSaveClick" Content="Save" Margin="5" Width="80"/>
+                    <Button Click="OnDeleteClick" Content="Delete" Margin="5" Width="80"/>
+                </WrapPanel>
+            </StackPanel>
+            <StackPanel Margin="10" Width="300">
+                <ListBox ItemsSource="{Binding Actions}" SelectedItem="{Binding SelectedAction}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding UiName}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </WrapPanel>
+    </Grid>
+</Window>

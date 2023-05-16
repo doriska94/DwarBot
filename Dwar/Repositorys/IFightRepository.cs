@@ -11,7 +11,7 @@ namespace Dwar.Repositorys
         Fight Get(Guid id);
         IEnumerable<Fight> GetAll();
         void Save(Fight entity);
-        Fight Create(string name, Action attack, IEnumerable<Action> StartUpActions);
+        Fight Create(string name, Guid attackId, IEnumerable<Guid> StartUpActions);
 
     }
 }

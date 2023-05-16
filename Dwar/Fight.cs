@@ -8,8 +8,8 @@ public class Fight
     private FightDto _dto; 
     public Guid Id =>_dto.Id;
     public string Name => _dto.Name;
-    public Action Attack => _dto.Attack;
-    public IEnumerable<Action> StartUpActions => _dto.StartUpActions;
+    public Guid AttackId => _dto.AttackId;
+    public IEnumerable<Guid> StartUpActions => _dto.StartUpActions;
 
     private Fight(FightDto fightDto)
     {
@@ -24,8 +24,8 @@ public class Fight
             {
                 Id = id,
                 Name = Name,
-                Attack = attack,
-                StartUpActions = startUpActions.ToList()
+                AttackId = attack.Id,
+                StartUpActions = startUpActions.Select(x=>x.Id).ToList()
             };
             return new Fight(dto);
         }

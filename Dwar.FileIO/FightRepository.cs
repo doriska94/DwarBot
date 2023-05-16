@@ -14,20 +14,19 @@ namespace Dwar.FileIO
     {
         private readonly string _fileName = "fights.json";
         private List<FightDto> _fightDtos= new();
-
         public FightRepository()
         {
             var fights = Deserialize(_fileName);
             if (fights != null)
                 _fightDtos = fights;
         }
-        public Fight Create(string name,Action attack, IEnumerable<Action> StartUpActions)
+        public Fight Create(string name, Guid attackid, IEnumerable<Guid> StartUpActions)
         {
             var fightdto = new FightDto()
             { 
                 Id = Guid.NewGuid(),
                 Name = name, 
-                Attack = attack,
+                AttackId = attackid,
                 StartUpActions = StartUpActions.ToList() 
             };
             _fightDtos.Add(fightdto);

@@ -4,9 +4,9 @@ namespace Dwar.Services;
 
 public class Paramerter
 {
-    public string Key { get; }
-    public string Value { get; }
-    public bool IsRandom { get; }
+    public string Key { get; set; }
+    public string Value { get; set; }
+    public bool IsRandom { get; set; }
 
     [JsonConstructor]
     public Paramerter(string key, string value, bool isRandom)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dwar.Repositorys;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +14,19 @@ namespace Dwar.Services
         private StartFightService _startFightService;
         private FightControlService _fightControlService;
         private Fight? _fightConfig;
+        private IActionRepository _actionRepository;
 
         public ActionFightService(HttpService actionHttpService,
                                   RefreshService mouseService,
                                   StartFightService startFightService,
-                                  FightControlService fightControlService)
+                                  FightControlService fightControlService,
+                                  IActionRepository actionRepository)
         {
             _actionHttpService = actionHttpService;
             _mouseService = mouseService;
             _startFightService = startFightService;
             _fightControlService = fightControlService;
+            _actionRepository = actionRepository;
         }
         public void SetAttack(Fight fightConfig)
         {
@@ -36,14 +40,14 @@ namespace Dwar.Services
                 throw new InvalidOperationException("Attack not setted");
             }
 
-            await _actionHttpService.ExecuteAsync(_fightConfig.Attack); //Attack => http
+            await _actionHttpService.ExecuteAsync(_actionRepository.Get(_fightConfig.AttackId)); //Attack => http
             await _mouseService.ClickHunt(); //Click => ohota => mouse
 
             await _startFightService.WaitCannAttackAsync(); //wait start bot => screen analyse
 
-
+            var actions = _actionRepository.GetAll(_fightConfig.StartUpActions);
             //Call somthing => http
-            foreach (var action in _fightConfig.StartUpActions)
+            foreach (var action in actions)
             {
                 await _actionHttpService.ExecuteAsync(action); 
             }

@@ -6,12 +6,12 @@ namespace Dwar.FileIO;
 
 public class ActionRepository : IActionRepository
 {
-    private readonly string FileName = "action.json";
-    private const string HuntActionKey = "hunt_conf.php";
+    private readonly string _fileName = "action.json";
+    private const string _huntActionKey = "hunt_conf.php";
     private List<Action> _actions = new();
     public ActionRepository()
     {
-        var action = Deserialize(FileName);
+        var action = Deserialize(_fileName);
         if (action != null)
             _actions = action;
     }
@@ -47,12 +47,19 @@ public class ActionRepository : IActionRepository
 
     public Action GetActionGetTargets()
     {
-        var action = _actions.FirstOrDefault(x=>x.Key == HuntActionKey);
-        action ??= Create(HuntActionKey, "For Search Mobs",RequestType.Get, "/hunt_conf.php");
+        var action = _actions.FirstOrDefault(x=>x.Key == _huntActionKey);
+        action ??= Create(_huntActionKey, "For Search Mobs",RequestType.Get, "/hunt_conf.php");
 
         return action;
     }
-
+    public IEnumerable<Action> GetAll(IEnumerable<Guid> ids)
+    {
+        return _actions.Where(x => ids.Any(id => id == x.Id)).ToArray();
+    }
+    public IEnumerable<Action> GetAll()
+    {
+        return _actions.ToArray();
+    }
     public void Update(Action action)
     {
         var listItem = _actions.FirstOrDefault(item => item.Id == action.Id);
@@ -74,7 +81,7 @@ public class ActionRepository : IActionRepository
     private void Serialize()
     {
         var json = JsonSerializer.Serialize(_actions);
-        File.WriteAllText(FileName,json);
+        File.WriteAllText(_fileName,json);
     }
 
     private static List<Action>? Deserialize(string fileName)
@@ -89,4 +96,5 @@ public class ActionRepository : IActionRepository
         return new List<Action>();
     }
 
+    
 }

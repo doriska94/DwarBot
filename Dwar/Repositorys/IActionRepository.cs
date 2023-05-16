@@ -13,5 +13,7 @@ namespace Dwar.Repositorys
         void Delete(Action action);
         Action GetActionGetTargets();
         Action Get(Guid id);
+        IEnumerable<Action> GetAll(IEnumerable<Guid> ids);
+        IEnumerable<Action> GetAll();
     }
 }

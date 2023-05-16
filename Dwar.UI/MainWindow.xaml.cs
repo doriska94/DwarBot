@@ -12,12 +12,13 @@ using System.Windows.Documents;
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using Dwar.UI.View;
 
 namespace Dwar.UI
 {
     public partial class MainWindow : Window
     {
-        private Startup startup = new Startup();
+        private Startup _startup = new();
         private List<IHandleFightState> _handleFightStates = new();
         public MainWindow()
         {
@@ -28,7 +29,7 @@ namespace Dwar.UI
 
         private async void OnTestClick(object sender, RoutedEventArgs e)
         {
-            var fight = startup.GetService<IComboSetService>();
+            var fight = _startup.GetService<IComboSetService>();
             fight.SetCombo(new Combo(new List<ComboStep>()
             {
                 new ComboStep(2,ComboStepType.Forward),
@@ -37,7 +38,7 @@ namespace Dwar.UI
                 new ComboStep(2,ComboStepType.Down)
 
             }));
-            var actionRepository = startup.GetService<IActionRepository>();
+            var actionRepository = _startup.GetService<IActionRepository>();
             //action_run.php?code=ATTACK_BOT&url_success=fight.php?522331141&url_error=hunt.php&bot_id=3188&chk=test
             //bot_id = 3188
             //random
@@ -52,22 +53,22 @@ namespace Dwar.UI
 
             var action = actionRepository.Get(Guid.Parse("4a3893fe-e69b-4d57-b0a5-2b8d1ca9d728"));
 
-            var actionSetService = startup.GetService<IActionSetService>();
+            var actionSetService = _startup.GetService<IActionSetService>();
+            var fightrepository = _startup.GetService<IFightRepository>();
+            actionSetService.SetAttack(fightrepository.Create("Skeleton", action.Id, new List<Guid>()));
 
-            actionSetService.SetAttack(Fight.FightFactory.Create(Guid.NewGuid(),"Seleton", action, new List<Action>()));
-
-            var actionfightService = startup.GetService<IActionService>();
+            var actionfightService = _startup.GetService<IActionService>();
             await actionfightService.ExecuteAsync();
         }
 
         private void OnOpenBotClick(object sender, RoutedEventArgs e)
         {
-          
+          new ActionWindow(new Controllers.ActionController(_startup.GetService<IActionRepository>())).Show();
         }
 
         private void CoreWebView2_WebResourceRequested(object sender, CoreWebView2WebResourceRequestedEventArgs e)
         {
-            var coockie = startup.GetService<ICookie>();
+            var coockie = _startup.GetService<ICookie>();
             var headers = e.Request.Headers;
 
             _handleFightStates.ForEach(x => x.HandleRequest(e.Request.Uri));
@@ -96,15 +97,15 @@ namespace Dwar.UI
 
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            startup.Configure();
-            _handleFightStates = startup.GetHandleFightStates().ToList();
+            _startup.Configure();
+            _handleFightStates = _startup.GetHandleFightStates().ToList();
             _webView.ContentLoading += OnContentLoadingAsync!;
 
-            var domain = startup.GetService<IDomain>();
+            var domain = _startup.GetService<IDomain>();
 
             domain.SetUrl("https://dwarlegacy.ru/");
 
-            var mouseService = startup.GetService<RefreshService>();
+            var mouseService = _startup.GetService<RefreshService>();
             mouseService.Refresh += OnRefresh;
 
         }
