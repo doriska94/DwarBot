@@ -8,18 +8,14 @@ public class FightControlService : IHandleFightState, IComboSetService
     public const string Defeat = "fightover_defeat.ogg";
     public const string StartFight = "combo.css";
 
-    private const string WinnTemplate = "win.png";
-    private IBitmapRepository _bitmapRepository;
     private StartFightService _startFightService;
     private IUserInput _userInput;
     private Combo _combo = null!;
     private FightState _state;
 
-    public FightControlService(IBitmapRepository bitmapRepository,
-                               StartFightService startFightService,
+    public FightControlService(StartFightService startFightService,
                                IUserInput userInput)
     {
-        _bitmapRepository = bitmapRepository;
         _startFightService = startFightService;
         _userInput = userInput;
     }

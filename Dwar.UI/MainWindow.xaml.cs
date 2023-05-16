@@ -54,7 +54,7 @@ namespace Dwar.UI
 
             var actionSetService = startup.GetService<IActionSetService>();
 
-            actionSetService.SetAttack(action);
+            actionSetService.SetAttack(Fight.FightFactory.Create(Guid.NewGuid(),"Seleton", action, new List<Action>()));
 
             var actionfightService = startup.GetService<IActionService>();
             await actionfightService.ExecuteAsync();
@@ -104,7 +104,7 @@ namespace Dwar.UI
 
             domain.SetUrl("https://dwarlegacy.ru/");
 
-            var mouseService = startup.GetService<MouseService>();
+            var mouseService = startup.GetService<RefreshService>();
             mouseService.Refresh += OnRefresh;
 
         }

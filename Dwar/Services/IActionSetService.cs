@@ -2,6 +2,6 @@
 {
     public interface IActionSetService
     {
-        void SetAttack(Action attack);
+        void SetAttack(Fight fightConfig);
     }
 }

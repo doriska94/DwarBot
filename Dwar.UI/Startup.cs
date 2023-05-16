@@ -13,14 +13,15 @@ namespace Dwar.UI
 {
     public class Startup
     {
-        private Dictionary<Type, object> _services = new Dictionary<Type, object>();
-        private List<IHandleFightState> handleFightStates = new List<IHandleFightState>();
+        private Dictionary<Type, object> _services = new();
+        private List<IHandleFightState> _handleFightStates = new();
 
 
         public void Configure()
         {
             _services.Add(typeof(Random), new Random(100000000));
             _services.Add(typeof(IActionRepository), new ActionRepository());
+            _services.Add(typeof(IFightRepository), new FightRepository());
             _services.Add(typeof(IBitmapRepository), new BitMapRepository());
             _services.Add(typeof(IUserInput), new UserInput());
 
@@ -36,16 +37,16 @@ namespace Dwar.UI
 
             var start = new StartFightService(GetService<IBitmapRepository>(), GetService<IScreenshot>());
             _services.Add(typeof(StartFightService), start);
-            handleFightStates.Add(start);
+            
 
-            var fight = new FightControlService(GetService<IBitmapRepository>(),
-                                                                               GetService<StartFightService>(),
-                                                                               GetService<IUserInput>());
+            var fight = new FightControlService(GetService<StartFightService>(),
+                                                GetService<IUserInput>());
+
             _services.Add(typeof(FightControlService), fight);
             _services.Add(typeof(IComboSetService), fight);
-            handleFightStates.Add(fight);
+            _handleFightStates.Add(fight);
 
-            _services.Add(typeof(MouseService), new MouseService(GetService<IBitmapRepository>(), GetService<IScreenshot>()));
+            _services.Add(typeof(RefreshService), new RefreshService());
 
             _services.Add(typeof(HttpService), new HttpService(GetService<IActionRepository>(), 
                                                                GetService<ISendRequest>(), 
@@ -53,7 +54,7 @@ namespace Dwar.UI
                                                                GetService<Random>()));
 
             var actionControl = new ActionFightService(GetService<HttpService>(),
-                                                                        GetService<MouseService>(),
+                                                                        GetService<RefreshService>(),
                                                                         GetService<StartFightService>(),
                                                                         GetService<FightControlService>());
 
@@ -66,6 +67,6 @@ namespace Dwar.UI
             return (T)_services[typeof(T)];
         }
 
-        public IEnumerable<IHandleFightState> GetHandleFightStates() => handleFightStates;
+        public IEnumerable<IHandleFightState> GetHandleFightStates() => _handleFightStates;
     }
 }

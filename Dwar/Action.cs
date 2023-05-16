@@ -53,7 +53,7 @@ public class Action
         }
 
         _option = option;
-        _nameValueCollection = HttpUtility.ParseQueryString(Option);
+        _nameValueCollection = HttpUtility.ParseQueryString(_option);
     }
     public string GetAction()
     {

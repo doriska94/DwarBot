@@ -9,13 +9,13 @@ namespace Dwar.Services
     public class ActionFightService : IActionService, IActionSetService
     {
         private HttpService _actionHttpService;
-        private MouseService _mouseService;
+        private RefreshService _mouseService;
         private StartFightService _startFightService;
         private FightControlService _fightControlService;
-        private Action? _attack;
+        private Fight? _fightConfig;
 
         public ActionFightService(HttpService actionHttpService,
-                                  MouseService mouseService,
+                                  RefreshService mouseService,
                                   StartFightService startFightService,
                                   FightControlService fightControlService)
         {
@@ -24,25 +24,29 @@ namespace Dwar.Services
             _startFightService = startFightService;
             _fightControlService = fightControlService;
         }
-        public void SetAttack(Action attack)
+        public void SetAttack(Fight fightConfig)
         {
-            _attack = attack;
+            _fightConfig = fightConfig;
         }
 
         public async Task ExecuteAsync()
         {
-            if (_attack == null)
+            if (_fightConfig == null)
             {
                 throw new InvalidOperationException("Attack not setted");
             }
 
-            await _actionHttpService.ExecuteAsync(_attack); //Attack => http
+            await _actionHttpService.ExecuteAsync(_fightConfig.Attack); //Attack => http
             await _mouseService.ClickHunt(); //Click => ohota => mouse
 
             await _startFightService.WaitCannAttackAsync(); //wait start bot => screen analyse
 
 
-            //Todo Call somthing => http
+            //Call somthing => http
+            foreach (var action in _fightConfig.StartUpActions)
+            {
+                await _actionHttpService.ExecuteAsync(action); 
+            }
 
             await _fightControlService.Fight(); //fight => screen analyse
         }
