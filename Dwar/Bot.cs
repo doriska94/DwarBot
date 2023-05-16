@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Dwar
@@ -17,8 +18,23 @@ namespace Dwar
         public int FightCount { get; set; }
         public int FightTime { get; set; }
         public Guid FightId { get; set; } = Guid.Empty;
-        public Fight Fight { get => _fight; set { _fight = value; if (value != null) FightId = value.Id; else FightId = Guid.Empty; } }
+
+        [JsonIgnore]
+        public Fight Fight 
+        { 
+            get => _fight; 
+            set 
+            { 
+                _fight = value; 
+                if (value != null) 
+                    FightId = value.Id; 
+                else 
+                    FightId = Guid.Empty; 
+            } 
+        }
+        
         public SequenceType Type { get; set; }
+        
         public Bot()
         {
 

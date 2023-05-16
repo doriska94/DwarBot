@@ -17,12 +17,11 @@
             </MenuItem>
         </Menu>
         <Grid Margin="0,25,0,0">
-            <Button Visibility="Collapsed" Click="OnTestClick" HorizontalAlignment="Left" Width="120" Height="22" Margin="5" VerticalAlignment="Top">Test</Button>
-            <Button Visibility="Collapsed" Click="OnOpenBotClick" HorizontalAlignment="Left" Width="120" Height="22" Margin="150,5,5,5" VerticalAlignment="Top">Open Bot</Button>
             
             <WrapPanel Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left">
                 <TextBlock Margin="5">Bot Select</TextBlock>
                 <ComboBox  Margin="5" ItemsSource="{Binding Bots}" SelectedItem="{Binding SelectedBot}" DisplayMemberPath="Name" Width="200"/>
+                <Button Margin="5,5,30,5" Content="Update" Click="OnUpdateClick" Width="50"/>
                 <Button Margin="5" Content="Start" Click="OnStartClick" Width="50"/>
                 <Button Margin="5" Content="Stop" Click="OnStopClick" Width="50"/>
             </WrapPanel>

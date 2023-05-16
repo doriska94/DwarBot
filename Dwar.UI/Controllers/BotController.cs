@@ -14,11 +14,13 @@ namespace Dwar.UI.Controllers
         private IBotRepository _botRepository;
         private IFightRepository _fightRepository;
         private Bot? _selectedBot;
+        private Fight _selectedFight;
 
         public BindingList<Bot> Bots { get; set; }
         public BindingList<Fight> Fights { get; set; }
         public BindingList<SequenceType> Sequences { get; set; }
-        public Bot? SelectedBot { get => _selectedBot; set { _selectedBot = value; OnPropertyChanged(); } }
+        public Bot? SelectedBot { get => _selectedBot; set { _selectedBot = value;  SetSelectedFight(value); OnPropertyChanged(); } }
+        public Fight SelectedFight { get => _selectedFight; set { _selectedFight = value; SetFightId(value); OnPropertyChanged(); } }
 
         public BotController(IBotRepository botRepository, IFightRepository fightRepository)
         {
@@ -26,14 +28,20 @@ namespace Dwar.UI.Controllers
             _fightRepository = fightRepository;
 
             Bots = _botRepository.GetAll().ToBindingList();
+
             Fights = _fightRepository.GetAll().ToBindingList();
-            SequenceType = Enum.GetValues(typeof(SequenceType)).Cast<SequenceType>().ToBindingList();
+
+            Bots.ToList().ForEach(x => x.Fight = _fightRepository.Get(x.FightId));
+
+            Sequences = Enum.GetValues(typeof(SequenceType)).Cast<SequenceType>().ToBindingList();
         }
 
         public void Create()
         {
             var bot = _botRepository.Create();
             Bots.Add(bot);
+            SelectedBot = bot;
+            OnPropertyChanged(nameof(SelectedBot));
         }
         public void Update()
         {
@@ -48,6 +56,22 @@ namespace Dwar.UI.Controllers
                 return;
             _botRepository.Delete(SelectedBot);
             Bots.Remove(SelectedBot);
+        }
+        private void SetFightId(Fight fight)
+        {
+            if(fight == null) return;
+            if(SelectedBot== null) return;
+
+            SelectedBot.FightId = fight.Id;
+        }
+        private void SetSelectedFight(Bot? value)
+        {
+            if (value == null)
+            {
+                _selectedFight = null!;
+                return;
+            }
+            _selectedFight = _fightRepository.Get(value.FightId);
         }
     }
 }

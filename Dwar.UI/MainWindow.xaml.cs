@@ -57,12 +57,6 @@ public partial class MainWindow : Window
         //await fightService.ExecuteAsync();
     }
 
-    private void OnOpenBotClick(object sender, RoutedEventArgs e)
-    {
-      new BotWindow(new BotController(_startup.GetService<IBotRepository>(),
-                                      _startup.GetService<IFightRepository>())).Show();
-    }
-
     private void CoreWebView2_WebResourceRequested(object sender, CoreWebView2WebResourceRequestedEventArgs e)
     {
         var coockie = _startup.GetService<ICookie>();
@@ -129,7 +123,8 @@ public partial class MainWindow : Window
 
     private void OnBotOpenClick(object sender, RoutedEventArgs e)
     {
-        
+        new BotWindow(new BotController(_startup.GetService<IBotRepository>(),
+                                      _startup.GetService<IFightRepository>())).Show();
     }
 
     private void OnFightOpenClick(object sender, RoutedEventArgs e)
@@ -152,5 +147,10 @@ public partial class MainWindow : Window
     private void OnStopClick(object sender, RoutedEventArgs e)
     {
         _windowController.Stop();
+    }
+
+    private void OnUpdateClick(object sender, RoutedEventArgs e)
+    {
+        _windowController.Refresh();
     }
 }

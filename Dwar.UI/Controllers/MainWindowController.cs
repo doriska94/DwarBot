@@ -21,7 +21,7 @@ namespace Dwar.UI.Controllers
             _botRepository = botRepository;
             _botService = botService;
             Bots = _botRepository.GetAll().ToBindingList();
-            SelectedBot = Bots.First();
+            SelectedBot = Bots.FirstOrDefault();
         }
         public void Refresh()
         {

@@ -27,7 +27,7 @@
                 </WrapPanel>
                 <WrapPanel Margin="5">
                     <TextBlock Text="Fight/Farm Sequence" ToolTip = "Wait seconds after execute" Width="150" TextAlignment="Right" Margin="0,0,10,0" />
-                    <ComboBox ItemsSource="{Binding Fights}" SelectedItem="{Binding SelectedBot.Fight}" Width="200"/>
+                    <ComboBox ItemsSource="{Binding Fights}" SelectedItem="{Binding SelectedFight}" DisplayMemberPath="Name" Width="200"/>
                 </WrapPanel>
                 <WrapPanel Margin="5">
                     <TextBlock Text="Fight or Farm" Width="150" TextAlignment="Right" Margin="0,0,10,0"/>
