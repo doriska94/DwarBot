@@ -34,7 +34,7 @@ namespace Dwar.UI
             _services.Add(typeof(IGetRequest), httpRequest);
             _services.Add(typeof(ITargetRepository), httpRequest);
 
-            var start = new StartFightService(GetService<IBitmapRepository>());
+            var start = new StartFightService(GetService<IBitmapRepository>(), GetService<IScreenshot>());
             _services.Add(typeof(StartFightService), start);
             handleFightStates.Add(start);
 
@@ -49,7 +49,9 @@ namespace Dwar.UI
 
             _services.Add(typeof(HttpService), new HttpService(GetService<IActionRepository>(), 
                                                                GetService<ISendRequest>(), 
-                                                               GetService<IGetRequest>()));
+                                                               GetService<IGetRequest>(),
+                                                               GetService<Random>()));
+
             var actionControl = new ActionFightService(GetService<HttpService>(),
                                                                         GetService<MouseService>(),
                                                                         GetService<StartFightService>(),

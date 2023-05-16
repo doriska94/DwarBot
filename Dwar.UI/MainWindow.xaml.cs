@@ -41,12 +41,17 @@ namespace Dwar.UI
             //action_run.php?code=ATTACK_BOT&url_success=fight.php?522331141&url_error=hunt.php&bot_id=3188&chk=test
             //bot_id = 3188
             //random
-            var action = actionRepository.Create("attack_skelet", "attack_skelet", RequestType.Get, "/action_run.php",
-                "code=ATTACK_BOT&url_success=fight.php?301531141&url_error=hunt.php&bot_id=31888&chk=test");
-            var param = new Paramerter("bot_id", "3188", false,null!);
-            var paramRand = new Paramerter("url_success", "fight.php?", true, startup.GetService<Random>());
-            action.Paramerters.Add(param);
-            action.Paramerters.Add(paramRand);
+
+            //var action = actionRepository.Create("attack_skelet", "attack_skelet", RequestType.Get, "/action_run.php",
+            //    "code=ATTACK_BOT&url_success=fight.php?301531141&url_error=hunt.php&bot_id=31888&chk=test");
+            //var param = new Paramerter("bot_id", "3188", false, null!);
+            //var paramRand = new Paramerter("url_success", "fight.php?", true, startup.GetService<Random>());
+            //action.Paramerters.Add(param);
+            //action.Paramerters.Add(paramRand);
+            //actionRepository.Update(action);
+
+            var action = actionRepository.Get(Guid.Parse("4a3893fe-e69b-4d57-b0a5-2b8d1ca9d728"));
+
             var actionSetService = startup.GetService<IActionSetService>();
 
             actionSetService.SetAttack(action);

@@ -71,9 +71,10 @@ public class ActionRepository : IActionRepository
 
         Serialize();
     }
-    private string Serialize()
+    private void Serialize()
     {
-        return JsonSerializer.Serialize(_actions);
+        var json = JsonSerializer.Serialize(_actions);
+        File.WriteAllText(FileName,json);
     }
 
     private static List<Action>? Deserialize(string fileName)

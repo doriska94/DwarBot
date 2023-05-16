@@ -1,42 +1,33 @@
 ﻿using Dwar.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using WindowsInput;
-using WindowsInput.Native;
-using static System.Net.Mime.MediaTypeNames;
+using WindowsInput.Events;
 
-namespace Dwar.UI.WindowsRepositries
+namespace Dwar.UI.WindowsRepositries;
+
+public class UserInput : IUserInput
 {
-    public class UserInput : IUserInput
+    public UserInput()
     {
-        InputSimulator _inputSimulator;
-        public UserInput()
-        {
-            _inputSimulator = new InputSimulator();
-        }
-        public void Down()
-        {
-           _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_E);
-        }
 
-        public void Left()
-        {
-            _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_R);
-            
-        }
+    }
+    public void Down()
+    {
+        Simulate.Events().Click(KeyCode.Down);
+    }
 
-        public void Right()
-        {
-            _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_W);
-        }
+    public void Left()
+    {
+        Simulate.Events().Click(KeyCode.Left);
 
-        public void Up()
-        {
-            _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.VK_Q);
-        }
+    }
+
+    public void Right()
+    {
+        Simulate.Events().Click(KeyCode.Right);
+    }
+
+    public void Up()
+    {
+        Simulate.Events().Click(KeyCode.Up);
     }
 }
