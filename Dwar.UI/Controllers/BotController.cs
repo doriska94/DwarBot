@@ -14,13 +14,13 @@ namespace Dwar.UI.Controllers
         private IBotRepository _botRepository;
         private IFightRepository _fightRepository;
         private Bot? _selectedBot;
-        private Fight _selectedFight;
+        private Fight? _selectedFight;
 
         public BindingList<Bot> Bots { get; set; }
         public BindingList<Fight> Fights { get; set; }
         public BindingList<SequenceType> Sequences { get; set; }
         public Bot? SelectedBot { get => _selectedBot; set { _selectedBot = value;  SetSelectedFight(value); OnPropertyChanged(); } }
-        public Fight SelectedFight { get => _selectedFight; set { _selectedFight = value; SetFightId(value); OnPropertyChanged(); } }
+        public Fight? SelectedFight { get => _selectedFight; set { _selectedFight = value; SetFightId(value); OnPropertyChanged(); } }
 
         public BotController(IBotRepository botRepository, IFightRepository fightRepository)
         {
@@ -57,7 +57,7 @@ namespace Dwar.UI.Controllers
             _botRepository.Delete(SelectedBot);
             Bots.Remove(SelectedBot);
         }
-        private void SetFightId(Fight fight)
+        private void SetFightId(Fight? fight)
         {
             if(fight == null) return;
             if(SelectedBot== null) return;

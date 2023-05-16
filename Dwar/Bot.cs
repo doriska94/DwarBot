@@ -10,7 +10,7 @@ namespace Dwar
 {
     public class Bot
     {
-        private Fight _fight;
+        private Fight? _fight;
 
         public Guid Id { get; set; } = Guid.Empty;
         public string Name { get; set; } = String.Empty;
@@ -20,7 +20,7 @@ namespace Dwar
         public Guid FightId { get; set; } = Guid.Empty;
 
         [JsonIgnore]
-        public Fight Fight 
+        public Fight? Fight 
         { 
             get => _fight; 
             set 

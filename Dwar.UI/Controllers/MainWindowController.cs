@@ -14,7 +14,7 @@ namespace Dwar.UI.Controllers
         private IBotRepository _botRepository;
         private BotService _botService;
         public BindingList<Bot> Bots { get; set; }
-        public Bot SelectedBot { get; set; }
+        public Bot? SelectedBot { get; set; }
 
         public MainWindowController(IBotRepository botRepository, BotService botService)
         {
@@ -41,6 +41,8 @@ namespace Dwar.UI.Controllers
 
         public async void StartAsync()
         {
+            if (SelectedBot == null)
+                return;
             await _botService.StartAsync(SelectedBot);
         }
 
