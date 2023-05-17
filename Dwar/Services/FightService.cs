@@ -44,12 +44,12 @@ namespace Dwar.Services
             while (_startFightService.IsFightStarted() == false)
             {
                 await Task.Delay(100);
-            }
-            //await _mouseService.ClickHunt(); //Click => ohota => mouse
 
+            }
+            await Task.Delay(1000);
 
             var actions = _actionRepository.GetAll(_fightConfig.StartUpActions);
-            //Call somthing => http
+
             foreach (var action in actions)
             {
                 await _actionHttpService.ExecuteAsync(action); 
