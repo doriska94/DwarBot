@@ -27,7 +27,6 @@ namespace Dwar.UI
             _services.Add(typeof(IDomainRepositry),new DomainRepositry());
             _services.Add(typeof(IComboRepository), new ComboRepository());
             _services.Add(typeof(IBotRepository), new BotRepository());
-            _services.Add(typeof(IHpRepository), new HpRepository());
 
             _services.Add(typeof(IDomain), GetService<IDomainRepositry>().Get());
             _services.Add(typeof(Domain), GetService<IDomainRepositry>().Get());
@@ -40,6 +39,7 @@ namespace Dwar.UI
             _services.Add(typeof(ISendRequest), httpRequest);
             _services.Add(typeof(IGetRequest), httpRequest);
             _services.Add(typeof(ITargetRepository), httpRequest);
+            _services.Add(typeof(IHpRepository), new HpRepository(httpRequest,GetService<IDomain>()));
 
             var start = new StartFightService(GetService<IBitmapRepository>(), GetService<IScreenshot>());
             _services.Add(typeof(StartFightService), start);
