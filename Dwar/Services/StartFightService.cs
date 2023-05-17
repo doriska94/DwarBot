@@ -51,6 +51,10 @@ public class StartFightService : IHandleFightState
         
         return point;
     }
+    public void StopFight()
+    {
+        _state = FightState.Winn;
+    }
     private bool FightFinish()
     {
         return _state == FightState.Winn || _state == FightState.Lose;

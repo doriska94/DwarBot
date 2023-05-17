@@ -42,6 +42,8 @@ namespace Dwar.Services
             {
                 throw new InvalidOperationException("Sequnce not setted");
             }
+
+            _startFightControl.StopFight();
             
             var actionAttack = _actionRepository.Get(_fightConfig.AttackId);
             
