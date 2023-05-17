@@ -32,10 +32,9 @@ namespace Dwar.UI.Controllers
             _tabGrid = tabGrid;
             _tabControl = tabControl;
 
-            if (_webViewSecondTab == null)
-            {
-                CreateSecondTab(domain.GetUrl());
-            }
+            
+            CreateSecondTab(domain.GetUrl());
+            
             _tabGrid.Children.Add(_webViewSecondTab);
         }
 
@@ -49,10 +48,11 @@ namespace Dwar.UI.Controllers
             _webViewSecondTab.Source= new Uri(url);
             return _webViewSecondTab;
         }
-        public void OpenTab(string url)
+        public async void OpenTab(string url)
         {
             _tabItem.Visibility = Visibility.Visible;
             _tabControl.SelectedIndex = 1;
+            await _webViewSecondTab.EnsureCoreWebView2Async();
             _webViewSecondTab.CoreWebView2.Navigate(url);
         }
         public void CloseTab()
