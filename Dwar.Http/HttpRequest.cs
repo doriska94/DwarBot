@@ -45,7 +45,7 @@ public class HttpRequest: ISendRequest, IGetRequest, ITargetRepository
         return result.IsSuccessStatusCode;
     }
 
-    private async Task<string> GetContentAsync(Uri getUri)
+    public async Task<string> GetContentAsync(Uri getUri)
     {
         using var handler = new HttpClientHandler() { CookieContainer = _cookie.Get() };
         using var client = new HttpClient(handler) { BaseAddress = _domain.GetBaseUri() };

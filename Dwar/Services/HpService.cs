@@ -9,9 +9,8 @@ namespace Dwar.Services
 {
     public class HpService
     {
-        private const int CheckHpTimeMillis = 2000;
+        private const int CheckHpTimeMillis = 1000;
         private IHpRepository _hpRepository;
-
         public HpService(IHpRepository hpRepository)
         {
             _hpRepository = hpRepository;
@@ -19,11 +18,11 @@ namespace Dwar.Services
 
         public async Task WaitFullHp(StopBotCommand stopBot)
         {
-            Hp hp = _hpRepository.Get();
+            Hp hp = await _hpRepository.GetAsync();
             while (hp.IsFull() == false) 
             {
                 await Task.Delay(CheckHpTimeMillis);
-                hp = _hpRepository.Get();
+                hp = await _hpRepository.GetAsync();
                 if (stopBot.Stop)
                     return;
             } 
