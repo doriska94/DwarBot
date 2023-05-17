@@ -41,7 +41,7 @@ namespace Dwar.Services
             }
 
             await _actionHttpService.ExecuteAsync(_actionRepository.Get(_fightConfig.AttackId)); //Attack => http
-            await _mouseService.ClickHunt(); //Click => ohota => mouse
+            //await _mouseService.ClickHunt(); //Click => ohota => mouse
 
             await _startFightService.WaitCannAttackAsync(stopBot); //wait start bot => screen analyse
 

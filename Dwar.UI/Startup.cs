@@ -68,12 +68,17 @@ namespace Dwar.UI
                                                                         GetService<IActionRepository>());
 
             _services.Add(typeof(FightService), fightAction);
-            _services.Add(typeof(FarmEndService), new FarmEndService());
+
+            _services.Add(typeof(FarmEndService), new FarmEndService(GetService<StartFightService>()));
+
             var farmAction = new FarmService(
                                              GetService<RefreshService>(),
                                              GetService<IActionRepository>(),
                                              GetService<HttpService>(),
-                                             GetService<FarmEndService>());
+                                             GetService<FarmEndService>(),
+                                             GetService<StartFightService>(),
+                                             GetService<FightControlService>());
+
             _handleFightStates.Add(GetService<FarmEndService>());
 
             _services.Add(typeof(FarmService), farmAction);
