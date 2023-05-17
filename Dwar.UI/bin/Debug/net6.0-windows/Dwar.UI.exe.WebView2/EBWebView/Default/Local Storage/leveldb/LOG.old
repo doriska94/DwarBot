@@ -1,9 +1,18 @@
-<<<<<<< HEAD
-2023/05/16-23:04:52.948 18a8 Reusing MANIFEST C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
-2023/05/16-23:04:52.949 18a8 Recovering log #9
-2023/05/16-23:04:52.954 18a8 Reusing old log C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/000009.log 
-=======
-2023/05/17-09:01:16.643 32c0 Reusing MANIFEST C:\Users\tascud\source\repos\NewRepo\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
-2023/05/17-09:01:16.644 32c0 Recovering log #12
-2023/05/17-09:01:16.649 32c0 Reusing old log C:\Users\tascud\source\repos\NewRepo\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/000012.log 
->>>>>>> 8fa83c6afd68563b33c378af1ec4645d38d42ded
+2023/05/17-13:05:49.260 3f54 Reusing MANIFEST C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
+2023/05/17-13:05:49.261 3f54 Recovering log #39
+2023/05/17-13:05:49.265 3f54 Reusing old log C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/000039.log 
+2023/05/17-13:16:49.429 411c Level-0 table #43: started
+2023/05/17-13:16:49.450 411c Level-0 table #43: 17647 bytes OK
+2023/05/17-13:16:49.464 411c Delete type=0 #39
+2023/05/17-13:16:49.466 411c Compacting 4@0 + 1@1 files
+2023/05/17-13:16:49.485 411c Generated table #44@0: 24 keys, 3162 bytes
+2023/05/17-13:16:49.485 411c Compacted 4@0 + 1@1 files => 3162 bytes
+2023/05/17-13:16:49.494 411c compacted to: files[ 0 1 0 0 0 0 0 ]
+2023/05/17-13:16:49.496 411c Delete type=2 #33
+2023/05/17-13:16:49.496 411c Delete type=2 #36
+2023/05/17-13:16:49.496 411c Delete type=2 #38
+2023/05/17-13:16:49.496 411c Delete type=2 #40
+2023/05/17-13:16:49.496 411c Delete type=2 #43
+2023/05/17-13:41:23.385 411c Level-0 table #46: started
+2023/05/17-13:41:23.395 411c Level-0 table #46: 18815 bytes OK
+2023/05/17-13:41:23.398 411c Delete type=0 #42

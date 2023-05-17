@@ -28,7 +28,7 @@ namespace Dwar.Services
             var count = 0;
             while (IsRunning() && _startFightControl.IsFightStarted() == false)
             {
-                await Task.Delay(200);
+                await Task.Delay(500);
                 if (stopBot.Stop)
                     return;
 

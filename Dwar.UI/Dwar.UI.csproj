@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <Reference Include="WindowsInput">
-      <HintPath>..\..\..\..\Downloads\WindowsInput.dll</HintPath>
+      <HintPath>bin\Debug\net6.0-windows\WindowsInput.dll</HintPath>
     </Reference>
   </ItemGroup>
 
