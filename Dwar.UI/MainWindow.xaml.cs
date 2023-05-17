@@ -9,6 +9,7 @@ using System;
 using Dwar.UI.View;
 using System.Windows.Controls;
 using Dwar.UI.Controllers;
+using Microsoft.Web.WebView2.Wpf;
 
 namespace Dwar.UI;
 
@@ -17,7 +18,7 @@ public partial class MainWindow : Window
     private Startup _startup = new();
     private List<IHandleFightState> _handleFightStates = new();
     private MainWindowController _windowController;
-
+    private NewTab _newTab = null!;
     public MainWindow()
     {
         _startup.Configure();
@@ -79,12 +80,14 @@ public partial class MainWindow : Window
         refreshService.Refresh += OnRefresh;
         refreshService.GoToMain += OnBotStoped;
 
+        _newTab = new(_webView, domain, huntTab, _startup, tabGrid);
+
     }
 
     private void OnRefresh()
     {
         var domain = _startup.GetService<Domain>();
-        _webView.CoreWebView2.Navigate(new Uri(domain.GetBaseUri(), "/hunt.php").AbsoluteUri);
+        _newTab.OpenTab(new Uri(domain.GetBaseUri(), "/hunt.php").AbsoluteUri);
     }
 
     private void OnDomainUrlChanged(object sender, TextChangedEventArgs e)
@@ -128,6 +131,7 @@ public partial class MainWindow : Window
 
     private void OnStopClick(object sender, RoutedEventArgs e)
     {
+        _newTab.CloseTab();
         _windowController.Stop();
     }
 
@@ -141,5 +145,16 @@ public partial class MainWindow : Window
         var bitmapRepository = _startup.GetService<IScreenshot>();
         var bitmap = bitmapRepository.TakeScreenShot();
         bitmap.Save("screen.png");
+    }
+
+    WebView2 _webViewSecondTab;
+    private void OnTestClick(object sender, RoutedEventArgs e)
+    {
+        var domain = _startup.GetService<Domain>();
+        var uri = new Uri(domain.GetBaseUri(), "/hunt.php");
+        if (_webViewSecondTab == null)
+        {
+            new Test(_webViewSecondTab).Show();
+        }
     }
 }

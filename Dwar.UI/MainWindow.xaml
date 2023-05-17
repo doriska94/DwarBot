@@ -16,6 +16,7 @@
                 <MenuItem Header="Bot" Click="OnBotOpenClick"/>
                 <Separator/>
                 <MenuItem Header="Screenshot" Click="OnScreenshotClick"/>
+                <MenuItem Header="Test" Click="OnTestClick"/>
             </MenuItem>
         </Menu>
         <Grid Margin="0,25,0,0">
@@ -28,8 +29,16 @@
                 <Button Margin="5" Content="Stop" Click="OnStopClick" Width="50"/>
             </WrapPanel>
             <TextBox Name="domainInput"  TextChanged="OnDomainUrlChanged" HorizontalAlignment="Right" Width="300" Height="22" Margin="5,5,10,5" VerticalAlignment="Top"></TextBox>
-            <wv2:WebView2 Name="_webView"
-                      Source="https://dwarlegacy.ru/" Margin="0,40,0,0" />
+            <TabControl x:Name="windowTabs" Margin="0,40,0,0">
+                <TabItem Header="Main">
+                        <wv2:WebView2 Name="_webView" Source="https://dwarlegacy.ru/" />
+                </TabItem>
+                <TabItem Name="huntTab" Header="Hunt" Visibility="Collapsed">
+                    <Grid Name="tabGrid">
+                        
+                    </Grid>
+                </TabItem>
+            </TabControl>
         </Grid>
     </Grid>
 </Window>

@@ -54,7 +54,7 @@ namespace Dwar.Services
             _farmEndService.SetStartFarm();
 
             await _farmEndService.WaitEnd(timeOut:120, stopBot);
-
+            
             if(_startFightControl.IsFightStarted())
             {
                 await _mouseService.GotToMainClick();
@@ -69,9 +69,6 @@ namespace Dwar.Services
             }
 
             await Task.Delay(1000);
-            
-            
-
         }
     }
 }

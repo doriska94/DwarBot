@@ -28,6 +28,7 @@ public class FightControlService : IHandleFightState
         if (combo.FightInDefence)
         {
             await _startFightService.WaitCannAttackAsync(stopBot);
+            await _startFightService.SetFocus();
             if (stopBot.Stop)
                 return;
             _userInput.Left();
@@ -36,6 +37,8 @@ public class FightControlService : IHandleFightState
         while (FightFinish() == false)
         {
             await _startFightService.WaitCannAttackAsync(stopBot);
+            await _startFightService.SetFocus();
+
             if (stopBot.Stop)
                 return;
             var nextStep = combo.GetNext();
