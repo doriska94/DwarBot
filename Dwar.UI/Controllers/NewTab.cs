@@ -51,6 +51,10 @@ namespace Dwar.UI.Controllers
             {
                 CreateSecondTab(url);
             }
+            else
+            {
+                _webViewSecondTab.CoreWebView2.Navigate(url);
+            }
 
             _tabGrid.Children.Add(_webViewSecondTab);
 
@@ -73,9 +77,9 @@ namespace Dwar.UI.Controllers
 
             string filter = "*";
 
-            _webView.CoreWebView2.AddWebResourceRequestedFilter(filter,
+            _webViewSecondTab.CoreWebView2.AddWebResourceRequestedFilter(filter,
                                                        CoreWebView2WebResourceContext.All);
-            _webView.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
+            _webViewSecondTab.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
         }
 
         private void CoreWebView2_WebResourceRequested(object? sender, CoreWebView2WebResourceRequestedEventArgs e)
