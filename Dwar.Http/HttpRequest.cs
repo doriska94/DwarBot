@@ -64,6 +64,8 @@ public class HttpRequest: ISendRequest, IGetRequest, ITargetRepository
 
     public async Task<Target> GetFreeTargetsAsync(string name)
     {
+        if(string.IsNullOrEmpty(name))
+                return new Target(0,"",0);
         var action = _actionRepository.GetActionGetTargets();
 
         var uri = new Uri(_domain.GetBaseUri(), action.GetAction());

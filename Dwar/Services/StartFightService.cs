@@ -40,7 +40,8 @@ public class StartFightService : IHandleFightState
 
     public async Task<bool> CannAttackAsync()
     {
-        return await GetTemplatePositionAsync() != Point.Empty;
+        var point = await GetTemplatePositionAsync();
+        return point != Point.Empty;
     }
 
     private async Task<Point> GetTemplatePositionAsync()

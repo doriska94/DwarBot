@@ -41,9 +41,12 @@ namespace Dwar.Services
             }
 
             await _actionHttpService.ExecuteAsync(_actionRepository.Get(_fightConfig.AttackId)); //Attack => http
+            while (_startFightService.IsFightStarted() == false)
+            {
+                await Task.Delay(100);
+            }
             //await _mouseService.ClickHunt(); //Click => ohota => mouse
 
-            await _startFightService.WaitCannAttackAsync(stopBot); //wait start bot => screen analyse
 
             var actions = _actionRepository.GetAll(_fightConfig.StartUpActions);
             //Call somthing => http
@@ -51,6 +54,8 @@ namespace Dwar.Services
             {
                 await _actionHttpService.ExecuteAsync(action); 
             }
+
+            await _startFightService.WaitCannAttackAsync(stopBot); //wait start bot => screen analyse
 
             await _fightControlService.Fight(stopBot); //fight => screen analyse
         }
