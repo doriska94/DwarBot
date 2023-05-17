@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2023/05/17-13:05:49.260 3f54 Reusing MANIFEST C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
 2023/05/17-13:05:49.261 3f54 Recovering log #39
 2023/05/17-13:05:49.265 3f54 Reusing old log C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/000039.log 
@@ -16,3 +17,8 @@
 2023/05/17-13:41:23.385 411c Level-0 table #46: started
 2023/05/17-13:41:23.395 411c Level-0 table #46: 18815 bytes OK
 2023/05/17-13:41:23.398 411c Delete type=0 #42
+=======
+2023/05/17-14:41:29.379 2978 Reusing MANIFEST C:\Users\tascud\source\repos\NewRepo\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
+2023/05/17-14:41:29.381 2978 Recovering log #3
+2023/05/17-14:41:29.386 2978 Reusing old log C:\Users\tascud\source\repos\NewRepo\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/000003.log 
+>>>>>>> 110f2a61345028d1ccaf511b608a30a99097c0a2
