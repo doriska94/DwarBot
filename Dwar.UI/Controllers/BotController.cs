@@ -60,9 +60,10 @@ namespace Dwar.UI.Controllers
         private void SetFightId(Fight? fight)
         {
             if(fight == null) return;
-            if(SelectedBot== null) return;
+            if(_selectedBot == null) return;
 
-            SelectedBot.FightId = fight.Id;
+            _selectedBot.FightId = fight.Id;
+            OnPropertyChanged(nameof(SelectedBot));
         }
         private void SetSelectedFight(Bot? value)
         {
@@ -71,7 +72,8 @@ namespace Dwar.UI.Controllers
                 _selectedFight = null!;
                 return;
             }
-            _selectedFight = _fightRepository.Get(value.FightId);
+            _selectedFight = Fights.FirstOrDefault(x=>x.Id == value.FightId);
+            OnPropertyChanged(nameof(SelectedFight));
         }
     }
 }

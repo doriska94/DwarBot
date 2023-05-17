@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,20 +11,30 @@ namespace Dwar.Services
     {
         public const string FarmEnd = "hunt_conf.php?mode=farm&action=cancel";
         private FarmState _state;
+        private StartFightService _startFightControl;
+
+        public FarmEndService(StartFightService startFightControl)
+        {
+            _startFightControl = startFightControl;
+        }
+
         public void SetStartFarm()
         {
             _state = FarmState.Running;
         }
+
         public async Task WaitEnd(int timeOut, StopBotCommand stopBot)
         {
             var count = 0;
-            while (IsRunning())
+            while (IsRunning() && _startFightControl.IsFightStarted() == false)
             {
-                await Task.Delay(500);
+                await Task.Delay(200);
                 if (stopBot.Stop)
                     return;
-                //if (timeOut * 2 < count)
-                //    return;
+
+                if (timeOut * 2 < count)
+                    return;
+
                 count++;
             }
         }

@@ -1,23 +1,14 @@
 ﻿using Dwar.Http;
 using Dwar.Repositorys;
 using Dwar.Services;
-using HtmlAgilityPack;
 using Microsoft.Web.WebView2.Core;
-using System.Diagnostics;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Documents;
 using System.Linq;
 using System.Collections.Generic;
 using System;
 using Dwar.UI.View;
 using System.Windows.Controls;
 using Dwar.UI.Controllers;
-using System.Security.Principal;
-using System.Windows.Media;
-using Microsoft.Web.WebView2.Wpf;
 
 namespace Dwar.UI;
 
@@ -26,39 +17,24 @@ public partial class MainWindow : Window
     private Startup _startup = new();
     private List<IHandleFightState> _handleFightStates = new();
     private MainWindowController _windowController;
-    private WebView2 _serviceHandling;
+
     public MainWindow()
     {
         _startup.Configure();
         InitializeComponent();
         _windowController = new MainWindowController(_startup.GetService<IBotRepository>(),
                                                      _startup.GetService<BotService>());
+        _windowController.Stoped += OnBotStoped;
         DataContext= _windowController;
     }
 
-    private void OnTestClick(object sender, RoutedEventArgs e)
+    private void OnBotStoped()
     {
-        //action_run.php?code=ATTACK_BOT&url_success=fight.php?522331141&url_error=hunt.php&bot_id=3188&chk=test
-        //bot_id = 3188
-        //random
+        WindowState = WindowState.Maximized;
+        Focus();
 
-        //var action = actionRepository.Create("attack_skelet", "attack_skelet", RequestType.Get, "/action_run.php",
-        //    "code=ATTACK_BOT&url_success=fight.php?301531141&url_error=hunt.php&bot_id=31888&chk=test");
-        //var param = new Paramerter("bot_id", "3188", false, null!);
-        //var paramRand = new Paramerter("url_success", "fight.php?", true, startup.GetService<Random>());
-        //action.Paramerters.Add(param);
-        //action.Paramerters.Add(paramRand);
-        //actionRepository.Update(action);
-
-        var actionRepository = _startup.GetService<IActionRepository>();
-        var action = actionRepository.Get(Guid.Parse("4a3893fe-e69b-4d57-b0a5-2b8d1ca9d728"));
-
-        var actionSetService = _startup.GetService<IActionSetService>();
-        var fightrepository = _startup.GetService<IFightRepository>();
-        actionSetService.SetAttack(fightrepository.Create("Skeleton", action.Id, new List<Guid>()));
-
-        var fightService = _startup.GetService<FightService>();
-        //await fightService.ExecuteAsync();
+        var domain = _startup.GetService<Domain>();
+        _webView.CoreWebView2.Navigate(new Uri(domain.GetBaseUri(), "/main.php").AbsoluteUri);
     }
 
     private void CoreWebView2_WebResourceRequested(object sender, CoreWebView2WebResourceRequestedEventArgs e)
@@ -101,6 +77,7 @@ public partial class MainWindow : Window
 
         var refreshService = _startup.GetService<RefreshService>();
         refreshService.Refresh += OnRefresh;
+        refreshService.GoToMain += OnBotStoped;
 
     }
 
@@ -121,6 +98,7 @@ public partial class MainWindow : Window
     private void OnActionOpenClick(object sender, RoutedEventArgs e)
     {
         var actionController = new ActionController(_startup.GetService<IActionRepository>(),
+                                                    //new MemoryTargetRepository());
                                                     _startup.GetService<ITargetRepository>()); ;
         new ActionWindow(actionController).Show();
     }

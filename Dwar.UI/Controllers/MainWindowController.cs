@@ -11,6 +11,7 @@ namespace Dwar.UI.Controllers
 {
     public class MainWindowController
     {
+        public event System.Action Stoped = null!;
         private StopBotCommand? _stopBotCommand;
         private IBotRepository _botRepository;
         private BotService _botService;
@@ -56,7 +57,11 @@ namespace Dwar.UI.Controllers
             {
 
             }
-            _stopBotCommand = null!;
+            finally 
+            { 
+                _stopBotCommand = null;
+                Stoped?.Invoke();
+            }
         }
 
         public void Stop()
@@ -65,6 +70,7 @@ namespace Dwar.UI.Controllers
                 return;
             _stopBotCommand.Stop = true;
             _botService.Stop();
+            Stoped?.Invoke();
         }
     }
 }

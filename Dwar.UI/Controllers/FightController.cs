@@ -15,17 +15,19 @@ namespace Dwar.UI.Controllers
 
         public IEnumerable<FightModel> Fights => _fights;
         public FightModel? SelectedFight { get => _selectedFight; set { _selectedFight = value; OnPropertyChanged(); } }
-        public Action? SelectedStartUpAction { get; set; }
         public BindingList<Action> AttackActions { get; set; }
+        public Action? SelectedStartUpAction { get; set; }
+
+
         private IFightRepository _repository;
         private IActionRepository _actionRepository;
         private FightModel? _selectedFight;
-        
+
         public FightController(IFightRepository repository, IActionRepository actionRepository)
         {
             _repository = repository;
             _actionRepository = actionRepository;
-            
+
             AttackActions = _actionRepository.GetAll().ToBindingList();
 
             _fights = _repository.GetAll().Select(x => Convert(x)).ToBindingList();
@@ -34,7 +36,8 @@ namespace Dwar.UI.Controllers
         private FightModel Convert(Fight fight)
         {
             var fightModel = FightModel.Create(fight);
-            fightModel.Attack = _actionRepository.Get(fight.AttackId);
+            fightModel.Attack = AttackActions.FirstOrDefault(x=> x.Id == fight.AttackId)!;
+            fightModel.Attack = AttackActions.FirstOrDefault(x=> x.Id == fight.AttackId)!;
             fightModel.StartUpActions = _actionRepository.GetAll(fight.StartUpActions).ToBindingList();
             return fightModel;
         }
@@ -51,7 +54,7 @@ namespace Dwar.UI.Controllers
 
             Fight fight;
 
-            if(SelectedFight.Id == Guid.Empty)
+            if (SelectedFight.Id == Guid.Empty)
             {
                 fight = _repository.Create(SelectedFight.Name, SelectedFight.Attack.Id, SelectedFight.StartUpActions.Select(x => x.Id));
             }
@@ -59,13 +62,14 @@ namespace Dwar.UI.Controllers
             {
                 fight = Fight.FightFactory.Create(SelectedFight.Id, SelectedFight.Name, SelectedFight.Attack, SelectedFight.StartUpActions);
             }
+
             _repository.Save(fight);
-            
+
         }
 
         public void Delete()
         {
-            if(SelectedFight == null)
+            if (SelectedFight == null)
                 return;
             if (SelectedFight.Id == Guid.Empty)
             {

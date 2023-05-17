@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <Reference Include="WindowsInput">
-      <HintPath>..\..\dwar\dwar\bin\Debug\WindowsInput.dll</HintPath>
+      <HintPath>..\..\..\..\Downloads\WindowsInput.dll</HintPath>
     </Reference>
   </ItemGroup>
 

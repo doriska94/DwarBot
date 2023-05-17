@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 2023/05/16-23:20:22.691 9ec Reusing MANIFEST C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Session Storage/MANIFEST-000001
 2023/05/16-23:20:22.692 9ec Recovering log #3
 2023/05/16-23:20:22.697 9ec Reusing old log C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Session Storage/000003.log 
+=======
+2023/05/17-09:02:37.325 7f78 Reusing MANIFEST C:\Users\tascud\source\repos\NewRepo\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Session Storage/MANIFEST-000001
+2023/05/17-09:02:37.327 7f78 Recovering log #3
+2023/05/17-09:02:37.332 7f78 Reusing old log C:\Users\tascud\source\repos\NewRepo\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Session Storage/000003.log 
+>>>>>>> 8fa83c6afd68563b33c378af1ec4645d38d42ded

@@ -16,13 +16,13 @@ namespace Dwar.UI.Controllers
         private ActionModel? _selectedAction;
         private IActionRepository _actionRepository;
         private ITargetRepository _targetRepository;
-        private Target selectedTarget;
+        private Target? _selectedTarget;
 
         public IEnumerable<ActionModel> Actions { get => _actions; }
-        public ActionModel? SelectedAction { get => _selectedAction; set { _selectedAction = value; OnPropertyChanged(); } }
+        public ActionModel? SelectedAction { get => _selectedAction; set { _selectedAction = value; SetAction(value); OnPropertyChanged(); } }
         public BindingList<RequestType> RequestTypes { get; set; }
-        public BindingList<Target> Targets { get; set; }
-        public Target SelectedTarget { get => selectedTarget; set { selectedTarget = value; OnPropertyChanged(); SetTarget(value); } }
+        public BindingList<Target> Targets { get; set; } = null!;
+        public Target? SelectedTarget { get => _selectedTarget; set { _selectedTarget = value;  SetTarget(value); OnPropertyChanged(); } }
         public Paramerter? SelectedParameter { get; set; }
         public ActionController(IActionRepository actionRepository, ITargetRepository targetRepository)
         {
@@ -40,12 +40,13 @@ namespace Dwar.UI.Controllers
             OnPropertyChanged(nameof(Targets));
         }
 
-        private void SetTarget(Target target)
+        private void SetTarget(Target? target)
         {
             if (target == null)
                 return;
             if (SelectedAction == null)
                 return;
+
             SelectedAction.MobName = target.Name;
         }
         public void SetAction(ActionModel? action)
@@ -53,7 +54,8 @@ namespace Dwar.UI.Controllers
             if (action == null)
                 return;
 
-            selectedTarget = Targets.ToList().FirstOrDefault(x => x.Name == action.MobName)!;
+            _selectedTarget = Targets.ToList().FirstOrDefault(x => x.Name == action.MobName)!;
+            OnPropertyChanged(nameof(SelectedTarget));
         }
 
         public void Create()

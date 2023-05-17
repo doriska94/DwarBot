@@ -20,7 +20,7 @@ public class StartFightService : IHandleFightState
 
     public async Task WaitCannAttackAsync(StopBotCommand stopBot)
     {
-        while (await IsFightStartedAsync() == false)
+        while (await CannAttackAsync() == false)
         {
             if (FightFinish())
                 return;
@@ -29,10 +29,7 @@ public class StartFightService : IHandleFightState
                 throw new TaskCanceledException("User cancel");
         }
     }
-    public async Task<bool> CannAttackAsync()
-    {
-        return await IsFightStartedAsync();
-    }
+    
     public async Task SetFocus()
     {
         var point = await GetTemplatePositionAsync();
@@ -41,7 +38,7 @@ public class StartFightService : IHandleFightState
     }
 
 
-    public async Task<bool> IsFightStartedAsync()
+    public async Task<bool> CannAttackAsync()
     {
         return await GetTemplatePositionAsync() != Point.Empty;
     }
@@ -57,6 +54,11 @@ public class StartFightService : IHandleFightState
     private bool FightFinish()
     {
         return _state == FightState.Winn || _state == FightState.Lose;
+    }
+
+    public bool IsFightStarted()
+    {
+        return _state == FightState.Running;
     }
 
     public void HandleRequest(string url)
