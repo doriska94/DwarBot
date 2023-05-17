@@ -45,7 +45,7 @@ namespace Dwar.UI.Controllers
         {
             _tabItem.Visibility = Visibility.Visible;
             
-            if(_webViewSecondTab != null)
+            if(_webViewSecondTab == null)
             {
                 CreateSecondTab(url);
             }
@@ -55,7 +55,8 @@ namespace Dwar.UI.Controllers
         }
         public void CloseTab()
         {
-            _tabItem.Visibility=Visibility.Collapsed;
+            _tabItem.Visibility = Visibility.Collapsed;
+            
             _tabGrid.Children.Clear();
         }
         private async void OnContentLoading(object? sender, CoreWebView2ContentLoadingEventArgs e)
