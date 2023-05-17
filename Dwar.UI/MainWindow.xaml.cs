@@ -78,7 +78,7 @@ public partial class MainWindow : Window
         refreshService.Refresh += OnRefresh;
         refreshService.GoToMain += OnBotStoped;
 
-        _newTab = new(_webView, domain, huntTab, _startup, tabGrid);
+        _newTab = new(_webView, domain, huntTab, _startup, tabGrid,windowTabs);
 
     }
 

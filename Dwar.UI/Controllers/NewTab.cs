@@ -20,15 +20,17 @@ namespace Dwar.UI.Controllers
         private WebView2 _webViewSecondTab = null!;
         private IDomain _domain;
         private TabItem _tabItem;
+        private TabControl _tabControl;
         private Grid _tabGrid;
         private Startup _startup;
-        public NewTab(WebView2 webView, IDomain domain, TabItem tabItem, Startup startup, Grid tabGrid)
+        public NewTab(WebView2 webView, IDomain domain, TabItem tabItem, Startup startup, Grid tabGrid, TabControl tabControl)
         {
             _webView = webView;
             _domain = domain;
             _tabItem = tabItem;
             _startup = startup;
             _tabGrid = tabGrid;
+            _tabControl = tabControl;
         }
 
         private WebView2 CreateSecondTab(string url)
@@ -44,8 +46,8 @@ namespace Dwar.UI.Controllers
         public void OpenTab(string url)
         {
             _tabItem.Visibility = Visibility.Visible;
-            
-            if(_webViewSecondTab == null)
+            _tabControl.SelectedIndex = 1;
+            if (_webViewSecondTab == null)
             {
                 CreateSecondTab(url);
             }
@@ -58,6 +60,7 @@ namespace Dwar.UI.Controllers
             _tabItem.Visibility = Visibility.Collapsed;
             
             _tabGrid.Children.Clear();
+            _tabControl.SelectedIndex = 0;
         }
         private async void OnContentLoading(object? sender, CoreWebView2ContentLoadingEventArgs e)
         {
