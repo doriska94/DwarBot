@@ -33,9 +33,7 @@ public partial class MainWindow : Window
     {
         WindowState = WindowState.Maximized;
         Focus();
-
-        var domain = _startup.GetService<Domain>();
-        _webView.CoreWebView2.Navigate(new Uri(domain.GetBaseUri(), "/main.php").AbsoluteUri);
+        _newTab.CloseTab();
     }
 
     private void CoreWebView2_WebResourceRequested(object sender, CoreWebView2WebResourceRequestedEventArgs e)
@@ -131,7 +129,6 @@ public partial class MainWindow : Window
 
     private void OnStopClick(object sender, RoutedEventArgs e)
     {
-        _newTab.CloseTab();
         _windowController.Stop();
     }
 

@@ -45,7 +45,7 @@ namespace Dwar.UI.Controllers
         {
             _tabItem.Visibility = Visibility.Visible;
             
-            if(_webViewSecondTab != null)
+            if(_webViewSecondTab == null)
             {
                 CreateSecondTab(url);
             }
