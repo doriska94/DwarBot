@@ -55,7 +55,8 @@ namespace Dwar.UI.Controllers
         }
         public void CloseTab()
         {
-            _tabItem.Visibility=Visibility.Collapsed;
+            _tabItem.Visibility = Visibility.Collapsed;
+            
             _tabGrid.Children.Clear();
         }
         private async void OnContentLoading(object? sender, CoreWebView2ContentLoadingEventArgs e)

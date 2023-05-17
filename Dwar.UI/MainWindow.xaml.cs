@@ -147,14 +147,9 @@ public partial class MainWindow : Window
         bitmap.Save("screen.png");
     }
 
-    WebView2 _webViewSecondTab;
+   
     private void OnTestClick(object sender, RoutedEventArgs e)
     {
-        var domain = _startup.GetService<Domain>();
-        var uri = new Uri(domain.GetBaseUri(), "/hunt.php");
-        if (_webViewSecondTab == null)
-        {
-            new Test(_webViewSecondTab).Show();
-        }
+        
     }
 }
