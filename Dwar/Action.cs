@@ -20,7 +20,7 @@ public class Action
     public int WaitAfterExecute { get; set; }
     public List<Paramerter> Paramerters { get; set; } = new();
     public RequestType RequestType { get; set; }
-    public string MobName { get; set; }
+    public string? MobName { get; set; }
 
     public Action()
     {

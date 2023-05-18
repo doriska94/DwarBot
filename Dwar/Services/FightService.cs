@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 namespace Dwar.Services
 {
@@ -39,20 +40,28 @@ namespace Dwar.Services
             {
                 throw new InvalidOperationException("Attack not setted");
             }
+            _startFightService.StopFight();
 
-            await _actionHttpService.ExecuteAsync(_actionRepository.Get(_fightConfig.AttackId)); //Attack => http
-            while (_startFightService.IsFightStarted() == false)
+            while (await _actionHttpService.ExecuteAsync(_actionRepository.Get(_fightConfig.AttackId)) == false)
             {
                 await Task.Delay(100);
-
+                if (stopBot.Stop)
+                {
+                    return;
+                }
             }
-            await Task.Delay(1000);
+            _startFightService.OnStartFight();
 
             var actions = _actionRepository.GetAll(_fightConfig.StartUpActions);
 
             foreach (var action in actions)
             {
-                await _actionHttpService.ExecuteAsync(action); 
+                while( await _actionHttpService.ExecuteAsync(action) == false)
+                {
+                    await Task.Delay(100);
+                    if (stopBot.Stop)
+                        return;
+                }
             }
 
             await _startFightService.WaitCannAttackAsync(stopBot); //wait start bot => screen analyse

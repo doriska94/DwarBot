@@ -2,5 +2,5 @@
 
 public interface IHpRepository
 {
-    Task<Hp> GetAsync();
+    Hp Get();
 }

@@ -20,15 +20,15 @@ namespace Dwar.Http
             _domain = domain;
         }
 
-        public async Task<Hp> GetAsync()
+        public Hp Get()
         {
             var getUri = new Uri(_domain.GetBaseUri(), UserHp);
-            var result = await _httpRequest.GetContentAsync(getUri);
+            var result = _httpRequest.GetRequest(getUri.AbsoluteUri);
 
             return GetHp(result);
         }
 
-        public static Hp GetHp(string response)
+        public Hp GetHp(string response)
         {
             try
             {

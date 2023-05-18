@@ -10,11 +10,16 @@ using Dwar.UI.View;
 using System.Windows.Controls;
 using Dwar.UI.Controllers;
 using Microsoft.Web.WebView2.Wpf;
+using System.Reflection.Metadata;
+using System.IO;
+using System.Text;
+using System.DirectoryServices.ActiveDirectory;
 
 namespace Dwar.UI;
 
 public partial class MainWindow : Window
 {
+    private bool Setted = false;
     private Startup _startup = new();
     private List<IHandleFightState> _handleFightStates = new();
     private MainWindowController _windowController;
@@ -26,7 +31,7 @@ public partial class MainWindow : Window
         _windowController = new MainWindowController(_startup.GetService<IBotRepository>(),
                                                      _startup.GetService<BotService>());
         _windowController.Stoped += OnBotStoped;
-        DataContext= _windowController;
+        DataContext = _windowController;
     }
 
     private void OnBotStoped()
@@ -40,10 +45,9 @@ public partial class MainWindow : Window
     {
         var coockie = _startup.GetService<ICookie>();
         var headers = e.Request.Headers;
-
+        var content = e.Request.Content;
         _handleFightStates.ForEach(x => x.HandleRequest(e.Request.Uri));
 
-        
         foreach (var header in headers)
         {
             if (header.Key.ToLower() == "cookie")
@@ -54,20 +58,37 @@ public partial class MainWindow : Window
 
     }
 
+    public const string Victory = "*fightover_victory.ogg*";
+    public const string Defeat = "*fightover_defeat.ogg*";
+    public const string StartFight = "*combo.css*";
+    public const string FarmEnd = "*hunt_conf.php?mode=farm&action=cancel*";
+
     private void OnContentLoadingAsync(object sender, CoreWebView2ContentLoadingEventArgs e)
     {
-        string filter = "*";
+        if (Setted)
+            return;
 
+        string filter = "*main.php*";
+
+        _webView.CoreWebView2.AddWebResourceRequestedFilter(Victory,
+                                                   CoreWebView2WebResourceContext.All);
+        _webView.CoreWebView2.AddWebResourceRequestedFilter(Defeat,
+                                                   CoreWebView2WebResourceContext.All);
+        _webView.CoreWebView2.AddWebResourceRequestedFilter(StartFight,
+                                                   CoreWebView2WebResourceContext.All);
+        _webView.CoreWebView2.AddWebResourceRequestedFilter(FarmEnd,
+                                                   CoreWebView2WebResourceContext.All);
         _webView.CoreWebView2.AddWebResourceRequestedFilter(filter,
                                                    CoreWebView2WebResourceContext.All);
         _webView.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested!;
-        
+
+        Setted = true;
     }
 
 
     private void OnWindowLoaded(object sender, RoutedEventArgs e)
     {
-        
+
         _handleFightStates = _startup.GetHandleFightStates().ToList();
         _webView.ContentLoading += OnContentLoadingAsync!;
 
@@ -78,7 +99,7 @@ public partial class MainWindow : Window
         refreshService.Refresh += OnRefresh;
         refreshService.GoToMain += OnBotStoped;
 
-        _newTab = new(_webView, domain, huntTab, _startup, tabGrid,windowTabs);
+        _newTab = new(_webView, domain, huntTab, _startup, tabGrid, windowTabs);
 
     }
 
@@ -99,7 +120,6 @@ public partial class MainWindow : Window
     private void OnActionOpenClick(object sender, RoutedEventArgs e)
     {
         var actionController = new ActionController(_startup.GetService<IActionRepository>(),
-                                                    //new MemoryTargetRepository());
                                                     _startup.GetService<ITargetRepository>()); ;
         new ActionWindow(actionController).Show();
     }
@@ -112,7 +132,7 @@ public partial class MainWindow : Window
 
     private void OnFightOpenClick(object sender, RoutedEventArgs e)
     {
-        new FightWindow(new FightController(_startup.GetService<IFightRepository>(), 
+        new FightWindow(new FightController(_startup.GetService<IFightRepository>(),
                                             _startup.GetService<IActionRepository>())
                        ).Show();
     }
@@ -144,9 +164,8 @@ public partial class MainWindow : Window
         bitmap.Save("screen.png");
     }
 
-   
     private void OnTestClick(object sender, RoutedEventArgs e)
     {
-        
+
     }
 }

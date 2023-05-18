@@ -30,5 +30,17 @@ namespace Dwar
             }
             Url = url;
         }
+
+        public string GetProtocol()
+        {
+            var uri = GetBaseUri();
+            return uri.Scheme+"://";
+        }
+
+        public string GetDomain()
+        {
+            var uri = GetBaseUri();
+            return uri.Host;
+        }
     }
 }

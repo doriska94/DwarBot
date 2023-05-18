@@ -1,3 +1,6 @@
-2023/05/17-18:27:09.077 3b40 Reusing MANIFEST C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Session Storage/MANIFEST-000001
-2023/05/17-18:27:09.078 3b40 Recovering log #3
-2023/05/17-18:27:09.085 3b40 Reusing old log C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Session Storage/000003.log 
+2023/05/18-16:26:00.751 3c7c Reusing MANIFEST C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Session Storage/MANIFEST-000001
+2023/05/18-16:26:00.752 3c7c Recovering log #3
+2023/05/18-16:26:00.758 3c7c Reusing old log C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Session Storage/000003.log 
+2023/05/18-17:04:15.789 3c7c Level-0 table #5: started
+2023/05/18-17:04:15.803 3c7c Level-0 table #5: 16491 bytes OK
+2023/05/18-17:04:15.815 3c7c Delete type=0 #3

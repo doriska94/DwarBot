@@ -26,5 +26,9 @@ namespace Dwar
             _step %= ComboSteps.Count;
             return nextStep;
         }
+        public void Reset()
+        {
+            _step = 0;
+        }
     }
 }

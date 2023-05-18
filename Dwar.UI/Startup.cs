@@ -21,6 +21,7 @@ namespace Dwar.UI
         {
             _services.Add(typeof(Random), new Random(100000000));
             _services.Add(typeof(IActionRepository), new ActionRepository());
+            _services.Add(typeof(ILog), new Logger());
             _services.Add(typeof(IFightRepository), new FightRepository());
             _services.Add(typeof(IBitmapRepository), new BitMapRepository());
             _services.Add(typeof(IUserInput), new UserInput());
@@ -34,7 +35,7 @@ namespace Dwar.UI
             _services.Add(typeof(ICookie), new CookieLocal(GetService<IDomain>()));
             _services.Add(typeof(IScreenshot), new ScreenshotRepository());
 
-            var httpRequest = new HttpRequest(GetService<ICookie>(), GetService<IDomain>(), GetService<IActionRepository>());
+            var httpRequest = new HttpRequest(GetService<ICookie>(), GetService<IDomain>(), GetService<IActionRepository>(),GetService<ILog>());
 
             _services.Add(typeof(ISendRequest), httpRequest);
             _services.Add(typeof(IGetRequest), httpRequest);

@@ -25,6 +25,7 @@ public class FightControlService : IHandleFightState
     public async Task Fight(StopBotCommand stopBot)
     {
         var combo = _comboRepository.Get();
+        combo.Reset();
         if (combo.FightInDefence)
         {
             await _startFightService.WaitCannAttackAsync(stopBot);
@@ -37,10 +38,14 @@ public class FightControlService : IHandleFightState
         while (FightFinish() == false)
         {
             await _startFightService.WaitCannAttackAsync(stopBot);
+            await Task.Delay(500);
             await _startFightService.SetFocus();
 
             if (stopBot.Stop)
+            {
+                _state = FightState.Winn;
                 return;
+            }
             var nextStep = combo.GetNext();
 
             await Task.Delay(nextStep.Delay * 1000);
@@ -48,7 +53,10 @@ public class FightControlService : IHandleFightState
             while (await _startFightService.CannAttackAsync() && FightFinish() == false)
             {
                 if (stopBot.Stop)
+                {
+                    _state = FightState.Winn;
                     return;
+                }
 
                 switch (nextStep.Type)
                 {

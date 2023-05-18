@@ -2,6 +2,7 @@
 using Microsoft.Web.WebView2.Wpf;
 using System;
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.Formats.Asn1;
 using System.Linq;
 using System.Net;
@@ -31,11 +32,6 @@ namespace Dwar.UI.Controllers
             _startup = startup;
             _tabGrid = tabGrid;
             _tabControl = tabControl;
-
-            
-            CreateSecondTab(domain.GetUrl());
-            
-            _tabGrid.Children.Add(_webViewSecondTab);
         }
 
         private WebView2 CreateSecondTab(string url)
@@ -48,13 +44,21 @@ namespace Dwar.UI.Controllers
             _webViewSecondTab.Source= new Uri(url);
             return _webViewSecondTab;
         }
-        public async void OpenTab(string url)
+        public void OpenTab(string url)
         {
             _tabItem.Visibility = Visibility.Visible;
             _tabControl.SelectedIndex = 1;
-            await _webViewSecondTab.EnsureCoreWebView2Async();
-            _webViewSecondTab.CoreWebView2.Navigate(url);
+
+            if(_webViewSecondTab == null)
+                _webViewSecondTab = CreateSecondTab(url);
+            
+            if(_tabGrid.Children.Contains(_webViewSecondTab) == false)
+                _tabGrid.Children.Add(_webViewSecondTab);
+
+            if (_webViewSecondTab.CoreWebView2 != null)
+                _webViewSecondTab.CoreWebView2.Navigate(url);
         }
+
         public void CloseTab()
         {
             _tabItem.Visibility = Visibility.Collapsed;
@@ -76,6 +80,7 @@ namespace Dwar.UI.Controllers
             _webViewSecondTab.CoreWebView2.AddWebResourceRequestedFilter(filter,
                                                        CoreWebView2WebResourceContext.All);
             _webViewSecondTab.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
+            
         }
 
         private void CoreWebView2_WebResourceRequested(object? sender, CoreWebView2WebResourceRequestedEventArgs e)

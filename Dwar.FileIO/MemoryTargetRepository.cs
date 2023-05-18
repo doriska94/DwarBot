@@ -15,13 +15,26 @@ public class MemoryTargetRepository : ITargetRepository
         new Target(1,"M6",0),
     };
 
-    public Task<Target> GetFreeTargetsAsync(string name)
+    public Target GetByAnthorId(Target target)
     {
-        return Task.Factory.StartNew(()=>_targets.FirstOrDefault(t => t.Name == name));
+        throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<Target>> GetTargetsAsync()
+    public Target GetById(Target target)
     {
-        return Task< IEnumerable<Target>>.Factory.StartNew(() => _targets);
+        throw new NotImplementedException();
+    }
+
+    public Target GetFreeTargets(string? name)
+    {
+        if (string.IsNullOrEmpty(name))
+            return null!;
+
+        return _targets.FirstOrDefault(t => t.Name == name)!;
+    }
+
+    public IEnumerable<Target> GetTargets()
+    {
+        return _targets;
     }
 }

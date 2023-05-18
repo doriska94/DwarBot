@@ -32,15 +32,15 @@ namespace Dwar.Services
             if (action == null)
                 throw new ArgumentNullException(nameof(action));
             
-            var target = await _targetRepository.GetFreeTargetsAsync(action.MobName);
+            var target = _targetRepository.GetFreeTargets(action.MobName);
             var result = false;
             switch (action.RequestType)
             {
                 case RequestType.Get:
-                    result = await _getRequest.GetAsync(action.GetAction(), action.GetParameters(_random, target));
+                    result =  _getRequest.Get(action.GetAction(), action.GetParameters(_random, target));
                     break;
                 case RequestType.Send:
-                    result =  await _sendRequest.SendAsync(action.GetAction(), action.GetParameters(_random, target));
+                    result =   _sendRequest.Send(action.GetAction(), action.GetParameters(_random, target));
                     break;
             }
 

@@ -33,9 +33,9 @@ namespace Dwar.UI.Controllers
             RequestTypes = Enum.GetValues(typeof(RequestType)).Cast<RequestType>().ToBindingList();
         }
 
-        private async void LoadTargets()
+        private void LoadTargets()
         {
-            var targets = await _targetRepository.GetTargetsAsync();
+            var targets =  _targetRepository.GetTargets();
             Targets = targets.ToBindingList();
             OnPropertyChanged(nameof(Targets));
         }

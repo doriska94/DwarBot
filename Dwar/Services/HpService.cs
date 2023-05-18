@@ -18,11 +18,11 @@ namespace Dwar.Services
 
         public async Task WaitFullHp(StopBotCommand stopBot)
         {
-            Hp hp = await _hpRepository.GetAsync();
+            Hp hp = _hpRepository.Get();
             while (hp.IsFull() == false) 
             {
                 await Task.Delay(CheckHpTimeMillis);
-                hp = await _hpRepository.GetAsync();
+                hp = _hpRepository.Get();
                 if (stopBot.Stop)
                     return;
             } 

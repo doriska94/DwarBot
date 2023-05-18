@@ -17,7 +17,7 @@ namespace Dwar.UI.Model
         public string? Option { get; set; }
         public int WaitAfterExecute { get; set; }
         public RequestType RequestType { get; set; }
-        public string MobName { get; set;} = string.Empty;
+        public string? MobName { get; set;} = string.Empty;
         public BindingList<Paramerter> Paramerters { get; set; } = new();
              
         public static ActionModel Create(Action entity)

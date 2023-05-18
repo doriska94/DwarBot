@@ -26,7 +26,10 @@ public class StartFightService : IHandleFightState
                 return;
             await Task.Delay(_waitStartFight);
             if (stopBot.Stop)
+            {
+                _state = FightState.Winn;
                 throw new TaskCanceledException("User cancel");
+            }
         }
     }
     
@@ -55,6 +58,10 @@ public class StartFightService : IHandleFightState
     public void StopFight()
     {
         _state = FightState.Winn;
+    }
+    public void OnStartFight()
+    {
+        _state = FightState.Running;
     }
     private bool FightFinish()
     {
