@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Dwar.UI"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="OnWindowLoaded">
+        Title="MainWindow" Height="450" Width="1200" Loaded="OnWindowLoaded">
     <Grid>
         <Menu HorizontalAlignment="Left" VerticalAlignment="Top">
             <MenuItem Header="_File">
@@ -20,13 +20,17 @@
             </MenuItem>
         </Menu>
         <Grid Margin="0,25,0,0">
-            
             <WrapPanel Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left">
-                <TextBlock Margin="5">Bot Select</TextBlock>
-                <ComboBox  Margin="5" ItemsSource="{Binding Bots}" SelectedItem="{Binding SelectedBot}" DisplayMemberPath="Name" Width="200"/>
-                <Button Margin="5,5,30,5" Content="Update" Click="OnUpdateClick" Width="50"/>
-                <Button Margin="5" Content="Start" Click="OnStartClick" Width="50"/>
-                <Button Margin="5" Content="Stop" Click="OnStopClick" Width="50"/>
+                <WrapPanel >
+                    <TextBlock Margin="5">Bot Select</TextBlock>
+                    <ComboBox  Margin="5" ItemsSource="{Binding Bots}" SelectedItem="{Binding SelectedBot}" DisplayMemberPath="Name" Width="200"/>
+                    <Button Margin="5,5,30,5" Content="Update" Click="OnUpdateClick" Width="50"/>
+                    <Button Margin="5" Content="Start" Click="OnStartClick" Width="50"/>
+                    <Button Margin="5" Content="Stop" Click="OnStopClick" Width="50"/>
+                </WrapPanel>
+                <TextBlock x:Name="Log" Width="350" Background="Transparent" Height="50">
+
+                </TextBlock>
             </WrapPanel>
             <TextBox Name="domainInput"  TextChanged="OnDomainUrlChanged" HorizontalAlignment="Right" Width="300" Height="22" Margin="5,5,10,5" VerticalAlignment="Top"></TextBox>
             <TabControl x:Name="windowTabs" Margin="0,40,0,0">

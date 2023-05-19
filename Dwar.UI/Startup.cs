@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Dwar.UI
 {
@@ -17,11 +18,12 @@ namespace Dwar.UI
         private List<IHandleFightState> _handleFightStates = new();
 
 
-        public void Configure()
+        public void Configure(TextBlock textBlock)
         {
+            _services.Add(typeof(INotifyer), new Notifyer(textBlock));
             _services.Add(typeof(Random), new Random(100000000));
             _services.Add(typeof(IActionRepository), new ActionRepository());
-            _services.Add(typeof(ILog), new Logger());
+            _services.Add(typeof(ILog), new Logger(false));
             _services.Add(typeof(IFightRepository), new FightRepository());
             _services.Add(typeof(IBitmapRepository), new BitMapRepository());
             _services.Add(typeof(IUserInput), new UserInput());
@@ -42,16 +44,17 @@ namespace Dwar.UI
             _services.Add(typeof(ITargetRepository), httpRequest);
             _services.Add(typeof(IHpRepository), new HpRepository(httpRequest,GetService<IDomain>()));
 
-            var start = new StartFightService(GetService<IBitmapRepository>(), GetService<IScreenshot>());
+            var start = new StartFightService(GetService<IBitmapRepository>(), GetService<IScreenshot>(),GetService<INotifyer>(),GetService<ILog>());
             _services.Add(typeof(StartFightService), start);
             _handleFightStates.Add(start);
 
             var fight = new FightControlService(GetService<StartFightService>(),
                                                 GetService<IUserInput>(),
-                                                GetService<IComboRepository>());
+                                                GetService<IComboRepository>(), 
+                                                GetService<ILog>(),
+                                                GetService<INotifyer>());
 
             _services.Add(typeof(FightControlService), fight);
-            _handleFightStates.Add(fight);
 
             _services.Add(typeof(RefreshService), new RefreshService());
             _services.Add(typeof(HpService), new HpService(GetService<IHpRepository>()));
@@ -66,7 +69,10 @@ namespace Dwar.UI
                                                                         GetService<RefreshService>(),
                                                                         GetService<StartFightService>(),
                                                                         GetService<FightControlService>(),
-                                                                        GetService<IActionRepository>());
+                                                                        GetService<IActionRepository>(),
+                                                                        GetService<ILog>(),
+                                                                        GetService<INotifyer>()
+                                                                        );
 
             _services.Add(typeof(FightService), fightAction);
 
@@ -87,7 +93,9 @@ namespace Dwar.UI
             _services.Add(typeof(BotService), new BotService(GetService<FarmService>(),
                                                              GetService<HpService>(),
                                                              GetService<FightService>(),
-                                                             GetService<IFightRepository>()));
+                                                             GetService<IFightRepository>(),
+                                                             GetService<INotifyer>(), 
+                                                             GetService<ILog>()));
         }
         public T GetService<T>() where T : class
         {

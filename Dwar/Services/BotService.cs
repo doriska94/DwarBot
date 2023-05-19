@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,17 +19,21 @@ namespace Dwar.Services
         private int _count;
         private DateTime _startTime;
         private DateTime _endTime;
-
-        public BotService(FarmService farmService, HpService hpService, FightService fightControlService, IFightRepository fightRepository)
+        private ILog _log;
+        private INotifyer _notifyer;
+        public BotService(FarmService farmService, HpService hpService, FightService fightControlService, IFightRepository fightRepository, INotifyer notifyer, ILog log)
         {
             _farmService = farmService;
             _hpService = hpService;
             _fightService = fightControlService;
             _fightRepository = fightRepository;
+            _notifyer = notifyer;
+            _log = log;
         }
 
         public async Task StartAsync(Bot bot, StopBotCommand stopBot)
         {
+            _notifyer.Notify("Start bot");
             if (_isRunning)
                 return;
             _isRunning = true;

@@ -26,8 +26,8 @@ public partial class MainWindow : Window
     private NewTab _newTab = null!;
     public MainWindow()
     {
-        _startup.Configure();
         InitializeComponent();
+        _startup.Configure(Log);
         _windowController = new MainWindowController(_startup.GetService<IBotRepository>(),
                                                      _startup.GetService<BotService>());
         _windowController.Stoped += OnBotStoped;

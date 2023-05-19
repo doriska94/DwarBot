@@ -11,15 +11,19 @@ public class StartFightService : IHandleFightState
     private IScreenshot _screenshot;
     private FightState _state;
     private IBitmapRepository _bitmapRepository;
-
-    public StartFightService(IBitmapRepository bitmapRepository, IScreenshot screenshot)
+    private INotifyer _notifyer;
+    public ILog _log;
+    public StartFightService(IBitmapRepository bitmapRepository, IScreenshot screenshot, INotifyer notifyer, ILog log)
     {
         _bitmapRepository = bitmapRepository;
         _screenshot = screenshot;
+        _notifyer = notifyer;
+        _log = log;
     }
 
     public async Task WaitCannAttackAsync(StopBotCommand stopBot)
     {
+        _notifyer.Notify("Wait cann attack");
         while (await CannAttackAsync() == false)
         {
             if (FightFinish())
@@ -32,10 +36,13 @@ public class StartFightService : IHandleFightState
             }
         }
     }
-    
+
     public async Task SetFocus()
     {
+        _notifyer.Notify("Set focus on attack");
+
         var point = await GetTemplatePositionAsync();
+        await _log.Write("Image point: ", point.ToString());
         if(point != Point.Empty)
             Mouse.MousClick(new Mouse.MousePoint(point.X, point.Y));
     }
@@ -44,6 +51,7 @@ public class StartFightService : IHandleFightState
     public async Task<bool> CannAttackAsync()
     {
         var point = await GetTemplatePositionAsync();
+        await _log.Write("Image point: ", point.ToString());
         return point != Point.Empty;
     }
 
@@ -63,7 +71,7 @@ public class StartFightService : IHandleFightState
     {
         _state = FightState.Running;
     }
-    private bool FightFinish()
+    public bool FightFinish()
     {
         return _state == FightState.Winn || _state == FightState.Lose;
     }

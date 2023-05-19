@@ -16,18 +16,23 @@ namespace Dwar.Services
         private FightControlService _fightControlService;
         private Fight? _fightConfig;
         private IActionRepository _actionRepository;
-
+        private ILog _log;
+        private INotifyer _notifyer;
         public FightService(HttpService actionHttpService,
                                   RefreshService mouseService,
                                   StartFightService startFightService,
                                   FightControlService fightControlService,
-                                  IActionRepository actionRepository)
+                                  IActionRepository actionRepository,
+                                  ILog log,
+                                  INotifyer notifyer)
         {
             _actionHttpService = actionHttpService;
             _mouseService = mouseService;
             _startFightService = startFightService;
             _fightControlService = fightControlService;
             _actionRepository = actionRepository;
+            _log = log;
+            _notifyer = notifyer;
         }
         public void SetAttack(Fight fightConfig)
         {
@@ -41,7 +46,7 @@ namespace Dwar.Services
                 throw new InvalidOperationException("Attack not setted");
             }
             _startFightService.StopFight();
-
+            _notifyer.Notify("Attack");
             while (await _actionHttpService.ExecuteAsync(_actionRepository.Get(_fightConfig.AttackId)) == false)
             {
                 await Task.Delay(100);
@@ -53,6 +58,8 @@ namespace Dwar.Services
             _startFightService.OnStartFight();
 
             var actions = _actionRepository.GetAll(_fightConfig.StartUpActions);
+            
+            _notifyer.Notify("Call extra actions");
 
             foreach (var action in actions)
             {

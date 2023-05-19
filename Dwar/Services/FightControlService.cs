@@ -2,7 +2,7 @@
 
 namespace Dwar.Services;
 
-public class FightControlService : IHandleFightState
+public class FightControlService 
 {
     public const string Victory = "fightover_victory.ogg";
     public const string Defeat = "fightover_defeat.ogg";
@@ -12,30 +12,39 @@ public class FightControlService : IHandleFightState
     private IUserInput _userInput;
     private FightState _state;
     private IComboRepository _comboRepository;
-
+    private ILog _log;
+    private INotifyer _notifyer;
     public FightControlService(StartFightService startFightService,
                                IUserInput userInput,
-                               IComboRepository comboRepository)
+                               IComboRepository comboRepository,
+                               ILog log,
+                               INotifyer notifyer)
     {
         _startFightService = startFightService;
         _userInput = userInput;
         _comboRepository = comboRepository;
+        _log = log;
+        _notifyer = notifyer;
     }
 
     public async Task Fight(StopBotCommand stopBot)
     {
         var combo = _comboRepository.Get();
         combo.Reset();
+        _notifyer.Notify("Combo reset");
         if (combo.FightInDefence)
         {
+            
             await _startFightService.WaitCannAttackAsync(stopBot);
             await _startFightService.SetFocus();
+
             if (stopBot.Stop)
                 return;
+
             _userInput.Left();
         }
 
-        while (FightFinish() == false)
+        while (_startFightService.FightFinish() == false)
         {
             await _startFightService.WaitCannAttackAsync(stopBot);
             await Task.Delay(500);
@@ -50,7 +59,7 @@ public class FightControlService : IHandleFightState
 
             await Task.Delay(nextStep.Delay * 1000);
 
-            while (await _startFightService.CannAttackAsync() && FightFinish() == false)
+            while (await _startFightService.CannAttackAsync() && _startFightService.FightFinish() == false)
             {
                 if (stopBot.Stop)
                 {
@@ -70,23 +79,11 @@ public class FightControlService : IHandleFightState
                         _userInput.Right();
                         break;
                 }
+                await Task.Delay(300);
             }
         }
     }
-    private bool FightFinish()
-    {
-        return _state == FightState.Winn || _state == FightState.Lose;
-    }
 
-    public void HandleRequest(string url)
-    {
-        if (url.Contains(Victory))
-            _state = FightState.Winn;
-        if (url.Contains(Defeat))
-            _state = FightState.Lose;
-        if (url.Contains(StartFight))
-            _state = FightState.Running;
-    }
     public enum FightState
     {
         Running = 0,
