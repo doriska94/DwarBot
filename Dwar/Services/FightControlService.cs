@@ -14,21 +14,25 @@ public class FightControlService
     private IComboRepository _comboRepository;
     private ILog _log;
     private INotifyer _notifyer;
+    private ITimeOutRepository _timeOutRepository;
     public FightControlService(StartFightService startFightService,
                                IUserInput userInput,
                                IComboRepository comboRepository,
                                ILog log,
-                               INotifyer notifyer)
+                               INotifyer notifyer,
+                               ITimeOutRepository timeOutRepository)
     {
         _startFightService = startFightService;
         _userInput = userInput;
         _comboRepository = comboRepository;
         _log = log;
         _notifyer = notifyer;
+        _timeOutRepository = timeOutRepository;
     }
 
     public async Task Fight(StopBotCommand stopBot)
     {
+        var timeOut = _timeOutRepository.Get();
         var combo = _comboRepository.Get();
         combo.Reset();
         _notifyer.Notify("Combo reset");
@@ -42,6 +46,7 @@ public class FightControlService
                 return;
 
             _userInput.Left();
+            timeOut.HandleAction();
         }
 
         while (_startFightService.FightFinish() == false)
@@ -55,12 +60,21 @@ public class FightControlService
                 _state = FightState.Winn;
                 return;
             }
+
             var nextStep = combo.GetNext();
 
             await Task.Delay(nextStep.Delay * 1000);
+            
+            timeOut.HandleAction();
 
             while (await _startFightService.CannAttackAsync() && _startFightService.FightFinish() == false)
             {
+                if (timeOut.IsOut())
+                {
+                    _state = FightState.Winn;
+                    return;
+                }
+
                 if (stopBot.Stop)
                 {
                     _state = FightState.Winn;
@@ -79,6 +93,7 @@ public class FightControlService
                         _userInput.Right();
                         break;
                 }
+
                 await Task.Delay(300);
             }
         }

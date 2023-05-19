@@ -13,20 +13,25 @@ public class StartFightService : IHandleFightState
     private IBitmapRepository _bitmapRepository;
     private INotifyer _notifyer;
     public ILog _log;
-    public StartFightService(IBitmapRepository bitmapRepository, IScreenshot screenshot, INotifyer notifyer, ILog log)
+    public ITimeOutRepository _timeOut;
+    public StartFightService(IBitmapRepository bitmapRepository, IScreenshot screenshot, INotifyer notifyer, ILog log, ITimeOutRepository timeOut)
     {
         _bitmapRepository = bitmapRepository;
         _screenshot = screenshot;
         _notifyer = notifyer;
         _log = log;
+        _timeOut = timeOut;
     }
 
     public async Task WaitCannAttackAsync(StopBotCommand stopBot)
     {
         _notifyer.Notify("Wait cann attack");
+        var timeOut = _timeOut.Get();
         while (await CannAttackAsync() == false)
         {
             if (FightFinish())
+                return;
+            if (timeOut.IsOut())
                 return;
             await Task.Delay(_waitStartFight);
             if (stopBot.Stop)
@@ -35,16 +40,22 @@ public class StartFightService : IHandleFightState
                 throw new TaskCanceledException("User cancel");
             }
         }
+        timeOut.HandleAction();
     }
 
     public async Task SetFocus()
     {
+        var timeOut = _timeOut.Get();
         _notifyer.Notify("Set focus on attack");
 
         var point = await GetTemplatePositionAsync();
+
         await _log.Write("Image point: ", point.ToString());
+
         if(point != Point.Empty)
             Mouse.MousClick(new Mouse.MousePoint(point.X, point.Y));
+
+        timeOut.HandleAction();
     }
 
 

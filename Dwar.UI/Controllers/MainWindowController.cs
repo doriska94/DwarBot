@@ -31,7 +31,7 @@ namespace Dwar.UI.Controllers
             foreach (var bot in bots)
             {
                 if(Bots.Contains(bot) == false)
-                    bots.Add(bot);
+                    Bots.Add(bot);
             }
 
             foreach (var bot in Bots)

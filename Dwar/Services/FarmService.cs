@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dwar.Services
 {
-    public class FarmService : IActionService,IActionSetService
+    public class FarmService : IActionService, IActionSetService
     {
         private HttpService _actionHttpService;
         private RefreshService _mouseService;

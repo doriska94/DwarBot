@@ -20,6 +20,9 @@ namespace Dwar.UI
 
         public void Configure(TextBlock textBlock)
         {
+            
+            _services.Add(typeof(ITimeOutRepository), new TimeOutRepository());
+            _services.Add(typeof(ITimeOut), GetService<ITimeOutRepository>().Get());
             _services.Add(typeof(INotifyer), new Notifyer(textBlock));
             _services.Add(typeof(Random), new Random(100000000));
             _services.Add(typeof(IActionRepository), new ActionRepository());
@@ -31,6 +34,7 @@ namespace Dwar.UI
             _services.Add(typeof(IComboRepository), new ComboRepository());
             _services.Add(typeof(IBotRepository), new BotRepository());
 
+
             _services.Add(typeof(IDomain), GetService<IDomainRepositry>().Get());
             _services.Add(typeof(Domain), GetService<IDomainRepositry>().Get());
 
@@ -39,12 +43,23 @@ namespace Dwar.UI
 
             var httpRequest = new HttpRequest(GetService<ICookie>(), GetService<IDomain>(), GetService<IActionRepository>(),GetService<ILog>());
 
+            _services.Add(typeof(IDivnoStekloService), new GameService(httpRequest, GetService<IActionRepository>(),GetService<IDomain>()));
+
+            var actionExecuteService = new ActionExecuteService(GetService<IDivnoStekloService>());
+
+            _services.Add(typeof(ActionExecuteService), actionExecuteService);
+
             _services.Add(typeof(ISendRequest), httpRequest);
             _services.Add(typeof(IGetRequest), httpRequest);
             _services.Add(typeof(ITargetRepository), httpRequest);
             _services.Add(typeof(IHpRepository), new HpRepository(httpRequest,GetService<IDomain>()));
 
-            var start = new StartFightService(GetService<IBitmapRepository>(), GetService<IScreenshot>(),GetService<INotifyer>(),GetService<ILog>());
+            var start = new StartFightService(GetService<IBitmapRepository>(), 
+                                             GetService<IScreenshot>(),
+                                             GetService<INotifyer>(),
+                                             GetService<ILog>(),
+                                             GetService<ITimeOutRepository>());
+
             _services.Add(typeof(StartFightService), start);
             _handleFightStates.Add(start);
 
@@ -52,7 +67,8 @@ namespace Dwar.UI
                                                 GetService<IUserInput>(),
                                                 GetService<IComboRepository>(), 
                                                 GetService<ILog>(),
-                                                GetService<INotifyer>());
+                                                GetService<INotifyer>(),
+                                                GetService<ITimeOutRepository>());
 
             _services.Add(typeof(FightControlService), fight);
 
@@ -71,7 +87,8 @@ namespace Dwar.UI
                                                                         GetService<FightControlService>(),
                                                                         GetService<IActionRepository>(),
                                                                         GetService<ILog>(),
-                                                                        GetService<INotifyer>()
+                                                                        GetService<INotifyer>(),
+                                                                        GetService<ITimeOutRepository>()
                                                                         );
 
             _services.Add(typeof(FightService), fightAction);
@@ -95,7 +112,8 @@ namespace Dwar.UI
                                                              GetService<FightService>(),
                                                              GetService<IFightRepository>(),
                                                              GetService<INotifyer>(), 
-                                                             GetService<ILog>()));
+                                                             GetService<ILog>(),
+                                                             actionExecuteService));
         }
         public T GetService<T>() where T : class
         {

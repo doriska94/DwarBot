@@ -1,87 +1,9 @@
-2023/05/18-16:26:00.467 3c7c Reusing MANIFEST C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
-2023/05/18-16:26:00.469 3c7c Recovering log #95
-2023/05/18-16:26:00.473 3c7c Reusing old log C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/000095.log 
-2023/05/18-16:29:00.699 242c Level-0 table #98: started
-2023/05/18-16:29:00.716 242c Level-0 table #98: 17536 bytes OK
-2023/05/18-16:29:00.719 242c Delete type=0 #95
-2023/05/18-16:29:00.720 3c7c Compacting 4@0 + 1@1 files
-2023/05/18-16:29:00.734 3c7c Generated table #99@0: 15 keys, 3710 bytes
-2023/05/18-16:29:00.734 3c7c Compacted 4@0 + 1@1 files => 3710 bytes
-2023/05/18-16:29:00.737 3c7c compacted to: files[ 0 1 1 0 0 0 0 ]
-2023/05/18-16:29:00.738 3c7c Delete type=2 #88
-2023/05/18-16:29:00.738 3c7c Delete type=2 #90
-2023/05/18-16:29:00.738 3c7c Delete type=2 #93
-2023/05/18-16:29:00.738 3c7c Delete type=2 #95
-2023/05/18-16:29:00.738 3c7c Delete type=2 #98
-2023/05/18-16:35:00.700 242c Level-0 table #101: started
-2023/05/18-16:35:00.707 242c Level-0 table #101: 17859 bytes OK
-2023/05/18-16:35:00.710 242c Delete type=0 #97
-2023/05/18-16:45:00.706 3c7c Level-0 table #103: started
-2023/05/18-16:45:00.715 3c7c Level-0 table #103: 17709 bytes OK
-2023/05/18-16:45:00.719 3c7c Delete type=0 #100
-2023/05/18-16:56:00.703 242c Level-0 table #105: started
-2023/05/18-16:56:00.718 242c Level-0 table #105: 18241 bytes OK
-2023/05/18-16:56:00.721 242c Delete type=0 #102
-2023/05/18-17:06:00.710 242c Level-0 table #107: started
-2023/05/18-17:06:00.718 242c Level-0 table #107: 17870 bytes OK
-2023/05/18-17:06:00.721 242c Delete type=0 #104
-2023/05/18-17:06:00.722 242c Compacting 4@0 + 1@1 files
-2023/05/18-17:06:00.743 242c Generated table #108@0: 15 keys, 3719 bytes
-2023/05/18-17:06:00.743 242c Compacted 4@0 + 1@1 files => 3719 bytes
-2023/05/18-17:06:00.745 242c compacted to: files[ 0 1 1 0 0 0 0 ]
-2023/05/18-17:06:00.746 242c Delete type=2 #99
-2023/05/18-17:06:00.746 242c Delete type=2 #101
-2023/05/18-17:06:00.746 242c Delete type=2 #103
-2023/05/18-17:06:00.746 242c Delete type=2 #105
-2023/05/18-17:06:00.746 242c Delete type=2 #107
-2023/05/18-17:13:00.698 242c Level-0 table #110: started
-2023/05/18-17:13:00.707 242c Level-0 table #110: 17788 bytes OK
-2023/05/18-17:13:00.710 242c Delete type=0 #106
-2023/05/18-17:21:00.702 242c Level-0 table #112: started
-2023/05/18-17:21:00.724 242c Level-0 table #112: 17815 bytes OK
-2023/05/18-17:21:00.729 242c Delete type=0 #109
-2023/05/18-17:26:00.709 242c Level-0 table #114: started
-2023/05/18-17:26:00.718 242c Level-0 table #114: 19500 bytes OK
-2023/05/18-17:26:00.722 242c Delete type=0 #111
-2023/05/18-17:31:00.709 242c Level-0 table #116: started
-2023/05/18-17:31:00.724 242c Level-0 table #116: 16439 bytes OK
-2023/05/18-17:31:00.727 242c Delete type=0 #113
-2023/05/18-17:31:00.727 242c Compacting 4@0 + 1@1 files
-2023/05/18-17:31:00.735 242c Generated table #117@0: 36 keys, 8099 bytes
-2023/05/18-17:31:00.735 242c Compacted 4@0 + 1@1 files => 8099 bytes
-2023/05/18-17:31:00.737 242c compacted to: files[ 0 1 1 0 0 0 0 ]
-2023/05/18-17:31:00.738 242c Delete type=2 #108
-2023/05/18-17:31:00.738 242c Delete type=2 #110
-2023/05/18-17:31:00.738 242c Delete type=2 #112
-2023/05/18-17:31:00.738 242c Delete type=2 #114
-2023/05/18-17:31:00.738 242c Delete type=2 #116
-2023/05/18-17:37:00.707 242c Level-0 table #119: started
-2023/05/18-17:37:00.721 242c Level-0 table #119: 17619 bytes OK
-2023/05/18-17:37:00.724 242c Delete type=0 #115
-2023/05/18-17:46:00.702 3c7c Level-0 table #121: started
-2023/05/18-17:46:00.715 3c7c Level-0 table #121: 17707 bytes OK
-2023/05/18-17:46:00.719 3c7c Delete type=0 #118
-2023/05/18-17:56:00.701 242c Level-0 table #123: started
-2023/05/18-17:56:00.716 242c Level-0 table #123: 17793 bytes OK
-2023/05/18-17:56:00.724 242c Delete type=0 #120
-2023/05/18-18:12:00.702 242c Level-0 table #125: started
-2023/05/18-18:12:00.712 242c Level-0 table #125: 17968 bytes OK
-2023/05/18-18:12:00.715 242c Delete type=0 #122
-2023/05/18-18:12:00.717 242c Compacting 4@0 + 1@1 files
-2023/05/18-18:12:00.726 242c Generated table #126@0: 36 keys, 8096 bytes
-2023/05/18-18:12:00.726 242c Compacted 4@0 + 1@1 files => 8096 bytes
-2023/05/18-18:12:00.728 242c compacted to: files[ 0 1 1 0 0 0 0 ]
-2023/05/18-18:12:00.729 242c Delete type=2 #117
-2023/05/18-18:12:00.729 242c Delete type=2 #119
-2023/05/18-18:12:00.729 242c Delete type=2 #121
-2023/05/18-18:12:00.729 242c Delete type=2 #123
-2023/05/18-18:12:00.729 242c Delete type=2 #125
-2023/05/18-19:08:43.434 242c Level-0 table #128: started
-2023/05/18-19:08:43.443 242c Level-0 table #128: 18479 bytes OK
-2023/05/18-19:08:43.447 242c Delete type=0 #124
-2023/05/18-19:09:25.762 242c Level-0 table #130: started
-2023/05/18-19:09:25.771 242c Level-0 table #130: 15463 bytes OK
-2023/05/18-19:09:25.775 242c Delete type=0 #127
-2023/05/18-19:12:00.702 242c Level-0 table #132: started
-2023/05/18-19:12:00.720 242c Level-0 table #132: 17651 bytes OK
-2023/05/18-19:12:00.724 242c Delete type=0 #129
+2023/05/19-19:10:27.828 23b0 Reusing MANIFEST C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
+2023/05/19-19:10:27.830 23b0 Recovering log #147
+2023/05/19-19:10:27.874 23b0 Reusing old log C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/000147.log 
+2023/05/19-19:35:10.514 23b0 Level-0 table #152: started
+2023/05/19-19:35:10.534 23b0 Level-0 table #152: 17587 bytes OK
+2023/05/19-19:35:10.539 23b0 Delete type=0 #147
+2023/05/19-19:35:53.787 23b0 Level-0 table #154: started
+2023/05/19-19:35:53.796 23b0 Level-0 table #154: 17537 bytes OK
+2023/05/19-19:35:53.799 23b0 Delete type=0 #151

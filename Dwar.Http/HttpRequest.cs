@@ -13,7 +13,7 @@ using Dwar.Services;
 
 namespace Dwar.Http;
 
-public class HttpRequest : ISendRequest, IGetRequest, ITargetRepository
+public class HttpRequest : ISendRequest, IGetRequest, ITargetRepository, IHttpRequest
 {
     private const string ErrorCode = "top.error_close();";
     private const string SuccesCode = "top.close();;";
@@ -39,7 +39,7 @@ public class HttpRequest : ISendRequest, IGetRequest, ITargetRepository
     }
 
 #pragma warning disable SYSLIB0014 // Тип или член устарел
-    private string Post(string url, string strPost, bool refer = false)
+    public string Post(string url, string strPost, bool refer = false)
     {
         try
         {

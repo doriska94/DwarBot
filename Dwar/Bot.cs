@@ -43,6 +43,7 @@ namespace Dwar
     public enum SequenceType
     {
         Fight,
-        Farm
+        Farm,
+        Divnoe
     }
 }
