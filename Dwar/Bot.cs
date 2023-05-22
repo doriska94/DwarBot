@@ -44,6 +44,7 @@ namespace Dwar
     {
         Fight,
         Farm,
-        Divnoe
+        Divnoe,
+        Execute
     }
 }

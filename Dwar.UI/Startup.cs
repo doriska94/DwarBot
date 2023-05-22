@@ -107,6 +107,8 @@ namespace Dwar.UI
 
             _services.Add(typeof(FarmService), farmAction);
 
+            _services.Add(typeof(StandartExecuteService), new StandartExecuteService(GetService<HttpService>(),GetService<IActionRepository>()))
+
             _services.Add(typeof(BotService), new BotService(GetService<FarmService>(),
                                                              GetService<HpService>(),
                                                              GetService<FightService>(),
@@ -115,7 +117,8 @@ namespace Dwar.UI
                                                              GetService<ILog>(),
                                                              actionExecuteService,
                                                              GetService<HttpService>(),
-                                                             GetService<IActionRepository>()));
+                                                             GetService<IActionRepository>(),
+                                                             GetService<StandartExecuteService>()));
         }
         public T GetService<T>() where T : class
         {

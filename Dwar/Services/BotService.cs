@@ -24,14 +24,16 @@ namespace Dwar.Services
         private INotifyer _notifyer;
         public HttpService _httpService;
         public IActionRepository _actionRepository;
+        private StandartExecuteService _standartExecuteService;
         public BotService(FarmService farmService, HpService hpService,
                           FightService fightControlService,
                           IFightRepository fightRepository,
                           INotifyer notifyer,
                           ILog log,
                           ActionExecuteService actionExecuteService,
-                          HttpService httpService, 
-                          IActionRepository actionRepository)
+                          HttpService httpService,
+                          IActionRepository actionRepository, 
+                          StandartExecuteService standartExecuteService)
         {
             _farmService = farmService;
             _hpService = hpService;
@@ -42,6 +44,7 @@ namespace Dwar.Services
             _actionExecuteService = actionExecuteService;
             _httpService = httpService;
             _actionRepository = actionRepository;
+            _standartExecuteService = standartExecuteService;
         }
 
         public async Task StartAsync(Bot bot, StopBotCommand stopBot)
@@ -106,6 +109,9 @@ namespace Dwar.Services
                 case SequenceType.Divnoe:
                     _actionExecuteService.SetAttack(_fightRepository.Get(bot.FightId));
                     return _actionExecuteService;
+                case SequenceType.Execute:
+                    _standartExecuteService.SetAttack(_fightRepository.Get(bot.FightId));
+                    return _standartExecuteService;
                 default:
                     throw new InvalidOperationException("Type Not Found");
             }
