@@ -113,7 +113,9 @@ namespace Dwar.UI
                                                              GetService<IFightRepository>(),
                                                              GetService<INotifyer>(), 
                                                              GetService<ILog>(),
-                                                             actionExecuteService));
+                                                             actionExecuteService,
+                                                             GetService<HttpService>(),
+                                                             GetService<IActionRepository>()));
         }
         public T GetService<T>() where T : class
         {

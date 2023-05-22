@@ -1,9 +1,54 @@
-2023/05/19-19:10:27.828 23b0 Reusing MANIFEST C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
-2023/05/19-19:10:27.830 23b0 Recovering log #147
-2023/05/19-19:10:27.874 23b0 Reusing old log C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/000147.log 
-2023/05/19-19:35:10.514 23b0 Level-0 table #152: started
-2023/05/19-19:35:10.534 23b0 Level-0 table #152: 17587 bytes OK
-2023/05/19-19:35:10.539 23b0 Delete type=0 #147
-2023/05/19-19:35:53.787 23b0 Level-0 table #154: started
-2023/05/19-19:35:53.796 23b0 Level-0 table #154: 17537 bytes OK
-2023/05/19-19:35:53.799 23b0 Delete type=0 #151
+2023/05/21-22:56:24.135 25b4 Reusing MANIFEST C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
+2023/05/21-22:56:24.137 25b4 Recovering log #237
+2023/05/21-22:56:24.142 25b4 Reusing old log C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/000237.log 
+2023/05/21-23:01:24.298 19ac Level-0 table #241: started
+2023/05/21-23:01:24.311 19ac Level-0 table #241: 17009 bytes OK
+2023/05/21-23:01:24.315 19ac Delete type=0 #237
+2023/05/21-23:07:10.155 19ac Level-0 table #243: started
+2023/05/21-23:07:10.171 19ac Level-0 table #243: 16969 bytes OK
+2023/05/21-23:07:10.174 19ac Delete type=0 #240
+2023/05/21-23:11:24.300 19ac Level-0 table #245: started
+2023/05/21-23:11:24.308 19ac Level-0 table #245: 17011 bytes OK
+2023/05/21-23:11:24.317 19ac Delete type=0 #242
+2023/05/21-23:16:24.294 19ac Level-0 table #247: started
+2023/05/21-23:16:24.309 19ac Level-0 table #247: 16996 bytes OK
+2023/05/21-23:16:24.312 19ac Delete type=0 #244
+2023/05/21-23:16:24.312 19ac Compacting 4@0 + 1@1 files
+2023/05/21-23:16:24.321 19ac Generated table #248@0: 46 keys, 8728 bytes
+2023/05/21-23:16:24.321 19ac Compacted 4@0 + 1@1 files => 8728 bytes
+2023/05/21-23:16:24.323 19ac compacted to: files[ 0 1 1 0 0 0 0 ]
+2023/05/21-23:16:24.324 19ac Delete type=2 #238
+2023/05/21-23:16:24.324 19ac Delete type=2 #241
+2023/05/21-23:16:24.324 19ac Delete type=2 #243
+2023/05/21-23:16:24.324 19ac Delete type=2 #245
+2023/05/21-23:16:24.324 19ac Delete type=2 #247
+2023/05/21-23:21:24.286 19ac Level-0 table #250: started
+2023/05/21-23:21:24.301 19ac Level-0 table #250: 16728 bytes OK
+2023/05/21-23:21:24.311 19ac Delete type=0 #246
+2023/05/21-23:26:24.288 19ac Level-0 table #252: started
+2023/05/21-23:26:24.297 19ac Level-0 table #252: 17059 bytes OK
+2023/05/21-23:26:24.306 19ac Delete type=0 #249
+2023/05/21-23:31:24.292 19ac Level-0 table #254: started
+2023/05/21-23:31:24.307 19ac Level-0 table #254: 17065 bytes OK
+2023/05/21-23:31:24.310 19ac Delete type=0 #251
+2023/05/21-23:36:24.301 19ac Level-0 table #256: started
+2023/05/21-23:36:24.317 19ac Level-0 table #256: 16730 bytes OK
+2023/05/21-23:36:24.328 19ac Delete type=0 #253
+2023/05/21-23:36:24.329 25b4 Compacting 4@0 + 1@1 files
+2023/05/21-23:36:24.337 25b4 Generated table #257@0: 46 keys, 8726 bytes
+2023/05/21-23:36:24.337 25b4 Compacted 4@0 + 1@1 files => 8726 bytes
+2023/05/21-23:36:24.346 25b4 compacted to: files[ 0 1 1 0 0 0 0 ]
+2023/05/21-23:36:24.347 25b4 Delete type=2 #248
+2023/05/21-23:36:24.347 25b4 Delete type=2 #250
+2023/05/21-23:36:24.347 25b4 Delete type=2 #252
+2023/05/21-23:36:24.347 25b4 Delete type=2 #254
+2023/05/21-23:36:24.347 25b4 Delete type=2 #256
+2023/05/21-23:41:24.299 19ac Level-0 table #259: started
+2023/05/21-23:41:24.315 19ac Level-0 table #259: 17069 bytes OK
+2023/05/21-23:41:24.318 19ac Delete type=0 #255
+2023/05/22-07:34:51.903 19ac Level-0 table #261: started
+2023/05/22-07:34:51.917 19ac Level-0 table #261: 16766 bytes OK
+2023/05/22-07:34:51.920 19ac Delete type=0 #258
+2023/05/22-07:37:14.240 19ac Level-0 table #263: started
+2023/05/22-07:37:14.250 19ac Level-0 table #263: 16917 bytes OK
+2023/05/22-07:37:14.254 19ac Delete type=0 #260

@@ -9,6 +9,7 @@ namespace Dwar.Dto
         public string Name { get; set; } = String.Empty;
         public Guid AttackId { get; set; } = Guid.Empty;
         public List<Guid> StartUpActions { get; set; } = new();
+        public Guid After5FightID;
     }
 
 }

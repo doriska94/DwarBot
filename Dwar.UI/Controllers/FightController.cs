@@ -39,6 +39,7 @@ namespace Dwar.UI.Controllers
             fightModel.Attack = AttackActions.FirstOrDefault(x=> x.Id == fight.AttackId)!;
             fightModel.Attack = AttackActions.FirstOrDefault(x=> x.Id == fight.AttackId)!;
             fightModel.StartUpActions = _actionRepository.GetAll(fight.StartUpActions).ToBindingList();
+            fightModel.After5Fight = AttackActions.FirstOrDefault(x => x.Id == fight.After5FightID)!;
             return fightModel;
         }
         public void Create()
@@ -56,11 +57,11 @@ namespace Dwar.UI.Controllers
 
             if (SelectedFight.Id == Guid.Empty)
             {
-                fight = _repository.Create(SelectedFight.Name, SelectedFight.Attack.Id, SelectedFight.StartUpActions.Select(x => x.Id));
+                fight = _repository.Create(SelectedFight.Name, SelectedFight.Attack.Id, SelectedFight.StartUpActions.Select(x => x.Id),SelectedFight.After5Fight?.Id??Guid.Empty);
             }
             else
             {
-                fight = Fight.FightFactory.Create(SelectedFight.Id, SelectedFight.Name, SelectedFight.Attack, SelectedFight.StartUpActions);
+                fight = Fight.FightFactory.Create(SelectedFight.Id, SelectedFight.Name, SelectedFight.Attack, SelectedFight.StartUpActions,SelectedFight.After5Fight);
             }
 
             _repository.Save(fight);

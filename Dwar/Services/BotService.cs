@@ -22,7 +22,16 @@ namespace Dwar.Services
         private DateTime _endTime;
         private ILog _log;
         private INotifyer _notifyer;
-        public BotService(FarmService farmService, HpService hpService, FightService fightControlService, IFightRepository fightRepository, INotifyer notifyer, ILog log, ActionExecuteService actionExecuteService)
+        public HttpService _httpService;
+        public IActionRepository _actionRepository;
+        public BotService(FarmService farmService, HpService hpService,
+                          FightService fightControlService,
+                          IFightRepository fightRepository,
+                          INotifyer notifyer,
+                          ILog log,
+                          ActionExecuteService actionExecuteService,
+                          HttpService httpService, 
+                          IActionRepository actionRepository)
         {
             _farmService = farmService;
             _hpService = hpService;
@@ -31,6 +40,8 @@ namespace Dwar.Services
             _notifyer = notifyer;
             _log = log;
             _actionExecuteService = actionExecuteService;
+            _httpService = httpService;
+            _actionRepository = actionRepository;
         }
 
         public async Task StartAsync(Bot bot, StopBotCommand stopBot)
@@ -62,6 +73,15 @@ namespace Dwar.Services
 
                 if (stopBot.Stop)
                     _isRunning = false;
+                if(_count%5 == 0)
+                {
+                    var fight = _fightRepository.Get(bot.FightId);
+                    if (fight.After5FightID != Guid.Empty)
+                    {
+                        var actionAfter5Fight = _actionRepository.Get(fight.After5FightID);
+                        await _httpService.ExecuteAsync(actionAfter5Fight);
+                    }
+                }
                 
             }
         }

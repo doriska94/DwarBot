@@ -13,7 +13,7 @@ namespace Dwar.Repositorys
         void Save(Fight entity);
         void Delete(Guid id);
         void Delete(Fight fight);
-        Fight Create(string name, Guid attackId, IEnumerable<Guid> StartUpActions);
+        Fight Create(string name, Guid attackId, IEnumerable<Guid> StartUpActions, Guid after5Fight);
 
     }
 }

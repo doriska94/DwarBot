@@ -17,6 +17,10 @@
                     <TextBlock Text="Main Action" Width="100"/>
                     <ComboBox ItemsSource="{Binding AttackActions}" SelectedItem="{Binding SelectedFight.Attack}" DisplayMemberPath="UiName" Width="250"/>
                 </WrapPanel>
+                <WrapPanel Margin="5">
+                    <TextBlock Text="After 5 Action" Width="100"/>
+                    <ComboBox ItemsSource="{Binding AttackActions}" SelectedItem="{Binding SelectedFight.After5Fight}" DisplayMemberPath="UiName" Width="250"/>
+                </WrapPanel>
                 <StackPanel Margin="5">
                     <WrapPanel Margin="5">
                         <TextBlock Text="Start up Actions"/>

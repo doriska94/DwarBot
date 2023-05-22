@@ -54,11 +54,13 @@ namespace Dwar.Services
             if (text == null)
                 return 20;
             string searchTxt = "На данный момент вами набрано";
+            if(text.IndexOf(searchTxt) == -1)
+                    return WinnPoinst + 2;
 
             var txt = text.Remove(0, text.IndexOf(searchTxt) + searchTxt.Length + 4);
             txt = txt.Remove(txt.IndexOf("<"));
 
-            if (int.TryParse(text, out int result))
+            if (int.TryParse(txt, out int result))
                 return result;
             else
                 return WinnPoinst + 2;

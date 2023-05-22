@@ -20,14 +20,15 @@ namespace Dwar.FileIO
             if (fights != null)
                 _fightDtos = fights;
         }
-        public Fight Create(string name, Guid attackid, IEnumerable<Guid> StartUpActions)
+        public Fight Create(string name, Guid attackid, IEnumerable<Guid> StartUpActions,Guid after5Fight)
         {
             var fightdto = new FightDto()
             { 
                 Id = Guid.NewGuid(),
                 Name = name, 
                 AttackId = attackid,
-                StartUpActions = StartUpActions.ToList() 
+                StartUpActions = StartUpActions.ToList() ,
+                After5FightID = after5Fight
             };
             _fightDtos.Add(fightdto);
             Serialize();

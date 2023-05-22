@@ -169,7 +169,9 @@ public partial class MainWindow : Window
         var actionExecuter = _startup.GetService<ActionExecuteService>();
         var fightRepository = _startup.GetService<IFightRepository>();
         var actionRepository = _startup.GetService<IActionRepository>();
-
+        //var hhtp = _startup.GetService<HttpService>();
+        //var acti = actionRepository.Get(Guid.Parse("908f48a2-cf54-4af8-8a58-980ad2a93064"));
+       // await hhtp.ExecuteAsync(acti);
         //var startGame = actionRepository.Create("StartGame Divnoe Seklo", "StartGame Divnoe Seklo", RequestType.Get, "npc.php", "f_id=10&npc_id=197&global_npc=0&quest_id=561&point_id=11052&9ffe5073e20bad7218272862a52cfa52");
         //var startGame50 = actionRepository.Create("StartGame50 Divnoe Seklo", "StartGame Divnoe Seklo", RequestType.Get, "npc.php", "f_id=10&npc_id=197&global_npc=0&quest_id=561&point_id=11052&action=answer&ref=11079&b7907c10a00709ab462b03a7e9b3b5d4");
         //var makeStep = actionRepository.Create("MakeStep Divnoe Seklo", "StartGame Divnoe Seklo", RequestType.Get, "npc.php", "f_id=10&npc_id=197&global_npc=0&quest_id=561&point_id=11052&action=answer&ref=11086&231a00b41bc2bfcd58cce6cb0394600b");
@@ -188,7 +190,7 @@ public partial class MainWindow : Window
         //var fight = fightRepository.Create("Divnoe Steklo", startGame.Id, new[] { startGame50.Id, makeStep.Id, getGameEvaluate.Id, finishGame.Id, next.Id });
         //fightRepository.Save(fight);
         var fight = fightRepository.Get(Guid.Parse("f6ebcd61-246e-4f8b-98a2-c1dc5323569c"));
-        var dd = fight.Id.ToString();
+        //var dd = fight.Id.ToString();
 
         actionExecuter.SetAttack(fight);
         await actionExecuter.ExecuteAsync(new StopBotCommand());
