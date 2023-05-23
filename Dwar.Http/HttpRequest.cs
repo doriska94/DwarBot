@@ -95,7 +95,7 @@ public class HttpRequest : ISendRequest, IGetRequest, ITargetRepository, IHttpRe
             return ErrorCode;
         }
     }
-    public string GetRequest(string url)
+    public string GetRequest(string url,string refer = null)
     {
         string coockies = _cookie.GetToString();
         try
@@ -108,9 +108,11 @@ public class HttpRequest : ISendRequest, IGetRequest, ITargetRepository, IHttpRe
             request.Method = "GET";
             request.Headers.Add("Upgrade-Insecure-Requests: 1");
             request.Headers.Add("Accept-Encoding: gzip, deflate");
-            request.Credentials = CredentialCache.DefaultCredentials;
+            //request.Credentials = CredentialCache.DefaultCredentials;
             request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36";
             request.Headers.Add("Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7");
+            if (refer != null)
+                request.Referer = refer;
             request.Headers.Add(coockies);
 
             request.AutomaticDecompression = DecompressionMethods.GZip;
@@ -159,7 +161,8 @@ public class HttpRequest : ISendRequest, IGetRequest, ITargetRepository, IHttpRe
         var target =  targets.FirstOrDefault(x => x.Name == name && x.FightId == 0);
 
         if (target == null)
-            throw new Exception("Target not found, Name: " + name);
+            return new Target(0, "", 1);
+        
         return target;
 
     }

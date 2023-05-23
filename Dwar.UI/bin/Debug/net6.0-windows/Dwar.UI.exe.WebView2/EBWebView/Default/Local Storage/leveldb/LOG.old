@@ -1,14 +1,3 @@
-2023/05/21-22:55:34.017 42d0 Reusing MANIFEST C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
-2023/05/21-22:55:34.025 42d0 Recovering log #233
-2023/05/21-22:55:34.026 42d0 Level-0 table #236: started
-2023/05/21-22:55:34.149 42d0 Level-0 table #236: 16757 bytes OK
-2023/05/21-22:55:34.189 42d0 Delete type=0 #233
-2023/05/21-22:55:34.190 1f58 Compacting 4@0 + 1@1 files
-2023/05/21-22:55:34.204 1f58 Generated table #238@0: 46 keys, 8735 bytes
-2023/05/21-22:55:34.204 1f58 Compacted 4@0 + 1@1 files => 8735 bytes
-2023/05/21-22:55:34.207 1f58 compacted to: files[ 0 1 1 0 0 0 0 ]
-2023/05/21-22:55:34.209 1f58 Delete type=2 #226
-2023/05/21-22:55:34.209 1f58 Delete type=2 #228
-2023/05/21-22:55:34.210 1f58 Delete type=2 #231
-2023/05/21-22:55:34.210 1f58 Delete type=2 #234
-2023/05/21-22:55:34.210 1f58 Delete type=2 #236
+2023/05/22-21:48:01.033 4a94 Reusing MANIFEST C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
+2023/05/22-21:48:01.034 4a94 Recovering log #307
+2023/05/22-21:48:01.041 4a94 Reusing old log C:\Users\Dorin\source\repos\DwarBot\Dwar.UI\bin\Debug\net6.0-windows\Dwar.UI.exe.WebView2\EBWebView\Default\Local Storage\leveldb/000307.log 

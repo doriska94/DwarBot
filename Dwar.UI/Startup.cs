@@ -107,7 +107,7 @@ namespace Dwar.UI
 
             _services.Add(typeof(FarmService), farmAction);
 
-            _services.Add(typeof(StandartExecuteService), new StandartExecuteService(GetService<HttpService>(),GetService<IActionRepository>()))
+            _services.Add(typeof(StandartExecuteService), new StandartExecuteService(GetService<HttpService>(), GetService<IActionRepository>()));
 
             _services.Add(typeof(BotService), new BotService(GetService<FarmService>(),
                                                              GetService<HpService>(),

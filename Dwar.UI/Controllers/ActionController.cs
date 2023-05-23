@@ -29,15 +29,22 @@ namespace Dwar.UI.Controllers
             _actions = actionRepository.GetAll().Select(x => ActionModel.Create(x)).ToBindingList();
             _actionRepository = actionRepository;
             _targetRepository = targetRepository;
-            LoadTargets();
             RequestTypes = Enum.GetValues(typeof(RequestType)).Cast<RequestType>().ToBindingList();
+            LoadTargets();
         }
 
         private void LoadTargets()
         {
-            var targets =  _targetRepository.GetTargets();
-            Targets = targets.ToBindingList();
-            OnPropertyChanged(nameof(Targets));
+            try
+            {
+                var targets = _targetRepository.GetTargets();
+                Targets = targets.ToBindingList();
+                OnPropertyChanged(nameof(Targets));
+            }
+            catch
+            {
+                Targets = new BindingList<Target>();
+            }
         }
 
         private void SetTarget(Target? target)

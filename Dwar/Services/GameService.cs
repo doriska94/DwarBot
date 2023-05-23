@@ -24,38 +24,51 @@ namespace Dwar.Services
 
         public void FinishGame()
         {
+            var last = _actionRepository.Get(_fight.StartUpActions.ToList()[2]);
             var startAction = _actionRepository.Get(_fight.StartUpActions.ToList()[3]);
-            _httpRequest.GetRequest(GetUrl(startAction.Method + "?" + startAction.Option));
+            _httpRequest.GetRequest(GetUrl(startAction.Method + "?" + startAction.Option),
+                                   GetUrl(last.Method + "?" + last.Option));
         }
 
         public string GetGameEvaluate()
         {
+            var last = _actionRepository.Get(_fight.StartUpActions.ToList()[1]);
             var startAction = _actionRepository.Get(_fight.StartUpActions.ToList()[2]);
-            return _httpRequest.GetRequest(GetUrl(startAction.Method + "?" + startAction.Option));
+            return _httpRequest.GetRequest(GetUrl(startAction.Method + "?" + startAction.Option),
+                                           GetUrl(last.Method + "?" + last.Option));
         }
 
         public void MakeStep()
         {
+            var last = _actionRepository.Get(_fight.StartUpActions.ToList()[0]);
             var startAction = _actionRepository.Get(_fight.StartUpActions.ToList()[1]);
-            _httpRequest.GetRequest(GetUrl(startAction.Method + "?" + startAction.Option));
+            _httpRequest.GetRequest(GetUrl(startAction.Method + "?" + startAction.Option),
+                                   GetUrl(last.Method + "?" + last.Option));
         }
 
         public void Next()
         {
+            var last = _actionRepository.Get(_fight.StartUpActions.ToList()[3]);
             var startAction = _actionRepository.Get(_fight.StartUpActions.ToList()[4]);
-            _httpRequest.GetRequest(GetUrl(startAction.Method + "?" + startAction.Option));
+            _httpRequest.GetRequest(GetUrl(startAction.Method + "?" + startAction.Option),
+                                    GetUrl(last.Method + "?" + last.Option));
         }
 
         public void StartGame()
         {
+            var last = _actionRepository.Get(_fight.StartUpActions.ToList()[4]);
             var startAction = _actionRepository.Get(_fight.AttackId);
-            var result = _httpRequest.GetRequest(GetUrl(startAction.Method + "?" + startAction.Option));
+
+            var result = _httpRequest.GetRequest(GetUrl(startAction.Method + "?" + startAction.Option),
+                                                GetUrl(last.Method + "?" + last.Option));
         }
 
         public string StartGame50()
         {
+            var last = _actionRepository.Get(_fight.AttackId);
             var startAction = _actionRepository.Get(_fight.StartUpActions.ToList()[0]);
-            return _httpRequest.GetRequest(GetUrl(startAction.Method + "?" + startAction.Option));
+            return _httpRequest.GetRequest(GetUrl(startAction.Method + "?" + startAction.Option),
+                                           GetUrl(last.Method + "?" + last.Option));
         }
 
         public void SetAttack(Fight fightConfig)

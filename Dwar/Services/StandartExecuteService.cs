@@ -20,6 +20,7 @@ namespace Dwar.Services
 
         public async Task ExecuteAsync(StopBotCommand stopBot)
         {
+
             if(_fight== null)
                 return;
             var actionStart = _actionRepository.Get(_fight.AttackId);
