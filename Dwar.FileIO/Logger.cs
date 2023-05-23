@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace Dwar.FileIO
 {
-    public class Logger : ILog
+    public class Logger : ILogService
     {
         private const string FileName = "log.txt";
         private bool _needLoging;

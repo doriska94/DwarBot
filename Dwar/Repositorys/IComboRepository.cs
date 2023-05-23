@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Dwar.Repositorys;
 
-namespace Dwar.Repositorys
+public interface IComboRepository
 {
-    public interface IComboRepository
-    {
-        Combo Get();
-        void Set(Combo combo);
-    }
+    Combo Get();
+    void Set(Combo combo);
 }

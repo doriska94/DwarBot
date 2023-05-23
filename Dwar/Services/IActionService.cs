@@ -1,7 +1,6 @@
-﻿namespace Dwar.Services
+﻿namespace Dwar.Services;
+
+public interface IActionService
 {
-    public interface IActionService
-    {
-        Task ExecuteAsync(StopBotCommand stopBot);
-    }
+    Task ExecuteAsync(StopBotCommand stopBot);
 }

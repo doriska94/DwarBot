@@ -9,17 +9,17 @@ public class FightControlService
     public const string StartFight = "combo.css";
 
     private StartFightService _startFightService;
-    private IUserInput _userInput;
+    private IUserInputService _userInput;
     private FightState _state;
     private IComboRepository _comboRepository;
-    private ILog _log;
-    private INotifyer _notifyer;
+    private ILogService _log;
+    private INotifyerService _notifyer;
     private ITimeOutRepository _timeOutRepository;
     public FightControlService(StartFightService startFightService,
-                               IUserInput userInput,
+                               IUserInputService userInput,
                                IComboRepository comboRepository,
-                               ILog log,
-                               INotifyer notifyer,
+                               ILogService log,
+                               INotifyerService notifyer,
                                ITimeOutRepository timeOutRepository)
     {
         _startFightService = startFightService;

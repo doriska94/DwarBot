@@ -1,7 +1,6 @@
-﻿namespace Dwar.Services
+﻿namespace Dwar.Services;
+
+public interface IActionSetService
 {
-    public interface IActionSetService
-    {
-        void SetAttack(Fight fightConfig);
-    }
+    void SetAttack(Fight fightConfig);
 }

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Dwar.Services;
+namespace Dwar;
 
 public class Paramerter
 {

@@ -13,17 +13,17 @@ using Dwar.Services;
 
 namespace Dwar.Http;
 
-public class HttpRequest : ISendRequest, IGetRequest, ITargetRepository, IHttpRequest
+public class HttpRequest : ISendRequestService, IGetRequest, ITargetRepository, IHttpRequest
 {
     private const string ErrorCode = "top.error_close();";
     private const string SuccesCode = "top.close();;";
 
     private ICookie _cookie;
     private IDomain _domain;
-    private ILog _log;
+    private ILogService _log;
     private IActionRepository _actionRepository;
 
-    public HttpRequest(ICookie cookie, IDomain domain, IActionRepository actionRepository, ILog log)
+    public HttpRequest(ICookie cookie, IDomain domain, IActionRepository actionRepository, ILogService log)
     {
         _cookie = cookie;
         _domain = domain;
@@ -149,20 +149,21 @@ public class HttpRequest : ISendRequest, IGetRequest, ITargetRepository, IHttpRe
         return TargetFactory.ParseDistinct(result);
     }
 
-    public Target GetFreeTargets(string? name)
+    public Target? GetFreeTargetsOrDefault(string? name)
     {
         if(string.IsNullOrEmpty(name))
-                return new Target(0,"",0);
+                return null;
+
         var action = _actionRepository.GetActionGetTargets();
 
         var uri = new Uri(_domain.GetBaseUri(), action.GetAction());
-        var result = GetRequest(uri.AbsoluteUri);
-        var targets = TargetFactory.Parse(result);
-        var target =  targets.FirstOrDefault(x => x.Name == name && x.FightId == 0);
-
-        if (target == null)
-            return new Target(0, "", 1);
         
+        var result = GetRequest(uri.AbsoluteUri);
+        
+        var targets = TargetFactory.Parse(result);
+
+        var target =  targets.FirstOrDefault(x => x.Name == name && x.FightId == 0);
+       
         return target;
 
     }

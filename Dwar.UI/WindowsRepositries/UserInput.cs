@@ -4,7 +4,7 @@ using WindowsInput.Native;
 
 namespace Dwar.UI.WindowsRepositries;
 
-public class UserInput : IUserInput
+public class UserInput : IUserInputService
 {
     private InputSimulator _simulator;
     public UserInput()

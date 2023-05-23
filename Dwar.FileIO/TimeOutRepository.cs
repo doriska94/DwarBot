@@ -23,7 +23,7 @@ namespace Dwar.FileIO
             _timeout = timeOut;
             _timeout.TimeOutMinuts = 5;
         }
-        public ITimeOut Get()
+        public ITimeOutService Get()
         {
             return _timeout;
         }

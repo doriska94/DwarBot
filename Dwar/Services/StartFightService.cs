@@ -11,10 +11,10 @@ public class StartFightService : IHandleFightState
     private IScreenshot _screenshot;
     private FightState _state;
     private IBitmapRepository _bitmapRepository;
-    private INotifyer _notifyer;
-    public ILog _log;
+    private INotifyerService _notifyer;
+    public ILogService _log;
     public ITimeOutRepository _timeOut;
-    public StartFightService(IBitmapRepository bitmapRepository, IScreenshot screenshot, INotifyer notifyer, ILog log, ITimeOutRepository timeOut)
+    public StartFightService(IBitmapRepository bitmapRepository, IScreenshot screenshot, INotifyerService notifyer, ILogService log, ITimeOutRepository timeOut)
     {
         _bitmapRepository = bitmapRepository;
         _screenshot = screenshot;

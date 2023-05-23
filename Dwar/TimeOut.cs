@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dwar
 {
-    public class TimeOut : ITimeOut
+    public class TimeOut : ITimeOutService
     {
         private int _timeOutMinuts;
 

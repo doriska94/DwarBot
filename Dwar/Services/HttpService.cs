@@ -1,51 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dwar.Repositorys;
+﻿using Dwar.Repositorys;
 
-namespace Dwar.Services
+namespace Dwar.Services;
+
+public class HttpService
 {
-    public class HttpService
+    private IActionRepository _actionRepository;
+    private ISendRequestService _sendRequest;
+    private IGetRequest _getRequest;
+    private ITargetRepository _targetRepository;
+    private Random _random;
+    public HttpService(IActionRepository actionRepository,
+                       ISendRequestService sendRequest,
+                       IGetRequest getRequest,
+                       Random random,
+                       ITargetRepository targetRepository)
     {
-        private IActionRepository _actionRepository;
-        private ISendRequest _sendRequest;
-        private IGetRequest _getRequest;
-        private ITargetRepository _targetRepository;
-        private Random _random;
-        public HttpService(IActionRepository actionRepository,
-                           ISendRequest sendRequest,
-                           IGetRequest getRequest,
-                           Random random,
-                           ITargetRepository targetRepository)
-        {
-            _actionRepository = actionRepository;
-            _sendRequest = sendRequest;
-            _getRequest = getRequest;
-            _random = random;
-            _targetRepository = targetRepository;
-        }
+        _actionRepository = actionRepository;
+        _sendRequest = sendRequest;
+        _getRequest = getRequest;
+        _random = random;
+        _targetRepository = targetRepository;
+    }
 
-        public async Task<bool> ExecuteAsync(Action action)
+    public async Task<bool> ExecuteAsync(Action action)
+    {
+        if (action == null)
+            throw new ArgumentNullException(nameof(action));
+
+        Target? target = null;
+
+        var mobs = action.Mobs.ToArray();
+        
+        do
         {
-            if (action == null)
-                throw new ArgumentNullException(nameof(action));
-            
-            var target = _targetRepository.GetFreeTargets(action.MobName);
-            var result = false;
-            switch (action.RequestType)
+            for (int i = 0; i < mobs.Length && target == null; i++)
             {
-                case RequestType.Get:
-                    result =  _getRequest.Get(action.GetAction(), action.GetParameters(_random, target));
-                    break;
-                case RequestType.Send:
-                    result =   _sendRequest.Send(action.GetAction(), action.GetParameters(_random, target));
-                    break;
+                target = _targetRepository.GetFreeTargetsOrDefault(mobs[i].Name);
             }
 
-            await Task.Delay(action.WaitAfterExecute * 1000);
-            return result;
+            await Task.Delay(100);
+
+        } while (target != null);
+
+        var result = false;
+        switch (action.RequestType)
+        {
+            case RequestType.Get:
+                result =  _getRequest.Get(action.GetAction(), action.GetParameters(_random, target!));
+                break;
+            case RequestType.Send:
+                result =   _sendRequest.Send(action.GetAction(), action.GetParameters(_random, target!));
+                break;
         }
+
+        await Task.Delay(action.WaitAfterExecute * 1000);
+        return result;
     }
 }

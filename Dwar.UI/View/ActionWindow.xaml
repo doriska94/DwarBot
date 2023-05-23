@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Dwar.UI.View" xmlns:controllers="clr-namespace:Dwar.UI.Controllers" 
         d:DataContext="{d:DesignInstance Type=controllers:ActionController}"
         mc:Ignorable="d"
-        Title="ActionWindow" Height="450" Width="1000">
+        Title="ActionWindow" MinHeight="450" Width="1000">
     <Grid>
         <WrapPanel>
             <StackPanel Margin="10" Width="600">
@@ -31,8 +31,23 @@
                     <TextBox Text="{Binding SelectedAction.WaitAfterExecute}" Width="250"/>
                 </WrapPanel>
                 <WrapPanel Margin="5">
-                    <TextBlock Text="Mob" Width="100"/>
-                    <ComboBox ItemsSource="{Binding Targets}" SelectedItem="{Binding SelectedTarget}" DisplayMemberPath="Name" Width="250"/>
+                    <TextBlock Text="Mobs" Width="100"/>
+                    <StackPanel>
+                        <WrapPanel>
+                            <Button Click="ClickOnAddMob" Content="Add" Width="80" Margin="2"/>
+                            <Button Click="ClickOnRemoveMob" Content="Remove" Width="80" Margin="2"/>
+                        </WrapPanel>
+                        <ListBox ItemsSource="{Binding SelectedAction.Mobs}" SelectedItem="{Binding SelectedMob}" Width="250">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <WrapPanel>
+                                        <TextBox Text="{Binding Order}" ToolTip="Order"></TextBox>
+                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                    </WrapPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
                 </WrapPanel>
                 <WrapPanel Margin="5">
                     <TextBlock Text="Reqeuest Type" Width="100"/>

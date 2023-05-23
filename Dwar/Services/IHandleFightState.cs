@@ -1,7 +1,6 @@
-﻿namespace Dwar.Services
+﻿namespace Dwar.Services;
+
+public interface IHandleFightState
 {
-    public interface IHandleFightState
-    {
-        void HandleRequest(string url);
-    }
+    void HandleRequest(string url);
 }

@@ -2,23 +2,24 @@
 using System.Linq;
 using System.Windows;
 
+
 namespace Dwar.UI.View;
 
-public partial class ActionSelect : Window
-{
-    public Action? SelectedAction { get; set; }
-    private List<Action> _actions = new();
 
-    public ActionSelect(IEnumerable<Action> actions)
-    {
+public partial class TargetSelect : Window
+{
+    public Target? SelectedTarget { get; set; }
+    private List<Target> _targets = new();
+    public TargetSelect(IEnumerable<Target> targets)
+    { 
         InitializeComponent();
-        _actions = actions.ToList();
-        actionBox.ItemsSource = _actions;
+        _targets = targets.ToList();
+        targetBox.ItemsSource = _targets;
     }
 
     private void OnOkClicks(object sender, RoutedEventArgs e)
     {
-        DialogResult = SelectedAction != null;
+        DialogResult = SelectedTarget!= null;
     }
 
     private void OnCancelClicks(object sender, RoutedEventArgs e)
