@@ -33,6 +33,11 @@ public class MemoryTargetRepository : ITargetRepository
         return _targets.FirstOrDefault(t => t.Name == name)!;
     }
 
+    public Target? GetFreeTargetsOrDefault(string? name)
+    {
+        throw new NotImplementedException();
+    }
+
     public IEnumerable<Target> GetTargets()
     {
         return _targets;

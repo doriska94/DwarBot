@@ -114,9 +114,8 @@ public partial class MainWindow : Window
 
     private void OnActionOpenClick(object sender, RoutedEventArgs e)
     {
-        var actionController = new ActionController(_startup.GetService<IActionRepository>(),
-                                                    _startup.GetService<ITargetRepository>()); ;
-        new ActionWindow(actionController).Show();
+        var actionController = new ActionController(_startup.GetService<IActionRepository>()); ;
+        new ActionWindow(actionController ,_startup.GetService<ITargetRepository>()).Show();
     }
 
     private void OnBotOpenClick(object sender, RoutedEventArgs e)
