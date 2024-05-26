@@ -40,7 +40,7 @@ public class HttpService
 
             await Task.Delay(100);
 
-        } while (target != null);
+        } while (target == null && mobs.Length != 0);
 
         var result = false;
         switch (action.RequestType)

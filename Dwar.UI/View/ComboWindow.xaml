@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dwar.UI.View" xmlns:controllers="clr-namespace:Dwar.UI.Controllers" 
         mc:Ignorable="d"
-        Title="ComboWindow" Name="window" Height="350" Width="328">
+        Title="ComboWindow" Name="window" Height="450" Width="328">
     <Grid>
         <StackPanel>
             <CheckBox Margin="10" IsChecked="{Binding Combo.FightInDefence}" Content="Fight in Bloc"/>
+            <CheckBox Margin="10" IsChecked="{Binding Combo.UseSkill}" Content="UseSkill Pilina+16"/>
             <TextBlock Margin="10" Text="Combo Steps"/>
             <WrapPanel Margin="10">
                 <Button Width="100" Content="Add New Step" Click="OnAddStep" Margin="10,5,0,5"/>

@@ -44,6 +44,7 @@ public class ComboController : NotifyChanged
     {
         var combo = new Combo(Combo.ComboSteps.ToList());
         combo.FightInDefence = Combo.FightInDefence;
+        combo.UseSkill = Combo.UseSkill;
         return combo;
 
     }

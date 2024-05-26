@@ -68,5 +68,6 @@ public class MainWindowController
         _stopBotCommand.Stop = true;
         _botService.Stop();
         Stoped?.Invoke();
+        _stopBotCommand = null;
     }
 }

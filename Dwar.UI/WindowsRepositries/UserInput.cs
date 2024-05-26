@@ -21,6 +21,11 @@ public class UserInput : IUserInputService
         _simulator.Keyboard.KeyPress(VirtualKeyCode.VK_R);
 
     }
+    public void PressT()
+    {
+        _simulator.Keyboard.KeyPress(VirtualKeyCode.VK_T);
+
+    }
 
     public void Right()
     {

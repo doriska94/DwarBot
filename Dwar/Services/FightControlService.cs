@@ -48,6 +48,18 @@ public class FightControlService
             _userInput.Left();
             timeOut.HandleAction();
         }
+        if (combo.UseSkill)
+        {
+
+            await _startFightService.WaitCannAttackAsync(stopBot);
+            await _startFightService.SetFocus();
+
+            if (stopBot.Stop)
+                return;
+
+            _userInput.PressT();
+            timeOut.HandleAction();
+        }
 
         while (_startFightService.FightFinish() == false)
         {

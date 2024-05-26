@@ -13,7 +13,7 @@ public class ActionController : NotifyChanged
     private BindingList<ActionModel> _actions;
     private ActionModel? _selectedAction;
     private IActionRepository _actionRepository;
-    private Mob? _selectedMob ;
+    private Mob? _selectedMob;
 
     public IEnumerable<ActionModel> Actions { get => _actions; }
     public ActionModel? SelectedAction { get => _selectedAction; set { _selectedAction = value; OnPropertyChanged(); } }
@@ -29,7 +29,7 @@ public class ActionController : NotifyChanged
 
     public void RemoveSelectedTarget()
     {
-        if(SelectedAction == null)
+        if (SelectedAction == null)
             return;
         if (_selectedMob == null)
             return;
