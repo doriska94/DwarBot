@@ -62,8 +62,8 @@ public partial class MainWindow : Window
     {
         if (Setted)
             return;
-
-        string filter = "*main.php*";
+        var domain = _startup.GetService<Domain>();
+        string filter = $"{domain.GetBaseUri()}main.php*";
 
         _webView.CoreWebView2.AddWebResourceRequestedFilter(Victory,
                                                    CoreWebView2WebResourceContext.All);
